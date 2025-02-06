@@ -1,0 +1,3 @@
+{"cmd": "example : False := by sorry"}
+
+{"tactic": "simpa using show False by done", "proofState": 0}

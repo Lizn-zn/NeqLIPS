@@ -1,0 +1,10 @@
+{"env": 0}
+
+{"messages":
+ [{"severity": "error",
+   "pos": {"line": 1, "column": 33},
+   "endPos": {"line": 2, "column": 24},
+   "data":
+   "unsolved goals\ncase zero\n⊢ 0 + 1 > 0\n\ncase succ\nx : Nat\nhx : x + 1 > x\n⊢ x + 1 + 1 > x + 1"}],
+ "env": 1}
+

@@ -1,0 +1,8 @@
+{"cmd": "import Lean"}
+
+{"cmd": "open Lean.Compiler", "env": 0}
+
+{"cmd": "unsafe example : ◾ := sorry", "env": 1}
+
+{"pickleTo": "test/f.olean", "env": 1}
+
