@@ -1,0 +1,59 @@
+Jensen_sqrt_left_2vars (u v k l right : ℝ) (hu : u ≥ 0) (hv : v ≥ 0) (hk : k ≥ 0)
+  (h : k * sqrt 2 * sqrt(u + v) + l ≤ right) : k * (sqrt u + sqrt v) + l ≤ right
+Jensen_sqrt_right_2vars (u v k l left : ℝ) (hu : u ≥ 0) (hv : v ≥ 0) (hk : k ≥ 0)
+  (h : left ≤ k * ((sqrt u + sqrt v) / sqrt 2) + l) : left ≤ k * sqrt(u + v) + l
+Jensen_sqrt_left_3vars (u v w k l right : ℝ) (hu : u ≥ 0) (hv : v ≥ 0) (hw : w ≥ 0) (hk : k ≥ 0)
+  (h : k * sqrt 3 * sqrt(u + v + w) + l ≤ right) : k * (sqrt u + sqrt v + sqrt w) + l ≤ right
+Jensen_sqrt_right_3vars (u v w k l left : ℝ) (hu : u ≥ 0) (hv : v ≥ 0) (hw : w ≥ 0) (hk : k ≥ 0)
+  (h : left ≤ k * ((sqrt u + sqrt v + sqrt w) / sqrt 3) + l) : left ≤ k * sqrt(u + v + w) + l
+Jensen_square_div_left_3vars (u v w k l right : ℝ) (hu : u > 0) (hv : v > 0) (hw : w > 0) (hk : k > 0)
+  (h : k * (27 / (u + v + w) ^ 2) + l ≤ right) : k * (1 / u ^ 2 + 1 / v ^ 2 + 1 / w ^ 2) + l ≤ right
+Jensen_square_div_right_3vars (u v w k l left : ℝ) (hu : u > 0) (hv : v > 0) (hw : w > 0) (hk : k > 0)
+  (h : left ≤ k * (1 / u ^ 2 + 1 / v ^ 2 + 1 / w ^ 2) / 27 + l) : left ≤ k * (1 / (u + v + w) ^ 2) + l
+Jensen_sqrt_div_left_3vars (u v w k l right : ℝ) (hu : u > 0) (hv : v > 0) (hw : w > 0) (hk : k ≥ 0)
+  (h : k * ((1 / sqrt u + 1 / sqrt v + 1 / sqrt w) / sqrt 27) + l ≤ right) : k * (1 / sqrt(u + v + w)) + l ≤ right
+Jensen_sqrt_div_right_3vars (u v w k l left : ℝ) (hu : u > 0) (hv : v > 0) (hw : w > 0) (hk : k ≥ 0)
+  (h : left ≤ k * (1 / sqrt((u + v + w) / 27)) + l) : left ≤ k * (1 / sqrt u + 1 / sqrt v + 1 / sqrt w) + l
+Jensen_dick_div_left_3vars (u v w i1 i2 j1 j2 k l right : ℝ) (hi1 : i1 > 0) (hi2 : i2 > 0) (hj2 : j2 ≥ 0) (hk : k ≥ 0)
+  (h1 : i2 * u ^ 2 + j1 * u + j2 > 0) (h2 : i2 * v ^ 2 + j1 * v + j2 > 0) (h3 : i2 * w ^ 2 + j1 * w + j2 > 0)
+  (h : k * (i1 * (u + v + w) / (i2 * ((u + v + w) / 3) ^ 2 + j1 * (u + v + w) / 3 + j2)) + l ≤ right) :
+  k *
+        (i1 * u / (i2 * u ^ 2 + j1 * u + j2) + i1 * v / (i2 * v ^ 2 + j1 * v + j2) +
+          i1 * w / (i2 * w ^ 2 + j1 * w + j2)) +
+      l ≤
+    right
+Jensen_dick_div_right_3vars (u v w i1 i2 j1 j2 k l left : ℝ) (hi1 : i1 > 0) (hi2 : i2 > 0) (hj2 : j2 ≥ 0) (hk : k ≥ 0)
+  (h1 : i2 * u ^ 2 + j1 * u + j2 > 0) (h2 : i2 * v ^ 2 + j1 * v + j2 > 0) (h3 : i2 * w ^ 2 + j1 * w + j2 > 0)
+  (h :
+    left ≤
+      k *
+          (i1 * u / (i2 * u ^ 2 + j1 * u + j2) + i1 * v / (i2 * v ^ 2 + j1 * v + j2) +
+            i1 * w / (i2 * w ^ 2 + j1 * w + j2)) +
+        l) :
+  left ≤ k * (i1 * (u + v + w) / (i2 * (u + v + w) ^ 2 / 9 + j1 * (u + v + w) / 3 + j2)) + l
+Jensen_pow_Rlt1_left_3vars (u v w r k l right : ℝ) (hu : u > 0) (hv : v > 0) (hw : w > 0) (hr : r > 0) (hr' : 1 - r > 0)
+  (hk : k ≥ 0) (h : k * (3 * ((u + v + w) / 3) ^ r) + l ≤ right) : k * (u ^ r + v ^ r + w ^ r) + l ≤ right
+Jensen_pow_Rlt1_right_3vars (u v w r k l left : ℝ) (hu : u > 0) (hv : v > 0) (hw : w > 0) (hr : r > 0) (hr' : 1 - r > 0)
+  (hk : k ≥ 0) (h : left ≤ k * ((u ^ r + v ^ r + w ^ r) / 3) + l) : left ≤ k * ((u + v + w) / 3) ^ r + l
+Jensen_pow_Rgt1_left_3vars (u v w r k l right : ℝ) (hu : u > 0) (hv : v > 0) (hw : w > 0) (hr : r > 1) (hk : k ≥ 0)
+  (h : k * ((u ^ r + v ^ r + w ^ r) / 3) + l ≤ right) : k * ((u + v + w) / 3) ^ r + l ≤ right
+Jensen_pow_Rgt1_right_3vars (u v w r k l left : ℝ) (hu : u > 0) (hv : v > 0) (hw : w > 0) (hr : r > 1) (hk : k ≥ 0)
+  (h : left ≤ k * (3 * ((u + v + w) / 3) ^ r) + l) : left ≤ k * (u ^ r + v ^ r + w ^ r) + l
+Jensen_pow_Rlt1_left_4vars (u1 u2 u3 u4 r k l right : ℝ) (hu1 : u1 > 0) (hu2 : u2 > 0) (hu3 : u3 > 0) (hu4 : u4 > 0)
+  (hr : r > 0) (hr' : 1 - r > 0) (hk : k ≥ 0) (h : k * (4 * ((u1 + u2 + u3 + u4) / 4) ^ r) + l ≤ right) :
+  k * (u1 ^ r + u2 ^ r + u3 ^ r + u4 ^ r) + l ≤ right
+Jensen_pow_Rlt1_right_4vars (u1 u2 u3 u4 r k l left : ℝ) (hu1 : u1 > 0) (hu2 : u2 > 0) (hu3 : u3 > 0) (hu4 : u4 > 0)
+  (hr : r > 0) (hr' : 1 - r > 0) (hk : k ≥ 0) (h : left ≤ k * ((u1 ^ r + u2 ^ r + u3 ^ r + u4 ^ r) / 4) + l) :
+  left ≤ k * ((u1 + u2 + u3 + u4) / 4) ^ r + l
+Jensen_pow_Rgt1_left_4vars (u1 u2 u3 u4 r k l right : ℝ) (hu1 : u1 > 0) (hu2 : u2 > 0) (hu3 : u3 > 0) (hu4 : u4 > 0)
+  (hr : r > 1) (hk : k ≥ 0) (h : k * ((u1 ^ r + u2 ^ r + u3 ^ r + u4 ^ r) / 4) + l ≤ right) :
+  k * ((u1 + u2 + u3 + u4) / 4) ^ r + l ≤ right
+Jensen_pow_Rgt1_right_4vars (u1 u2 u3 u4 r k l left : ℝ) (hu1 : u1 > 0) (hu2 : u2 > 0) (hu3 : u3 > 0) (hu4 : u4 > 0)
+  (hr : r > 1) (hk : k ≥ 0) (h : left ≤ k * (4 * ((u1 + u2 + u3 + u4) / 4) ^ r) + l) :
+  left ≤ k * (u1 ^ r + u2 ^ r + u3 ^ r + u4 ^ r) + l
+Jensen_square_div_left_4vars (u1 u2 u3 u4 k l right : ℝ) (hu1 : u1 > 0) (hu2 : u2 > 0) (hu3 : u3 > 0) (hu4 : u4 > 0)
+  (hk : k > 0) (h : k * (64 / (u1 + u2 + u3 + u4) ^ 2) + l ≤ right) :
+  k * (1 / u1 ^ 2 + 1 / u2 ^ 2 + 1 / u3 ^ 2 + 1 / u4 ^ 2) + l ≤ right
+Jensen_square_div_right_4vars (u1 u2 u3 u4 k l left : ℝ) (hu1 : u1 > 0) (hu2 : u2 > 0) (hu3 : u3 > 0) (hu4 : u4 > 0)
+  (hk : k > 0) (h : left ≤ k * (1 / u1 ^ 2 + 1 / u2 ^ 2 + 1 / u3 ^ 2 + 1 / u4 ^ 2) / 64 + l) :
+  left ≤ k * (1 / (u1 + u2 + u3 + u4) ^ 2) + l

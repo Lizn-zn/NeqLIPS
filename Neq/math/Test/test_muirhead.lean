@@ -1,0 +1,25 @@
+import Math
+
+#check Muirhead_normal_left_2vars
+#check Muirhead_normal_Qeq1_left_2vars
+#check Muirhead_onestep_left_2vars
+#check Muirhead_onestep_right_2vars
+#check Muirhead_div_right_2vars
+#check Muirhead_div_onestep_left_2vars
+#check Muirhead_div_onestep_right_2vars
+#check Muirhead_Rneq0_left_3vars
+#check Muirhead_Req1_left_3vars
+#check Muirhead_QReq1_left_3vars
+#check Muirhead_Req0_left_3vars
+#check Muirhead_Req0_onestep_left_3vars
+#check Muirhead_Req0_onestep_right_3vars
+#check Muirhead_Qeq1Req0_left_3vars
+#check Muirhead_Sneq0_left_4vars
+#check Muirhead_Seq1_left_4vars
+#check Muirhead_RSeq1_left_4vars
+#check Muirhead_QRSeq1_left_4vars
+#check Muirhead_Seq0_left_4vars
+#check Muirhead_Req1Seq0_left_4vars
+#check Muirhead_QReq1Seq0_left_4vars
+#check Muirhead_RSeq0_left_4vars
+#check Muirhead_Qeq1RSeq0_left_4vars

@@ -1,0 +1,18 @@
+Rearrange_cycle_div_left_3vars (u v w i1 j1 i2 j2 k l right : ℝ) (ha : i2 * u + j2 > 0) (hb : i2 * v + j2 > 0)
+  (hc : i2 * w + j2 > 0) (hd : i1 ≥ 0) (he : i2 ≥ 0) (hf : k ≥ 0)
+  (hj :
+    k * ((i1 * u + j1) / (i2 * v + j2) + (i1 * v + j1) / (i2 * w + j2) + (i1 * w + j1) / (i2 * u + j2)) + l ≤ right) :
+  k * ((i1 * u + j1) / (i2 * u + j2) + (i1 * v + j1) / (i2 * v + j2) + (i1 * w + j1) / (i2 * w + j2)) + l ≤ right
+Rearrange_cycle_div_right_3vars (u v w i1 j1 i2 j2 k l left : ℝ) (ha : i2 * u + j2 > 0) (hb : i2 * v + j2 > 0)
+  (hc : i2 * w + j2 > 0) (hd : i1 ≥ 0) (he : i2 ≥ 0) (hf : k ≥ 0)
+  (hj :
+    left ≤ k * ((i1 * u + j1) / (i2 * u + j2) + (i1 * v + j1) / (i2 * v + j2) + (i1 * w + j1) / (i2 * w + j2)) + l) :
+  left ≤ k * ((i1 * u + j1) / (i2 * v + j2) + (i1 * v + j1) / (i2 * w + j2) + (i1 * w + j1) / (i2 * u + j2)) + l
+Rearrange_cycle_mul_left_3vars (u v w i1 j1 i2 j2 k l right : ℝ) (ha : i1 ≥ 0) (hb : i2 ≥ 0) (hc : k ≥ 0)
+  (hj :
+    k * ((i1 * u + j1) * (i2 * u + j2) + (i1 * v + j1) * (i2 * v + j2) + (i1 * w + j1) * (i2 * w + j2)) + l ≤ right) :
+  k * ((i1 * u + j1) * (i2 * v + j2) + (i1 * v + j1) * (i2 * w + j2) + (i1 * w + j1) * (i2 * u + j2)) + l ≤ right
+Rearrange_cycle_mul_right_3vars (u v w i1 j1 i2 j2 k l left : ℝ) (ha : i1 ≥ 0) (hb : i2 ≥ 0) (hc : k ≥ 0)
+  (hj :
+    left ≤ k * ((i1 * u + j1) * (i2 * v + j2) + (i1 * v + j1) * (i2 * w + j2) + (i1 * w + j1) * (i2 * u + j2)) + l) :
+  left ≤ k * ((i1 * u + j1) * (i2 * u + j2) + (i1 * v + j1) * (i2 * v + j2) + (i1 * w + j1) * (i2 * w + j2)) + l

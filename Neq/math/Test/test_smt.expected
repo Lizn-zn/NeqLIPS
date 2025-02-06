@@ -1,0 +1,20 @@
+goal: a * b + b * c + c * a ≤ a ^ 2 + b ^ 2 + c ^ 2
+query:
+(declare-const c Real)
+(declare-const b Real)
+(declare-const a Real)
+(assert (not (<= (+ (+ (* a b) (* b c)) (* c a)) (+ (+ (^ a 2) (^ b 2)) (^ c 2)))))
+(check-sat)
+(get-model)
+result: unsat. no counter example exists
+goal: a * b + b * c + c * a ≤ a ^ 2 + b ^ 2 + c ^ 2
+
+query:
+(declare-const c Real)
+(declare-const b Real)
+(declare-const a Real)
+(assert (not (<= (+ (+ (* a b) (* b c)) (* c a)) (+ (+ (^ a 2) (^ b 2)) (^ c 2)))))
+(check-sat)
+Test/test_smt.lean:12:8: warning: declaration uses 'sorry'
+Test/test_smt.lean:13:2: warning: 'smt_show' tactic does nothing
+note: this linter can be disabled with `set_option linter.unusedTactic false`

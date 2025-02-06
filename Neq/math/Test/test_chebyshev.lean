@@ -1,0 +1,12 @@
+import Math
+
+#check Chebyshev_cycle_left_2vars
+#check Chebyshev_cycle_Qeq1_left_2vars
+#check Chebyshev_cycle_left_3vars
+#check Chebyshev_cycle_Qeq1_left_3vars
+#check Chebyshev_div_cycle_right_3vars
+#check Chebyshev_div_cycle_Qeq1_right_3vars
+#check Chebyshev_div_cycle_Peq1_right_3vars
+#check Chebyshev_div_cycle_right_4vars
+#check Chebyshev_div_cycle_Peq1_right_4vars
+#check Chebyshev_div_cycle_Qeq1_right_4vars

@@ -1,0 +1,1094 @@
+{
+    "LEMMA_NAME_VERSION_DIRECTION_VARS": {
+        "input": "LEMMA_INPUT",
+        "output": "LEMMA_OUTPUT",
+        "type": "DIRECTION",
+        "var": ["VAR_LIST"],
+        "condition": ["EQUALITY_CONDITION"]
+    },
+    "Cauchy_Schwarz_normal_left_2vars": {
+        "input": "k * (u1 * v1 + u2 * v2) ^ 2 + l",
+        "output": "k * (u1 ^ 2 + u2 ^ 2) * (v1 ^ 2 + v2 ^ 2) + l",
+        "type": "left",
+        "var": ["u1", "u2", "v1", "v2", "k", "l"],
+        "condition": ["u1 / v1 = u2 / v2"]
+    },
+    "Cauchy_Schwarz_normal_right_2vars": {
+        "input": "k * (u1 ^ 2 + u2 ^ 2) * (v1 ^ 2 + v2 ^ 2) + l",
+        "output": "k * (u1 * v1 + u2 * v2) ^ 2 + l",
+        "type": "right",
+        "var": ["u1", "u2", "v1", "v2", "k", "l"],
+        "condition": ["u1 / v1 = u2 / v2"]
+    },
+    "Cauchy_Schwarz_sqrt_left_2vars": {
+        "input": "k * (u1 * v1 + u2 * v2) + l",
+        "output": "k * sqrt (u1 ^ 2 + u2 ^ 2) * sqrt (v1 ^ 2 + v2 ^ 2) + l",
+        "type": "left",
+        "var": ["u1", "u2", "v1", "v2", "k", "l"],
+        "condition": ["u1 / v1 = u2 / v2"]
+    },
+    "Cauchy_Schwarz_sqrt_right_2vars": {
+        "input": "k * sqrt (u1 ^ 2 + u2 ^ 2) * sqrt (v1 ^ 2 + v2 ^ 2) + l",
+        "output": "k * (u1 * v1 + u2 * v2) ^ 2 + l",
+        "type": "right",
+        "var": ["u1", "u2", "v1", "v2", "k", "l"],
+        "condition": ["u1 / v1 = u2 / v2"]
+    },
+    "Cauchy_Schwarz_sqrt_cycle_left_2vars": {
+        "input": "k * (u1 * v1 + u2 * v2 + u3 * v3 + u4 * v4 + u5 * v5 + u6 * v6) + l",
+        "output": "k * (sqrt (u1 ^ 2 + u2 ^ 2) * sqrt (v1 ^ 2 + v2 ^ 2) + sqrt (u3 ^ 2 + u4 ^ 2) * sqrt (v3 ^ 2 + v4 ^ 2) + sqrt (u5 ^ 2 + u6 ^ 2) * sqrt (v5 ^ 2 + v6 ^ 2)) + l",
+        "type": "left",
+        "var": ["u1", "u2", "u3", "u4", "u5", "u6", "v1", "v2", "v3", "v4", "v5", "v6", "k", "l"],
+        "condition": ["u1 / v1 = u2 / v2 = u3 / v3 = u4 / v4 = u5 / v5 = u6 / v6"]
+    },
+    "Cauchy_Schwarz_sqrt_cycle_right_2vars": {
+        "input": "k * (sqrt (u1 + u2) * sqrt (v1 + v2) + sqrt (u3 + u4) * sqrt (v3 + v4) + sqrt (u5 + u6) * sqrt (v5 + v6)) + l ",
+        "output": "k * (sqrt (u1 * v1) + sqrt (u2 * v2) + sqrt (u3 * v3) + sqrt (u4 * v4) + sqrt (u5 * v5) + sqrt (u6 * v6)) + l",
+        "type": "right",
+        "var": ["u1", "u2", "u3", "u4", "u5", "u6", "v1", "v2", "v3", "v4", "v5", "v6", "k", "l"],
+        "condition": ["u1 / v1 = u2 / v2 = u3 / v3 = u4 / v4 = u5 / v5 = u6 / v6"]
+    },
+    "Cauchy_Schwarz_normal_left_3vars": {
+        "input": "k * (u1 * v1 + u2 * v2 + u3 * v3) ^ 2 + l",
+        "output": "k * (u1 ^2 + u2 ^2 + u3 ^2) * (v1 ^ 2 + v2 ^ 2 + v3 ^ 2) + l",
+        "type": "left",
+        "var": ["u1", "u2", "u3", "v1", "v2", "v3", "k", "l"],
+        "condition": ["u1 / v1 = u2 / v2 = u3 / v3"]
+    },
+    "Cauchy_Schwarz_normal_right_3vars": {
+        "input": "k * (u1 ^ 2 + u2 ^ 2 + u3 ^ 2) * (v1 ^ 2 + v2 ^ 2 + v3 ^ 2) + l",
+        "output": "k * (u1 * v1 + u2 * v2 + u3 * v3) ^ 2 + l",
+        "type": "right",
+        "var": ["u1", "u2", "u3", "v1", "v2", "v3", "k", "l"],
+        "condition": ["u1 / v1 = u2 / v2 = u3 / v3"]
+    },
+    "Cauchy_Schwarz_sqrt_left_3vars": {
+        "input": "k * (u1 * v1  + u2 * v2 + u3 * v3) + l",
+        "output": "k * sqrt (u1 ^2 + u2 ^2 + u3 ^ 2) * sqrt (v1 ^ 2 + v2 ^ 2 + v3 ^ 2) + l",
+        "type": "left",
+        "var": ["u1", "u2", "u3", "v1", "v2", "v3", "k", "l"],
+        "condition": ["u1 / v1 = u2 / v2 = u3 / v3"]
+    },
+    "Cauchy_Schwarz_sqrt_right_3vars": {
+        "input": "k * sqrt (u1 ^2 + u2 ^2 + u3 ^2) * sqrt (v1 ^ 2 + v2 ^ 2 + v3 ^ 2) + l",
+        "output": "k * (u1 * v1  + u2 * v2 + u3 * v3)  + l",
+        "type": "right",
+        "var": ["u1", "u2", "u3", "v1", "v2", "v3", "k", "l"],
+        "condition": ["u1 / v1 = u2 / v2 = u3 / v3"]
+    },
+    "AM_GM_normal_left_2vars": {
+        "input": "k * sqrt (u * v) + l",
+        "output": "k * (u + v) / 2 + l",
+        "type": "left",
+        "var": ["u", "v", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "AM_GM_normal_right_2vars": {
+        "input": "k * (u + v) + l",
+        "output": "2 * k * sqrt (u * v) + l",
+        "type": "right",
+        "var": ["u", "v", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "AM_GM_square_left_2vars": {
+        "input": "k * (u * v) + l",
+        "output": "k * (u ^ 2 + v ^ 2) / 2 + l",
+        "type": "left",
+        "var": ["u", "v", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "AM_GM_square_right_2vars": {
+        "input": "k * (u ^ 2 + v ^ 2) + l",
+        "output": "2 * k * (u * v) + l",
+        "type": "right",
+        "var": ["u", "v", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "AM_GM_div_cycle_normal_left_2vars": {
+        "input": "k * (1 / (i1 * (u1 + v1) + j1) + 1 / (i2 * (u2 + v2) + j2) + 1 / (i3 * (u3 + v3) + j3)) + l",
+        "output": "k * (1 / (2 * i1 * sqrt (u1 * v1) + j1) + 1 / (2 * i2 * sqrt (u2 * v2) + j2) + 1 / (2 * i3 * sqrt (u3 * v3) + j3)) + l",
+        "type": "left",
+        "var": ["u1", "u2", "u3", "v1", "v2", "v3", "i1", "i2", "i3", "j1", "j2", "j3", "k", "l"],
+        "condition": ["u1 = v1", "u2 = v2", "u3 = v3"]
+    },
+    "AM_GM_div_cycle_normal_right_2vars": {
+        "input": "k * (1 / (i1 * sqrt (u1 * v1) + j1) + 1 / (i2 * sqrt (u2 * v2) + j2) + 1 / (i3 * sqrt (u3 * v3) + j3)) + l",
+        "output": "k * (1 / (i1 * (u1 + v1) / 2 + j1) + 1 / (i2 * (u2 + v2) / 2 + j2) + 1 / (i3 * (u3 + v3) / 2 + j3)) + l",
+        "type": "right",
+        "var": ["u1", "u2", "u3", "v1", "v2", "v3", "i1", "i2", "i3", "j1", "j2", "j3", "k", "l"],
+        "condition": ["u1 = v1", "u2 = v2", "u3 = v3"]
+    },
+    "AM_GM_div_cycle_square_right_2vars": {
+        "input": "k * (1 / (i1 * u1 * v1 + j1) + 1 / (i2 * u2 * v2 + j2) + 1 / (i3 * u3 * v3 + j3)) + l",
+        "output": "k * (1 / (i1 * (u1 ^ 2 + v1 ^ 2) / 2 + j1) + 1 / (i2 * (u2 ^ 2 + v2 ^ 2) / 2 + j2) + 1 / (i3 * (u3 ^ 2 + v3 ^ 2) / 2 + j3)) + l",
+        "type": "right",
+        "var": ["u1", "u2", "u3", "v1", "v2", "v3", "i1", "i2", "i3", "j1", "j2", "j3", "k", "l"],
+        "condition": ["u1 = v1", "u2 = v2", "u3 = v3"]
+    },
+    "AM_GM_normal_left_3vars": {
+        "input": "k * (u * v * w) ^ (1 / 3) + l",
+        "output": "k * (u + v + w) / 3 + l",
+        "type": "left",
+        "var": ["u", "v", "w", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "AM_GM_normal_right_3vars": {
+        "input": "k * (u + v + w) + l",
+        "output": "3 * k * (u * v * w) ^ (1/3) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "AM_GM_cubic_left_3vars": {
+        "input": "k * (u * v * w) + l",
+        "output": "k * (u ^ 3 + v ^ 3 + w ^ 3) / 3 + l",
+        "type": "left",
+        "var": ["u", "v", "w", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "AM_GM_cubic_right_3vars": {
+        "input": "k * (u ^ 3 + v ^ 3 + w ^ 3) + l",
+        "output": "3 * k * (u * v * w) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "AM_GM_sqrt_cbrt_left_3vars": {
+        "input": "k * (u * v * w) ^ (1 / 3) + l",
+        "output": "k * (sqrt (u * v) + sqrt (v * w) + sqrt (w * u)) / 3 + l",
+        "type": "left",
+        "var": ["u", "v", "w", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "AM_GM_sqrt_cbrt_right_3vars": {
+        "input": "k * (sqrt (u * v) + sqrt (v * w) + sqrt (w * u)) + l",
+        "output": "k * (3 * (u * v * w) ^ (1 / 3)) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "AM_GM_normal_left_6vars": {
+        "input": "k * (u1 * u2 * u3 * u4 * u5 * u6) ^ (1 / 6) + l",
+        "output": "k * (u1 + u2 + u3 + u4 + u5 + u6) / 6 + l",
+        "type": "left",
+        "var": ["u1", "u2", "u3", "u4", "u5", "u6", "k", "l"],
+        "condition": ["u1 = u2", "u2 = u3", "u3 = u4", "u4 = u5", "u5 = u6"]
+    },
+    "AM_GM_normal_right_6vars": {
+        "input": "k * (u1 + u2 + u3 + u4 + u5 + u6) + l",
+        "output": "6 * k * (u1 * u2 * u3 * u4 * u5 * u6) ^ (1 / 6) + l",
+        "type": "right",
+        "var": ["u1", "u2", "u3", "u4", "u5", "u6", "k", "l"],
+        "condition": ["u1 = u2", "u2 = u3", "u3 = u4", "u4 = u5", "u5 = u6"]
+    },
+    "AM_GM_div_left_2vars": {
+        "input": "k * (1 / (i * (u + v) + j)) + l",
+        "output": "k * (1 / (2 * i * sqrt (u * v) + j)) + l",
+        "type": "left",
+        "var": ["u", "v", "i", "j", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "AM_GM_div_right_2vars": {
+        "input": "k * (1 / (i * sqrt (u * v) + j)) + l",
+        "output": "k * (1 / (i * (u + v) / 2 + j)) + l",
+        "type": "right",
+        "var": ["u", "v", "i", "j", "k", "l"],
+        "condition": ["u = v"]  
+    },
+    "AM_GM_div_square_left_2vars": {
+        "input": "k * (1 / (i * (u ^ 2 + v ^ 2) + j)) + l",
+        "output": "k * (1 / (2 * i * u * v + j)) + l",
+        "type": "left",
+        "var": ["u", "v", "i", "j", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "AM_GM_div_square_right_2vars": {
+        "input": "k * (1 / (i * u * v + j)) + l",
+        "output": "k * (1 / (i * (u ^ 2 + v ^ 2) / 2 + j)) + l",
+        "type": "right",
+        "var": ["u", "v", "i", "j", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "AM_GM_div_left_3vars": {
+        "input": "k * (1 / (i * (u + v + w) + j)) + l",
+        "output": "k * (1 / (3 * i * (u * v * w) ^ (1 / 3) + j)) + l",
+        "type": "left",
+        "var": ["u", "v", "w", "i", "j", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "AM_GM_div_right_3vars": {
+        "input": "k * (1 / (i * (u * v * w) ^ (1 / 3) + j)) + l",
+        "output": "k * (1 / (i * (u + v + w) / 3 + j)) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "i", "j", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "AM_GM_div_cubic_left_3vars": {
+        "input": "k * (1 / (i * (u ^ 3 + v ^ 3 + w ^ 3) + j)) + l",
+        "output": "k * (1 / (3 * i * u * v * w + j)) + l",
+        "type": "left",
+        "var": ["u", "v", "w", "i", "j", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "AM_GM_div_cubic_right_3vars": {
+        "input": "k * (1 / (i * u * v * w + j)) + l",
+        "output": "k * (1 / (i * (u ^ 3 + v ^ 3 + w ^ 3) / 3 + j)) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "i", "j", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "weighted_AM_GM_normal_left_2vars": {
+        "input": "k * (u ^ i1 * v ^ i2) + l",
+        "output": "k * ((i1 * u + i2 * v) / (i1 + i2)) ^ (i1 + i2) + l",
+        "type": "left",
+        "var": ["u", "v", "i1", "i2", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "weighted_AM_GM_normal_right_2vars": {
+        "input": "k * (i1 * u + i2 * v) + l",
+        "output": "k * (i1 + i2) * (u ^ i1 * v ^ i2) ^ (1 / (i1 + i2)) + l",
+        "type": "right",
+        "var": ["u", "v", "i1", "i2", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "weighted_AM_GM_normal_left_3vars": {
+        "input": "k * (u ^ i1 * v ^ i2 * w ^ i3) + l",
+        "output": "k * ((i1 * u + i2 * v + i3 * w) / (i1 + i2 + i3)) ^ (i1 + i2 + i3) + l",
+        "type": "left",
+        "var": ["u", "v", "w", "i1", "i2", "i3", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "weighted_AM_GM_normal_right_3vars": {
+        "input": "k * (i1 * u + i2 * v + i3 * w) + l",
+        "output": "k * (i1 + i2 + i3) * (u ^ i1 * v ^ i2 * w ^ i3) ^ (1 / (i1 + i2 + i3)) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "i1", "i2", "i3", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "weighted_Power_Mean_Rgt1_left_2vars": {
+        "input": "k * (i1 + i2) ^ (1 / r) * (i1 * u + i2 * v) + l",
+        "output": "k * (i1 + i2) * (i1 * u ^ r + i2 * v ^ r) ^ (1 / r) + l",
+        "type": "left",
+        "var": ["u", "v", "i1", "i2", "r", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "weighted_Power_Mean_Rgt1_right_2vars": {
+        "input": "k * (i1 * u ^ r + i2 * v ^ r) + l",
+        "output": "k * ((i1 * u + i2 * v) ^ r / (i1 + i2) ^ (r - 1)) + l",
+        "type": "right",
+        "var": ["u", "v", "i1", "i2", "r", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "weighted_Power_Mean_Rlt1_left_2vars": {
+        "input": "k * (i1 * u ^ r + i2 * v ^ r) + l",
+        "output": "k * (i1 * u + i2 * v) ^ r * (i1 + i2) ^ (1 - r) + l",
+        "type": "left",
+        "var": ["u", "v", "i1", "i2", "r", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "weighted_Power_Mean_Rlt1_right_2vars": {
+        "input": "k * (i1 + i2) ^ (1 / r) * (i1 * u + i2 * v) + l",
+        "output": "k * (i1 + i2) * (i1 * u ^ r + i2 * v ^ r) ^ (1 / r) + l",
+        "type": "right",
+        "var": ["u", "v", "i1", "i2", "r", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "weighted_Power_Mean_Rgt1_left_3vars": {
+        "input": "k * (i1 + i2 + i3) ^ (1 / r) * (i1 * u + i2 * v + i3 * w) + l",
+        "output": "k * (i1 + i2 + i3) * (i1 * u ^ r + i2 * v ^ r + i3 * w ^ r) ^ (1 / r) + l",
+        "type": "left",
+        "var": ["u", "v", "w", "i1", "i2", "i3", "r", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "weighted_Power_Mean_Rgt1_right_3vars": {
+        "input": "k * (i1 * u ^ r + i2 * v ^ r + i3 * w ^ r) + l",
+        "output": "k * ((i1 * u + i2 * v + i3 * w) ^ r / (i1 + i2 + i3) ^ (r - 1)) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "i1", "i2", "i3", "r", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "weighted_Power_Mean_Rlt1_left_3vars": {
+        "input": "k * (i1 * u ^ r + i2 * v ^ r + i3 * w ^ r) + l",
+        "output": "k * (i1 * u + i2 * v + i3 * w) ^ r * (i1 + i2 + i3) ^ (1 - r) + l",
+        "type": "left",
+        "var": ["u", "v", "w", "i1", "i2", "i3", "r", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "weighted_Power_Mean_Rlt1_right_3vars": {
+        "input": "k * (i1 + i2 + i3) ^ (1 / r) * (i1 * u + i2 * v + i3 * w) + l",
+        "output": "k * (i1 + i2 + i3) * (i1 * u ^ r + i2 * v ^ r + i3 * w ^ r) ^ (1 / r) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "i1", "i2", "i3", "r", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Rearrange_cycle_div_left_3vars": {
+        "input": "k * ((i1 * u + j1) / (i2 * u + j2) + (i1 * v + j1) / (i2 * v + j2) + (i1 * w + j1) / (i2 * w + j2)) + l",
+        "output": "k * ((i1 * u + j1) / (i2 * v + j2) + (i1 * v + j1) / (i2 * w + j2) + (i1 * w + j1) / (i2 * u + j2)) + l",
+        "type": "left",
+        "var": ["u", "v", "w", "i1", "j1", "i2", "j2", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Rearrange_cycle_div_right_3vars": {
+        "input": "k * ((i1 * u + j1) / (i2 * v + j2) + (i1 * v + j1) / (i2 * w + j2) + (i1 * w + j1) / (i2 * u + j2)) + l",
+        "output": "k * ((i1 * u + j1) / (i2 * u + j2) + (i1 * v + j1) / (i2 * v + j2) + (i1 * w + j1) / (i2 * w + j2)) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "i1", "j1", "i2", "j2", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Rearrange_cycle_mul_left_3vars": {
+        "input": "k * ((i1 * u + j1) * (i2 * v + j2) + (i1 * v + j1) * (i2 * w + j2) + (i1 * w + j1) * (i2 * u + j2)) + l",
+        "output": "k * ((i1 * u + j1) * (i2 * u + j2) + (i1 * v + j1) * (i2 * v + j2) + (i1 * w + j1) * (i2 * w + j2)) + l",
+        "type": "left",
+        "var": ["u", "v", "w", "i1", "j1", "i2", "j2", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Rearrange_cycle_mul_right_3vars": {
+        "input": "k * ((i1 * u + j1) * (i2 * u + j2) + (i1 * v + j1) * (i2 * v + j2) + (i1 * w + j1) * (i2 * w + j2)) + l",
+        "output": "k * ((i1 * u + j1) * (i2 * v + j2) + (i1 * v + j1) * (i2 * w + j2) + (i1 * w + j1) * (i2 * u + j2)) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "i1", "j1", "i2", "j2", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Rearrange_cycle_mul_left_4vars": {
+        "input": "k * ((i1 * u1 + j1) * (i2 * u2 + j2) + (i1 * u2 + j1) * (i2 * u3 + j2) + (i1 * u3 + j1) * (i2 * u4 + j2) + (i1 * u4 + j1) * (i2 * u1 + j2)) + l",
+        "output": "k * ((i1 * u1 + j1) * (i2 * u1 + j2) + (i1 * u2 + j1) * (i2 * u2 + j2) + (i1 * u3 + j1) * (i2 * u3 + j2) + (i1 * u4 + j1) * (i2 * u4 + j2)) + l",
+        "type": "left",
+        "var": ["u1", "u2", "u3", "u4", "i1", "j1", "i2", "j2", "k", "l"],
+        "condition": ["u1 = u2", "u2 = u3", "u3 = u4"]
+    },
+    "Rearrange_cycle_mul_right_4vars": {
+        "input": "k * ((i1 * u1 + j1) * (i2 * u1 + j2) + (i1 * u2 + j1) * (i2 * u2 + j2) + (i1 * u3 + j1) * (i2 * u3 + j2) + (i1 * u4 + j1) * (i2 * u4 + j2)) + l",
+        "output": "k * ((i1 * u1 + j1) * (i2 * u2 + j2) + (i1 * u2 + j1) * (i2 * u3 + j2) + (i1 * u3 + j1) * (i2 * u4 + j2) + (i1 * u4 + j1) * (i2 * u1 + j2)) + l",
+        "type": "right",
+        "var": ["u1", "u2", "u3", "u4", "i1", "j1", "i2", "j2", "k", "l"],
+        "condition": ["u1 = u2", "u2 = u3", "u3 = u4"]
+    },
+    "Chebyshev_cycle_left_2vars": {
+        "input": "k * (u ^ p + v ^ p) * (u ^ q + v ^ q) + l",
+        "output": "k * (2 * u ^ (p + q) + 2 * v ^ (p + q)) + l",
+        "type": "left",
+        "var": ["u", "v", "p", "q", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "Chebyshev_cycle_Qeq1_left_2vars": {
+        "input": "k * (u ^ p + v ^ p) * (u + v) + l",
+        "output": "k * (2 * u ^ (p + 1) + 2 * v ^ (p + 1)) + l",
+        "type": "left",
+        "var": ["u", "v", "p", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "Chebyshev_cycle_left_3vars": {
+        "input": "k * (u ^ p + v ^ p + w ^ p) * (u ^ q + v ^ q + w ^ q) + l",
+        "output": "k * (3 * u ^ (p + q) + 3 * v ^ (p + q) + 3 * w ^ (p + q)) + l",
+        "type": "left",
+        "var": ["u", "v", "w", "p", "q", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "Chebyshev_cycle_Qeq1_left_3vars": {
+        "input": "k * (u ^ p + v ^ p + w ^ p) * (u + v + w) + l",
+        "output": "k * (3 * u ^ (p + 1) + 3 * v ^ (p + 1) + 3 * w ^ (p + 1)) + l",
+        "type": "left",
+        "var": ["u", "v", "w", "p", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Chebyshev_div_cycle_right_3vars": {
+        "input": "k * (u ^ p + v ^ p + w ^ p) * (1 / u ^ q + 1 /v ^ q + 1 / w ^ q) + l",
+        "output": "k * (3 * u ^ (p - q) + 3 * v ^ (p - q) + 3 * w ^ (p - q)) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "p", "q", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Chebyshev_div_cycle_Peq1_right_3vars": {
+        "input": "k * (u + v + w) * (1 / u ^ p + 1 / v ^ p + 1 / w ^ p) + l",
+        "output": "k * (3 * u ^ (1 - p) + 3 * v ^ (1 - p) + 3 * w ^ (1 - p)) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "p", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Chebyshev_div_cycle_Qeq1_right_3vars": {
+        "input": "k * (u ^ p + v ^ p + w ^ p) * (1 / u + 1 / v + 1 / w) + l",
+        "output": "k * (3 * u ^ (p - 1) + 3 * v ^ (p - 1) + 3 * w ^ (p - 1)) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "p", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Chebyshev_cycle_left_4vars": {
+        "input": "k * (u1 ^ p + u2 ^ p + u3 ^ p + u4 ^ p) * (u1 ^ q + u2 ^ q + u3 ^ q + u4 ^ q) + l",
+        "output": "k * (4 * u1 ^ (p + q) + 4 * u2 ^ (p + q) + 4 * u3 ^ (p + q) + 4 * u4 ^ (p + q)) + l",
+        "type": "left",
+        "var": ["u1", "u2", "u3", "u4", "p", "q", "k", "l"],
+        "condition": ["u1 = u2", "u2 = u3", "u3 = u4"]
+    },
+    "Chebyshev_cycle_Qeq1_left_4vars": {
+        "input": "k * (u1 ^ p + u2 ^ p + u3 ^ p + u4 ^ p) * (u1 + u2 + u3 + u4) + l",
+        "output": "k * (4 * u1 ^ (p + 1) + 4 * u2 ^ (p + 1) + 4 * u3 ^ (p + 1) + 4 * u4 ^ (p + 1)) + l",
+        "type": "left",
+        "var": ["u1", "u2", "u3", "u4", "p", "k", "l"],
+        "condition": ["u1 = u2", "u2 = u3", "u3 = u4"]
+    },
+    "Chebyshev_div_cycle_right_4vars": {
+        "input": "k * (u1 ^ p + u2 ^ p + u3 ^ p + u4 ^ p) * (1 / u1 ^ q + 1 / u2 ^ q + 1 / u3 ^ q + 1 / u4 ^ q) + l",
+        "output": "k * (4 * u1 ^ (p - q) + 4 * u2 ^ (p - q) + 4 * u3 ^ (p - q) + 4 * u4 ^ (p - q)) + l",
+        "type": "right",
+        "var": ["u1", "u2", "u3", "u4", "p", "q", "k", "l"],
+        "condition": ["u = v", "v = w", "w = z"]
+    },
+    "Chebyshev_div_cycle_Peq1_right_4vars": {
+        "input": "k * (u1 + u2 + u3 + u4) * (1 / u1 ^ p + 1 / u2 ^ p + 1 / u3 ^ p + 1 / u4 ^ p) + l",
+        "output": "k * (4 * u1 ^ (1 - p) + 4 * u2 ^ (1 - p) + 4 * u3 ^ (1 - p) + 4 * u4 ^ (1 - p)) + l",
+        "type": "right",
+        "var": ["u1", "u2", "u3", "u4", "p", "k", "l"],
+        "condition": ["u = v", "v = w", "w = z"]
+    },
+    "Chebyshev_div_cycle_Qeq1_right_4vars": {
+        "input": "k * (u1 ^ p + u2 ^ p + u3 ^ p + u4 ^ p) * (1 / u1 + 1 / u2 + 1 / u3 + 1 / u4) + l",
+        "output": "k * (4 * u1 ^ (p - 1) + 4 * u2 ^ (p - 1) + 4 * u3 ^ (p - 1) + 4 * u4 ^ (p - 1)) + l",
+        "type": "right",
+        "var": ["u1", "u2", "u3", "u4", "p", "k", "l"],
+        "condition": ["u = v", "v = w", "w = z"]
+    },
+    "Muirhead_normal_left_2vars": {
+        "input": "k * (u ^ p * v ^ q + v ^ p * u ^ q) + l",
+        "output": "k * (u ^ (p + q) + v ^ (p + q)) + l",
+        "type": "left",
+        "var": ["u", "v", "p", "q", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "Muirhead_normal_Qeq1_left_2vars": {
+        "input": "k * (u ^ p * v + v ^ p * u) + l",
+        "output": "k * (u ^ (p + 1) + v ^ (p + 1)) + l",
+        "type": "left",
+        "var": ["u", "v","p", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "Muirhead_onestep_left_2vars":{
+        "input": "k * (u ^ p * v ^ q + v ^ p * u ^ q) + l",
+        "output": "k * (u ^ (p + 1) * v ^ (q - 1) + v ^ (p + 1) * u ^ (q - 1)) + l",
+        "type": "left",
+        "var": ["u", "v", "p", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "Muirhead_onestep_right_2vars": {
+        "input": "k * (u ^ p * v ^ q + v ^ p * u ^ q) + l",
+        "output": "k * (u ^ (p - 1) * v ^ (q + 1) + v ^ (p - 1) * u ^ (q + 1)) + l",
+        "type": "right",
+        "var": ["u", "v", "p", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "Muirhead_Qeq1_onestep_left_2vars": {
+        "input": "k * (u ^ p * v + v ^ p * u) + l",
+        "output": "k * (u ^ (p + 1) + v ^ (p + 1)) + l",
+        "type": "left",
+        "var": ["u", "v", "p", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "Muirhead_Qeq1_onestep_right_2vars": {
+        "input": "k * (u ^ p * v + v ^ p * u) + l",
+        "output": "k * (u ^ (p - 1) * v ^ 2 + v ^ (p - 1) * u ^ 2) + l",
+        "type": "right",
+        "var": ["u", "v", "p", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "Muirhead_Qeq0_onestep_right_2vars": {
+        "input": "k * (u ^ p + v ^ p) + l",
+        "output": "k * (u ^ (p - 1) * v + v ^ (p - 1) * u) + l",
+        "type": "right",
+        "var": ["u", "v", "p", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "Muirhead_div_right_2vars": {
+        "input": "k * (1 / (i * (u ^ p * v ^ q + v ^ p * u ^ q) + j)) + l",
+        "output": "k * (1 / (i * (u ^ (p + q) + v ^ (p + q)) + j)) + l",
+        "type": "right",
+        "var": ["u", "v", "p", "q", "i", "j", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "Muirhead_Qeq1_div_right_2vars": {
+        "input": "k * (1 / (i * (u ^ p * v + v ^ p * u) + j)) + l",
+        "output": "k * (1 / (i * (u ^ (p + 1) + v ^ (p + 1)) + j)) + l",
+        "type": "right",
+        "var": ["u", "v", "p", "i", "j", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "Muirhead_div_onestep_left_2vars": {
+        "input": "k * (1 / (i * (u ^ p * v ^ q + v ^ p * u ^ q) + j)) + l",
+        "output": "k * (1 / (i * (u ^ (p - 1) * v ^ (q + 1) + v ^ (p - 1) * u ^ (q + 1)) + j)) + l",
+        "type": "left",
+        "var": ["u", "v", "p", "q", "i", "j", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "Muirhead_div_onestep_right_2vars": {
+        "input": "k * (1 / (i * (u ^ p * v ^ q + v ^ p * u ^ q) + j)) + l",
+        "output": "k * (1 / (i * (u ^ (p + 1) * v ^ (q - 1) + v ^ (p + 1) * u ^ (q - 1)) + j)) + l",
+        "type": "right",
+        "var": ["u", "v", "p", "q", "i", "j", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "Muirhead_Qeq1_div_onestep_left_2vars": {
+        "input": "k * (1 / (i * (u ^ p * v + v ^ p * u) + j)) + l",
+        "output": "k * (1 / (i * (u ^ (p - 1) * v ^ 2 + v ^ (p - 1) * u ^ 2) + j)) + l",
+        "type": "left",
+        "var": ["u", "v", "p", "i", "j", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "Muirhead_Qeq1_div_onestep_right_2vars": {
+        "input": "k * (1 / (i * (u ^ p * v + v ^ p * u) + j)) + l",
+        "output": "k * (1 / (i * (u ^ (p - 1) * v ^ 2 + v ^ (p - 1) * u ^ 2) + j)) + l",
+        "type": "right",
+        "var": ["u", "v", "p", "i", "j", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "Muirhead_Qeq0_div_onestep_left_2vars": {
+        "input": "k * (1 / (i * (u ^ p + v ^ p) + j)) + l",
+        "output": "k * (1 / (i * (u ^ (p - 1) * v + v ^ (p - 1) * u) + j)) + l",
+        "type": "left",
+        "var": ["u", "v", "p", "i", "j", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "Muirhead_Rneq0_left_3vars": {
+        "input": "k * (u ^ p * v ^ q * w ^ r + v ^ p * w ^ q * u ^ r + w ^ p * u ^ q * v ^ r) + l",
+        "output": "k * (u ^ (p + r) * v ^ q + v ^ (p + r) * w ^ q + w ^ (p + r) * u ^ q) + l",
+        "type": "left",
+        "var": ["u", "v", "w", "p", "q", "r", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Muirhead_Rneq0_div_right_3vars": {
+        "input": "k * (1 / (i * (u ^ p * v ^ q * w ^ r + v ^ p * w ^ q * u ^ r + w ^ p * u ^ q * v ^ r) + j)) + l",
+        "output": "k * (1 / (i * (u ^ (p + r) * v ^ q + v ^ (p + r) * w ^ q + w ^ (p + r) * u ^ q) + j)) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "p", "q", "r", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Muirhead_Req1_left_3vars": {
+        "input": "k * (u ^ p * v ^ q * w + v ^ p * w ^ q * u + w ^ p * u ^ q * v) + l",
+        "output": "k * (u ^ (p + 1) * v ^ q + v ^ (p + 1) * w ^ q + w ^ (p + 1) * u ^ q) + l",
+        "type": "left",
+        "var": ["u", "v", "w", "p", "q", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Muirhead_Req1_div_right_3vars": {
+        "input": "k * (1 / (i * (u ^ p * v ^ q * w + v ^ p * w ^ q * u + w ^ p * u ^ q * v) + j)) + l",
+        "output": "k * (1 / (i * (u ^ (p + 1) * v ^ q + v ^ (p + 1) * w ^ q + w ^ (p + 1) * u ^ q) + j)) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "p", "q", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Muirhead_QReq1_left_3vars": {
+        "input": "k * (u ^ p * v * w + v ^ p * w * u + w ^ p * u * v) + l",
+        "output": "k * (u ^ (p + 1) * v + v ^ (p + 1) * w + w ^ (p + 1) * u) + l",
+        "type": "left",
+        "var": ["u", "v", "w", "p", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Muirhead_QReq1_div_right_3vars": {
+        "input": "k * (1 / (i * (u ^ p * v * w + v ^ p * w * u + w ^ p * u * v) + j)) + l",
+        "output": "k * (1 / (i * (u ^ (p + 1) * v + v ^ (p + 1) * w + w ^ (p + 1) * u) + j)) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "p", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Muirhead_Req0_left_3vars": {
+        "input": "k * (u ^ p * v ^ q + v ^ p * w ^ q + w ^ p * u ^ q) + l",
+        "output": "k * (u ^ (p + q) + v ^ (p + q) + w ^ (p + q)) + l",
+        "type": "left",
+        "var": ["u", "v", "w", "p", "q", "k", "l"],
+        "condition": ["p = q"]
+    },
+    "Muirhead_Req0_div_right_3vars": {
+        "input": "k * (1 / (i * (u ^ p * v ^ q + v ^ p * w ^ q + w ^ p * u ^ q) + j)) + l",
+        "output": "k * (1 / (i * (u ^ (p + q) + v ^ (p + q) + w ^ (p + q)) + j)) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "p", "q", "k", "l"],
+        "condition": ["p = q"]
+    },
+    "Muirhead_Req0_onestep_left_3vars": {
+        "input": "k * (u ^ p * v ^ q + v ^ p * w ^ q + w ^ p * u ^ q) + l",
+        "output": "k * (u ^ (p + 1) * v ^ (q - 1) + v ^ (p + 1) * w ^ (q - 1) + w ^ (p + 1) * u ^ (q - 1)) + l",
+        "type": "left",
+        "var": ["u", "v", "w", "p", "q", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Muirhead_Req0_onestep_div_right_3vars": {
+        "input": "k * (1 / (i * (u ^ p * v ^ q + v ^ p * w ^ q + w ^ p * u ^ q) + j)) + l",
+        "output": "k * (1 / (i * (u ^ (p + 1) * v ^ (q - 1) + v ^ (p + 1) * w ^ (q - 1) + w ^ (p + 1) * u ^ (q - 1)) + j)) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "p", "q", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Muirhead_Req0_onestep_right_3vars": {
+        "input": "k * (u ^ p * v ^ q + v ^ p * w ^ q + w ^ p * u ^ q) + l",
+        "output": "k * (u ^ (p - 1) * v ^ (q + 1) + v ^ (p - 1) * w ^ (q + 1) + w ^ (p - 1) * u ^ (q + 1)) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "p", "q", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Muirhead_Req0_onestep_div_left_3vars": {
+        "input": "k * (1 / (i * (u ^ p * v ^ q + v ^ p * w ^ q + w ^ p * u ^ q) + j)) + l",
+        "output": "k * (1 / (i * (u ^ (p - 1) * v ^ (q + 1) + v ^ (p - 1) * w ^ (q + 1) + w ^ (p - 1) * u ^ (q + 1)) + j)) + l",
+        "type": "left",
+        "var": ["u", "v", "w", "p", "q", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Muirhead_Qeq1Req0_left_3vars": {
+        "input": "k * (u ^ p * v + v ^ p * w + w ^ p * u) + l",
+        "output": "k * (u ^ (p + 1) + v ^ (p + 1) + w ^ (p + 1)) + l",
+        "type": "left",
+        "var": ["u", "v", "w", "p", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Muirhead_Qeq1Req0_div_right_3vars": {
+        "input": "k * (1 / (i * (u ^ p * v + v ^ p * w + w ^ p * u) + j)) + l",
+        "output": "k * (1 / (i * (u ^ (p + 1) + v ^ (p + 1) + w ^ (p + 1)) + j)) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "p", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Muirhead_QRSeq1_left_4vars": {
+        "input": "k * (u1 ^ p * u2 * u3 * u4 + u2 ^ p * u3 * u4 * u1 + u3 ^ p * u4 * u1 * u2 + u4 ^ p * u1 * u2 * u3) + l",
+        "output": "k * (u1 ^ (p + 1) * u2 * u3 + u2 ^ (p + 1) * u3 * u4 + u3 ^ (p + 1) * u4 * u1 + u4 ^ (p + 1) * u1 * u2) + l",
+        "type": "left",
+        "var": ["u1", "u2", "u3", "u4", "p", "k", "l"],
+        "condition": ["u1 = u2", "u2 = u3", "u3 = u4"]
+    },
+    "Muirhead_QReq1Seq0_left_4vars": {
+        "input": "k * (u1 ^ p * u2 * u3 + u2 ^ p * u3 * u4 + u3 ^ p * u4 * u1 + u4 ^ p * u1 * u2) + l",
+        "output": "k * (u1 ^ (p + 1) * u2 + u2 ^ (p + 1) * u3 + u3 ^ (p + 1) * u4 + u4 ^ (p + 1) * u1) + l",
+        "type": "left",
+        "var": ["u1", "u2", "u3", "u4", "p", "k", "l"],
+        "condition": ["u1 = u2", "u2 = u3", "u3 = u4"]
+    },
+    "Muirhead_RSeq0_left_4vars": {
+        "input": "k * (u1 ^ p * u2 ^ q + u2 ^ p * u3 ^ q + u3 ^ p * u4 ^ q + u4 ^ p * u1 ^ q) + l",
+        "output": "k * (u1 ^ (p + q) + u2 ^ (p + q) + u3 ^ (p + q) + u4 ^ (p + q)) + l",
+        "type": "left",
+        "var": ["u1", "u2", "u3", "u4", "p", "q", "k", "l"],
+        "condition": ["u1 = u2", "u2 = u3", "u3 = u4"]
+    },
+    "Muirhead_Qeq1RSeq0_left_4vars": {
+        "input": "k * (u1 ^ p * u2 + u2 ^ p * u3 + u3 ^ p * u4 + u4 ^ p * u1) + l",
+        "output": "k * (u1 ^ (p + 1) + u2 ^ (p + 1) + u3 ^ (p + 1) + u4 ^ (p + 1)) + l",
+        "type": "left",
+        "var": ["u1", "u2", "u3", "u4", "p", "k", "l"],
+        "condition": ["u1 = u2", "u2 = u3", "u3 = u4"]
+    },
+    "Muirhead_Sneq0_left_4vars": {
+        "input": "k * (u1 ^ p * u2 ^ q * u3 ^ r * u4 ^ s + u2 ^ p * u3 ^ q * u4 ^ r * u1 ^ s + u3 ^ p * u4 ^ q * u1 ^ r * u2 ^ s + u4 ^ p * u1 ^ q * u2 ^ r * u3 ^ s) + l",
+        "output": "k * (u1 ^ (p + s) * u2 ^ q * u3 ^ r + u2 ^ (p + s) * u3 ^ q * u4 ^ r + u3 ^ (p + s) * u4 ^ q * u1 ^ r + u4 ^ (p + s) * u1 ^ q * u2 ^ r) + l",
+        "type": "left",
+        "var": ["u1", "u2", "u3", "u4", "p", "q", "r", "s", "k", "l"],
+        "condition": ["u1 = u2", "u2 = u3", "u3 = u4"]
+    },
+    "Muirhead_Seq1_left_4vars": {
+        "input": "k * (u1 ^ p * u2 ^ q * u3 ^ r * u4 + u2 ^ p * u3 ^ q * u4 ^ r * u1 + u3 ^ p * u4 ^ q * u1 ^ r * u2 + u4 ^ p * u1 ^ q * u2 ^ r * u3) + l",
+        "output": "k * (u1 ^ (p + 1) * u2 ^ q * u3 ^ r + u2 ^ (p + 1) * u3 ^ q * u4 ^ r + u3 ^ (p + 1) * u4 ^ q * u1 ^ r + u4 ^ (p + 1) * u1 ^ q * u2 ^ r) + l",
+        "type": "left",
+        "var": ["u1", "u2", "u3", "u4", "p", "q", "r", "k", "l"],
+        "condition": ["u1 = u2", "u2 = u3", "u3 = u4"]
+    },
+    "Muirhead_RSeq1_left_4vars": {
+        "input": "k * (u1 ^ p * u2 ^ q * u3 * u4 + u2 ^ p * u3 ^ q * u4 * u1 + u3 ^ p * u4 ^ q * u1 * u2 + u4 ^ p * u1 ^ q * u2 * u3) + l",
+        "output": "k * (u1 ^ (p + 1) * u2 ^ q * u3 + u2 ^ (p + 1) * u3 ^ q * u4 + u3 ^ (p + 1) * u4 ^ q * u1 + u4 ^ (p + 1) * u1 ^ q * u2) + l",
+        "type": "left",
+        "var": ["u1", "u2", "u3", "u4", "p", "q", "k", "l"],
+        "condition": ["u1 = u2", "u2 = u3", "u3 = u4"]
+    },
+    "Muirhead_Seq0_left_4vars": {
+        "input": "k * (u1 ^ p * u2 ^ q * u3 ^ r + u2 ^ p * u3 ^ q * u4 ^ r + u3 ^ p * u4 ^ q * u1 ^ r + u4 ^ p * u1 ^ q * u2 ^ r) + l",
+        "output": "k * (u1 ^ (p + r) * u2 ^ q + u2 ^ (p + r) * u3 ^ q + u3 ^ (p + r) * u4 ^ q + u4 ^ (p + r) * u1 ^ q) + l",
+        "type": "left",
+        "var": ["u1", "u2", "u3", "u4", "p", "q", "r", "k", "l"],
+        "condition": ["u1 = u2", "u2 = u3", "u3 = u4"]
+    },
+    "AM_HM_div_left_2vars": {
+        "input": "k * (1 / (u + v)) + l",
+        "output": "k * (1 / u + 1 / v) / 4 + l",
+        "type": "left",
+        "var": ["u", "v", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "AM_HM_div_right_2vars": {
+        "input": "k * (1 / u + 1 / v) + l",
+        "output": "k * (2 / (u + v)) + l",
+        "type": "right",
+        "var": ["u", "v", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "AM_HM_normal_left_3vars": {
+        "input": "k * (1 / (1 / u + 1 / v + 1 / w)) + l",
+        "output": "k * (u + v + w) / 9 + l",
+        "type": "left",
+        "var": ["u", "v", "w", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "AM_HM_normal_right_3vars": {
+        "input": "k * (u + v + w) + l",
+        "output": "k * (9 / (1 / u + 1 / v + 1 / w)) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "AM_HM_div_left_3vars": {
+        "input": "k * (1 / (u + v + w)) + l",
+        "output": "k * (1 / u + 1 / v + 1 / w) / 9 + l",
+        "type": "left",
+        "var": ["u", "v", "w", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "AM_HM_div_right_3vars": {
+        "input": "k * (1 / u + 1 / v + 1 / w) + l",
+        "output": "k * (9 / (u + v + w)) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Jensen_square_div_left_3vars": {
+        "input": "k * (1 / u ^ 2 + 1 / v ^ 2 + 1 / w ^ 2) + l",
+        "output": "k * (27 / (u + v + w) ^ 2) + l",
+        "type": "left",
+        "var": ["u", "v", "w", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Jensen_square_div_right_3vars": {
+        "input": "k * (1 / (u + v + w) ^ 2) + l",
+        "output": "k * (1 / u ^ 2 + 1 / v ^ 2 + 1 / w ^ 2) / 27 + l",
+        "type": "right",
+        "var": ["u", "v", "w", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Jensen_sqrt_left_2vars": {
+        "input": "k * (sqrt u + sqrt v) + l",
+        "output": "k * (sqrt 2) * (sqrt (u + v)) + l",
+        "type": "left",
+        "var": ["u", "v", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "Jensen_sqrt_right_2vars": {
+        "input": "k * (sqrt (u + v)) + l",
+        "output": "k * (sqrt u + sqrt v) / (sqrt 2) + l",
+        "type": "right",
+        "var": ["u", "v", "k", "l"],
+        "condition": ["u = v"]
+    },
+    "Jensen_sqrt_left_3vars": {
+        "input": "k * (sqrt u + sqrt v + sqrt w) + l",
+        "output": "k * (sqrt 3) * (sqrt (u + v + w)) + l",
+        "type": "left",
+        "var": ["u", "v", "w", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Jensen_sqrt_right_3vars": {
+        "input": "k * (sqrt (u + v + w)) + l",
+        "output": "k * (sqrt u + sqrt v + sqrt w) / (sqrt 3) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Jensen_sqrt_div_left_3vars": {
+        "input": "k * (1 / sqrt (u + v + w)) + l",
+        "output": "k * ((1 / sqrt u + 1 / sqrt v + 1 / sqrt w) / (sqrt 27)) + l",
+        "type": "left",
+        "var": ["u", "v", "w", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Jensen_sqrt_div_right_3vars": {
+        "input": "k * (1 / sqrt u + 1 / sqrt v + 1 / sqrt w) + l",
+        "output": "k * ((sqrt 27) / sqrt (u + v + w)) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Jensen_dick_div_left_3vars": {
+        "input": "k * ((i1 * u) / (i2 * u ^ 2 + j1 * u + j2) + (i1 * v) / (i2 * v^2 + j1 * v + j2) + (i1 * w) / (i2 * w ^ 2 + j1 * w + j2)) + l",
+        "output": "k * (i1 * (u + v + w) / (i2 * ((u + v + w) / 3) ^ 2 + j1 * (u + v + w) / 3 + j2)) + l",
+        "type": "left",
+        "var": ["u", "v", "w", "i1", "i2", "j1", "j2", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Jensen_dick_div_right_3vars": {
+        "input": "k * (i1 * (u + v + w) / (i2 * ((u + v + w)) ^ 2 / 9 + j1 * (u + v + w) / 3 + j2)) + l",
+        "output": "k * ((i1 * u) / (i2 * u ^ 2 + j1 * u + j2) + (i1 * v) / (i2 * v^2 + j1 * v + j2) + (i1 * w) / (i2 * w ^ 2 + j1 * w + j2)) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "i1", "i2", "j1", "j2", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Jensen_pow_Rlt1_left_3vars": {
+        "input": "k * (u ^ r + v ^ r + w ^ r) + l",
+        "output": "k * (3 * ((u + v + w) / 3) ^ r) + l",
+        "type": "left",
+        "var": ["u", "v", "w", "r", "k", "l"],
+        "condition": ["u = v", "v =w"]
+    },
+    "Jensen_pow_Rlt1_right_3vars": {
+        "input": "k * ((u + v + w) / 3) ^ r + l",
+        "output": "k * ((u ^ r + v ^ r + w ^ r) / 3) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "r", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Jensen_pow_Rgt1_left_3vars": {
+        "input": "k * ((u + v + w) / 3) ^ r + l",
+        "output": "k * ((u ^ r + v ^ r + w ^ r) / 3) + l",
+        "type": "left",
+        "var": ["u", "v", "w", "r", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Jensen_pow_Rgt1_right_3vars": {
+        "input": "k * (u ^ r + v ^ r + w ^ r) + l",
+        "output": "k * (3 * ((u + v + w) / 3) ^ r) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "r", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Karamata_sqrt_cycle_left_3vars": {
+        "input": "k * (sqrt (u + v - w) + sqrt (u + w - v) + sqrt (v + w - u)) + l",
+        "output": "k * (sqrt u + sqrt v + sqrt w) + l",
+        "type": "left",
+        "var": ["u", "v", "w", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Karamata_sqrt_cycle_right_3vars": {
+        "input": "k * (sqrt u + sqrt v + sqrt w) + l",
+        "output": "k * (sqrt (u + v - w) + sqrt (u + w - v) + sqrt (v + w - u)) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Karamata_square_cycle_left_3vars": {
+        "input": "k * (u ^ 2 + v ^ 2 + w ^ 2) + l",
+        "output": "k * ((u + v - w) ^ 2 + (u + w - v) ^ 2 + (v + w - u) ^ 2) + l",
+        "type": "left",
+        "var": ["u", "v", "w", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Karamata_square_cycle_right_3vars": {
+        "input": "k * ((u + v - w) ^ 2 + (u + w - v) ^ 2 + (v + w - u) ^ 2) + l",
+        "output": "k * (u ^ 2 + v ^ 2 + w ^ 2) + l",
+        "type": "left",
+        "var": ["u", "v", "w", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "weighted_Jensen_sqrt_div_left_3vars": {
+        "input": "k * (1 / sqrt (i1 * u + i2 * v + i3 * w)) + l",
+        "output": "k * ((i1 / sqrt u + i2 / sqrt v + i3 / sqrt w) / sqrt (i1 + i2 + i3) ^ 3) + l",
+        "type": "left",
+        "var": ["u", "v", "w", "i1", "i2", "i3", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "weighted_Jensen_sqrt_div_right_3vars": {
+        "input": "k * (i1 / sqrt u + i2 / sqrt v + i3 / sqrt w) + l",
+        "output": "k * (sqrt (i1 + i2 + i3) ^ 3 / sqrt (i1 * u + i2 * v + i3 * w)) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "i1", "i2", "i3", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Titu_normal_left_3vars": {
+        "input": "k * (u1 + u2 + u3) ^ 2 / (v1 + v2 + v3) + l",
+        "output": "k * (u1 ^ 2 / v1 + u2 ^ 2 / v2 + u3 ^ 2 / v3) + l",
+        "type": "left",
+        "var": ["u1", "u2", "u3", "v1", "v2", "v3", "k", "l"],
+        "condition": ["u1 / v1 = u2 / v2", "u2 / v2 = u3 / v3"]
+    },
+    "Titu_normal_right_3vars": {
+        "input": "k * (u1 ^ 2 / v1 + u2 ^ 2 / v2 + u3 ^ 2 / v3) + l",
+        "output": "k * (u1 + u2 + u3) ^ 2 / (v1 + v2 + v3) + l",
+        "type": "right",
+        "var": ["u1", "u2", "u3", "v1", "v2", "v3", "k", "l"],
+        "condition": ["u1 / v1 = u2 / v2", "u2 / v2 = u3 / v3"]
+    },
+    "Titu_cycle_refactor_left_3vars": {
+        "input": "k * ((u1 + u2 + u3 + 3 * w) ^ 2 / (v1 + v2 + v3)) + l",
+        "output": "k * ((u1 + w) ^ 2 / v1 + (u2 + w) ^ 2 / v2 + (u3 + w) ^ 2 / v3) + l",
+        "type": "left",
+        "var": ["u1", "u2", "u3", "v1", "v2", "v3", "w", "k", "l"],
+        "condition": ["u1 / v1 = u2 / v2", "u2 / v2 = u3 / v3"]
+    },
+    "Titu_cycle_refactor_right_3vars": {
+        "input": "k * ((u1 + i * w2 * w3) ^ 2 / v1 + (u2 + i * w3 * w1) ^ 2 / v2 + (u3 + i * w1 * w2) ^ 2 / v3) + l",
+        "output": "k * ((u1 * w1 + u2 * w2 + u3 * w3 + 3 * i * w1 * w2 * w3) ^ 2 / (v1 * w1 ^ 2 + v2 * w2 ^ 2 + v3 * w3 ^ 2)) + l",
+        "type": "right",
+        "var": ["u1", "u2", "u3", "v1", "v2", "v3", "w1", "w2", "w3", "i", "k", "l"],
+        "condition": ["u1 / v1 = u2 / v2", "u2 / v2 = u3 / v3"]
+    },
+    "Titu_variant1_right_3vars": {
+        "input": "k * (u1 / v1 + u2 / v2 + u3 / v3) + l",
+        "output": "k * ((u1 + u2 + u3) ^ 2 / (u1 * v1 + u2 * v2 + u3 * v3)) + l",
+        "type": "right",
+        "var": ["u1", "u2", "u3", "v1", "v2", "v3", "k", "l"],
+        "condition": ["u1 ^ 2 / v1 = u2 ^ 2 / v2", "u2 ^ 2 / v2 = u3 ^ 2 / v3"]
+    },
+    "Titu_variant2_right_3vars": {
+        "input": "k * (u1 ^ r / v1 + u2 ^ r / v2 + u3 ^ r / v3) + l",
+        "output": "k * ((u1 ^ ((r + 1) / 2) + u2 ^ ((r + 1) / 2) + u3 ^ ((r + 1) / 2)) ^ 2 / (u1 * v1 + u2 * v2 + u3 * v3)) + l",
+        "type": "right",
+        "var": ["u1", "u2", "u3", "v1", "v2", "v3", "r", "k", "l"],
+        "condition": ["u1 ^ r / v1 = u2 ^ r / v2", "u2 ^ r / v2 = u3 ^ r / v3"]
+    },
+    "Titu_variant2_Req1_right_3vars": {
+        "input": "k * (u1 / v1 + u2 / v2 + u3 / v3) + l",
+        "output": "k * ((u1 + u2 + u3) ^ 2 / (u1 * v1 + u2 * v2 + u3 * v3)) + l",
+        "type": "right",
+        "var": ["u1", "u2", "u3", "v1", "v2", "v3", "k", "l"],
+        "condition": ["u1 ^ r / v1 = u2 ^ r / v2", "u2 ^ r / v2 = u3 ^ r / v3"]
+    },
+    "Titu_normal_left_4vars": {
+        "input": "k * ((u1 + u2 + u3 + u4) ^ 2 / (v1 + v2 + v3 + v4)) + l",
+        "output": "k * (u1 ^ 2 / v1 + u2 ^ 2 / v2 + u3 ^ 2 / v3 + u4 ^ 2 / v4) + l",
+        "type": "left",
+        "var": ["u1", "u2", "u3", "u4", "v1", "v2", "v3", "v4", "k", "l"],
+        "condition": ["u1 / v1 = u2 / v2", "u2 / v2 = u3 / v3", "u3 / v3 = u4 / v4"]
+    },
+    "Titu_normal_right_4vars": {
+        "input": "k * (u1 ^ 2 / v1 + u2 ^ 2 / v2 + u3 ^ 2 / v3 + u4 ^ 2 / v4) + l",
+        "output": "k * ((u1 + u2 + u3 + u4) ^ 2 / (v1 + v2 + v3 + v4)) + l",
+        "type": "right",
+        "var": ["u1", "u2", "u3", "u4", "v1", "v2", "v3", "v4", "k", "l"],
+        "condition": ["u1 / v1 = u2 / v2", "u2 / v2 = u3 / v3", "u3 / v3 = u4 / v4"]
+    },
+    "Titu_variant1_right_4vars": {
+        "input": "k * (u1 / v1 + u2 / v2 + u3 / v3 + u4 / v4) + l",
+        "output": "k * ((u1 + u2 + u3 + u4) ^ 2 / (u1 * v1 + u2 * v2 + u3 * v3 + u4 * v4)) + l",
+        "type": "right",
+        "var": ["u1", "u2", "u3", "u4", "v1", "v2", "v3", "v4", "k", "l"],
+        "condition": ["u1 / v1 = u2 / v2", "u2 / v2 = u3 / v3", "u3 / v3 = u4 / v4"]
+    },
+    "Titu_variant2_right_4vars": {
+        "input": "k * (u1 ^ r / v1 + u2 ^ r / v2 + u3 ^ r / v3 + u4 ^ r / v4) + l",
+        "output": "k * ((u1 ^ ((r + 1) / 2) + u2 ^ ((r + 1) / 2) + u3 ^ ((r + 1) / 2) + u4 ^ ((r + 1) / 2)) ^ 2 / (u1 * v1 + u2 * v2 + u3 * v3 + u4 * v4)) + l",
+        "type": "right",
+        "var": ["u1", "u2", "u3", "u4", "v1", "v2", "v3", "v4", "r", "k", "l"],
+        "condition": ["u1 / v1 = u2 / v2", "u2 / v2 = u3 / v3", "u3 / v3 = u4 / v4"]
+    },
+    "Titu_variant2_Req1_right_4vars": {
+        "input": "k * ((u1 + u2 + u3 + u4) ^ 2 / (u1 * v1 + u2 * v2 + u3 * v3 + u4 * v4)) + l",
+        "output": "k * ((u1 + u2 + u3 + u4) ^ 2 / (u1 * v1 + u2 * v2 + u3 * v3 + u4 * v4)) + l",
+        "type": "right",
+        "var": ["u1", "u2", "u3", "u4", "v1", "v2", "v3", "v4", "k", "l"],
+        "condition": ["u1 / v1 = u2 / v2", "u2 / v2 = u3 / v3", "u3 / v3 = u4 / v4"]
+    },
+    "Schur_Teq1_left_3vars": {
+        "input": "k * (u ^ 2 * v + u ^ 2 * w + v ^ 2 * u + v ^ 2 * w + w ^ 2 * u + w ^ 2 * v) + l",
+        "output": "k * (u ^ 3 + v ^ 3 + w ^ 3 + 3 * u * v * w) + l",
+        "type": "left",
+        "var": ["u", "v", "w", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Schur_Teq1_right_3vars": {
+        "input": "k * (u ^ 3 + v ^ 3 + w ^ 3 + 3 * u * v * w) + l",
+        "output": "k * (u ^ 2 * v + u ^ 2 * w + v ^ 2 * u + v ^ 2 * w + w ^ 2 * u + w ^ 2 * v) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Schur_x2y_left_3vars": {
+        "input": "k * (u * v + v * w + w * u + u + v + w) + l",
+        "output": "k * (u ^ 2 * v + v ^ 2 * w + w ^ 2 * u + 3) + l",
+        "type": "left",
+        "var": ["u", "v", "w", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Schur_x2y_right_3vars": {
+        "input": "k * (u ^ 2 * v + v ^ 2 * w + w ^ 2 * u + 3 * u * v * w) + l",
+        "output": "k * ((u * v * w) ^ (1 / 3) * (u * v + v * w + w * u) + (u * v * w) ^ (2 / 3) * (u + v + w)) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Holder_2R_left_2vars": {
+        "input": "k * (u1 ^ r1 * v1 ^ r2 + u2 ^ r1 * v2 ^ r2 + u3 ^ r1 * v3 ^ r2) + l",
+        "output": "k * (u1 + u2 + u3) ^ r1 * (v1 + v2 + v3) ^ r2 + l",
+        "type": "left",
+        "var": ["u1", "u2", "u3", "v1", "v2", "v3", "r1", "r2", "k", "l"],
+        "condition": ["u1 / u2 = v1 / v2", "u2 / u3 = v2 / v3"]
+    },
+    "Holder_2R_right_2vars": {
+        "input": "k * (u1 + u2 + u3) ^ r1 * (v1 + v2 + v3) ^ r2 + l",
+        "output": "k * (u1 ^ (r1 / (r1 + r2)) * v1 ^ (r2 / (r1 + r2)) + u2 ^ (r1 / (r1 + r2)) * v2 ^ (r2 / (r1 + r2)) + u3 ^ (r1 / (r1 + r2)) * v3 ^ (r2 / (r1 + r2))) ^ (r1 + r2) + l",
+        "type": "right",
+        "var": ["u1", "u2", "u3", "v1", "v2", "v3", "r1", "r2", "k", "l"],
+        "condition": ["u1 / u2 = v1 / v2", "u2 / u3 = v2 / v3"]
+    },
+    "Holder_3R_left_3vars": {
+        "input": "k * (u1 ^ r1 * v1 ^ r2 * w1 ^ r3 + u2 ^ r1 * v2 ^ r2 * w2 ^ r3) + l",
+        "output": "k * (u1 + u2) ^ r1 * (v1 + v2) ^ r2 * (w1 + w2) ^ r3 + l",
+        "type": "left",
+        "var": ["u1", "u2", "v1", "v2", "w1", "w2", "r1", "r2", "r3", "k", "l"],
+        "condition": ["u1 / u2 = v1 / v2", "v1 / v2 = w1 / w2", "w1 / w2 = u1 / u2"]
+    },
+    "Holder_3R_right_3vars": {
+        "input": "k * (u1 + u2) ^ r1 * (v1 + v2) ^ r2 * (w1 + w2) ^ r3 + l",
+        "output": "k * (u1 ^ (r1 / (r1 + r2 + r3)) * v1 ^ (r2 / (r1 + r2 + r3)) * w1 ^ (r3 / (r1 + r2 + r3)) + u2 ^ (r1  / (r1 + r2 + r3)) * v2 ^ (r2 / (r1 + r2 + r3)) * w2 ^ (r3 / (r1 + r2 + r3))) ^ (r1 + r2 + r3) + l",
+        "type": "right",
+        "var": ["u1", "u2", "v1", "v2", "w1", "w2", "r1", "r2", "r3", "k", "l"],
+        "condition": ["u1 / u2 = v1 / v2", "v1 / v2 = w1 / w2", "w1 / w2 = u1 / u2"]
+    },
+    "Holder_2R_div_variant1_right_3vars": {
+        "input": "k * (u1 / v1 + u2 / v2 + u3 / v3) + l",
+        "output": "k * sqrt((u1 + u2 + u3) ^ 3 / (u1 * v1 ^ 2 + u2 * v2 ^ 2 + u3 * v3 ^ 2)) + l",
+        "type": "right",
+        "var": ["u1", "u2", "u3", "v1", "v2", "v3", "k", "l"],
+        "condition": ["u1 / u2 = v1 / v2", "u2 / u3 = v2 / v3"]
+    },
+    "Holder_2R_div_variant2_right_3vars": {
+        "input": "k * (u1 / v1 + u2 / v2 + u3 / v3) + l",
+        "output": "k * sqrt((u1 ^ (2 / 3) + u2 ^ (2 / 3) + u3 ^ (2 / 3)) ^ 3 / (v1 ^ 2 + v2 ^ 2 + v3 ^ 2)) + l",
+        "type": "right",
+        "var": ["u1", "u2", "u3", "v1", "v2", "v3", "k", "l"],
+        "condition": ["u1 / u2 = v1 / v2", "u2 / u3 = v2 / v3"]
+    },
+    "Holder_2R_pq_div_variant1_right_3vars": {
+        "input": "k * (u1 / (v1 ^ p * w1 ^ q) + u2 / (v2 ^ p * w2 ^ q) + u3 / (v3 ^ p * w3 ^ q)) + l",
+        "output": "k * (((u1 / w1 ^ (q - 2)) ^ (1 / 3) + (u2 / w2 ^ (q - 2)) ^ (1 / 3) + (u3 / w3 ^ (q - 2)) ^ (1 / 3)) ^ 3 / (v1 ^ (p / 2) * w1 + v2 ^ (p / 2) * w2 + v3 ^ (p / 2) * w3) ^ 2) + l",
+        "type": "right",
+        "var": ["u1", "u2", "u3", "v1", "v2", "v3", "w1", "w2", "w3", "p", "q", "k", "l"],
+        "condition": ["u1 / u2 = v1 / v2", "u2 / u3 = v2 / v3", "u1 / u2 = w1 / w2", "u2 / u3 = w2 / w3"]
+    },
+    "Holder_2R_pq_div_Peq1_right_3vars": {
+        "input": "k * (u1 / (v1 * w1 ^ q) + u2 / (v2 * w2 ^ q) + u3 / (v3 * w3 ^ q)) + l",
+        "output": "k * (((u1 / w1 ^ (q - 2)) ^ (1 / 3) + (u2 / w2 ^ (q - 2)) ^ (1 / 3) + (u3 / w3 ^ (q - 2)) ^ (1 / 3)) ^ 3 / (v1 ^ (1 / 2) * w1 + v2 ^ (1 / 2) * w2 + v3 ^ (1 / 2) * w3) ^ 2) + l",
+        "type": "right",
+        "var": ["u1", "u2", "u3", "v1", "v2", "v3", "w1", "w2", "w3", "q", "k", "l"],
+        "condition": ["u1 / u2 = v1 / v2", "u2 / u3 = v2 / v3", "u1 / u2 = w1 / w2", "u2 / u3 = w2 / w3"]
+    },
+    "Holder_2R_pq_div_Qeq1_right_3vars": {
+        "input": "k * (u1 / (v1 ^ p * w1) + u2 / (v2 ^ p * w2) + u3 / (v3 ^ p * w3)) + l",
+        "output": "k * (((u1 * w1) ^ (1 / 3) + (u2 * w2) ^ (1 / 3) + (u3 * w3) ^ (1 / 3)) ^ 3 / (v1 ^ (p / 2) * w1 + v2 ^ (p / 2) * w2 + v3 ^ (p / 2) * w3) ^ 2) + l",
+        "type": "right",
+        "var": ["u1", "u2", "u3", "v1", "v2", "v3", "w1", "w2", "w3", "p", "k", "l"],
+        "condition": ["u1 / u2 = v1 / v2", "u2 / u3 = v2 / v3", "u1 / u2 = w1 / w2", "u2 / u3 = w2 / w3"]
+    },
+    "Holder_2R_qp_div_variant1_right_3vars": {
+        "input": "k * (u1 / (v1 ^ p * w1 ^ q) + u2 / (v2 ^ p * w2 ^ q) + u3 / (v3 ^ p * w3 ^ q)) + l",
+        "output": "k * (((u1 / v1 ^ (p - 2)) ^ (1 / 3) + (u2 / v2 ^ (p - 2)) ^ (1 / 3) + (u3 / v3 ^ (p - 2)) ^ (1 / 3)) ^ 3 / (v1 * w1 ^ (q / 2) + v2 * w2 ^ (q / 2) + v3 * w3 ^ (q / 2)) ^ 2) + l",
+        "type": "right",
+        "var": ["u1", "u2", "u3", "v1", "v2", "v3", "w1", "w2", "w3", "p", "q", "k", "l"],
+        "condition": ["u1 / u2 = v1 / v2", "u2 / u3 = v2 / v3", "u1 / u2 = w1 / w2", "u2 / u3 = w2 / w3"]
+    },
+    "Holder_2R_qp_div_Peq1_right_3vars": {
+        "input": "k * (u1 / (v1 * w1 ^ q) + u2 / (v2 * w2 ^ q) + u3 / (v3 * w3 ^ q)) + l",
+        "output": "k * (((u1 * v1) ^ (1 / 3) + (u2 * v2) ^ (1 / 3) + (u3 * v3) ^ (1 / 3)) ^ 3 / (w1 ^ (q / 2) + w2 ^ (q / 2) + w3 ^ (q / 2)) ^ 2) + l",
+        "type": "right",
+        "var": ["u1", "u2", "u3", "v1", "v2", "v3", "w1", "w2", "w3", "q", "k", "l"],
+        "condition": ["u1 / u2 = v1 / v2", "u2 / u3 = v2 / v3", "u1 / u2 = w1 / w2", "u2 / u3 = w2 / w3"]
+    },
+    "Holder_2R_qp_div_Qeq1_right_3vars": {
+        "input": "k * (u1 / (v1 ^ p * w1) + u2 / (v2 ^ p * w2) + u3 / (v3 ^ p * w3)) + l",
+        "output": "k * (((u1 / v1 ^ (p - 2)) ^ (1 / 3) + (u2 / v2 ^ (p - 2)) ^ (1 / 3) + (u3 / v3 ^ (p - 2)) ^ (1 / 3)) ^ 3 / (v1 * w1 ^ (1 / 2) + v2 * w2 ^ (1 / 2) + v3 * w3 ^ (1 / 2)) ^ 2) + l",
+        "type": "right",
+        "var": ["u1", "u2", "u3", "v1", "v2", "v3", "w1", "w2", "w3", "p", "k", "l"],
+        "condition": ["u1 / u2 = v1 / v2", "u2 / u3 = v2 / v3", "u1 / u2 = w1 / w2", "u2 / u3 = w2 / w3"]
+    },
+    "Holder_2R_div_variant1_right_4vars": {
+        "input": "k * (u1 / v1 + u2 / v2 + u3 / v3 + u4 / v4) + l",
+        "output": "k * (((u1 ^ (3 / 4) + u2 ^ (3 / 4) + u3 ^ (3 / 4) + u4 ^ (3 / 4)) ^ 4 / (v1 ^ 3 + v2 ^ 3 + v3 ^ 3 + v4 ^ 3)) ^ (1 / 3)) + l",
+        "type": "right",
+        "var": ["u1", "u2", "u3", "u4", "v1", "v2", "v3", "v4", "k", "l"],
+        "condition": ["u1 / u2 = v1 / v2", "u2 / u3 = v2 / v3", "u3 / u4 = v3 / v4"]
+    },
+    "Holder_2R_div_variant2_right_4vars": {
+        "input": "k * (u1 / v1 + u2 / v2 + u3 / v3 + u4 / v4) + l",
+        "output": "k * (((u1 ^ (3 / 4) + u2 ^ (3 / 4) + u3 ^ (3 / 4) + u4 ^ (3 / 4)) ^ 4 / (v1 ^ 3 + v2 ^ 3 + v3 ^ 3 + v4 ^ 3)) ^ (1 / 3)) + l",
+        "type": "right",
+        "var": ["u1", "u2", "u3", "u4", "v1", "v2", "v3", "v4", "k", "l"],
+        "condition": ["u1 / u2 = v1 / v2", "u2 / u3 = v2 / v3", "u3 / u4 = v3 / v4"]
+    }
+}

@@ -1,0 +1,12 @@
+import Math
+
+#check Cauchy_Schwarz_normal_left_2vars
+#check Cauchy_Schwarz_normal_right_2vars
+#check Cauchy_Schwarz_sqrt_left_2vars
+#check Cauchy_Schwarz_sqrt_right_2vars
+#check Cauchy_Schwarz_sqrt_cycle_left_2vars
+#check Cauchy_Schwarz_sqrt_cycle_right_2vars
+#check Cauchy_Schwarz_normal_left_3vars
+#check Cauchy_Schwarz_normal_right_3vars
+#check Cauchy_Schwarz_sqrt_left_3vars
+#check Cauchy_Schwarz_sqrt_right_3vars

@@ -1,0 +1,25 @@
+import Math
+
+#check AM_GM_normal_left_2vars
+#check AM_GM_normal_right_2vars
+#check AM_GM_square_left_2vars
+#check AM_GM_square_right_2vars
+#check AM_GM_div_left_2vars
+#check AM_GM_div_right_2vars
+#check AM_GM_div_square_left_2vars
+#check AM_GM_div_square_right_2vars
+#check AM_GM_normal_left_3vars
+#check AM_GM_normal_right_3vars
+#check AM_GM_cubic_left_3vars
+#check AM_GM_cubic_right_3vars
+#check AM_GM_div_left_3vars
+#check AM_GM_div_right_3vars
+#check AM_GM_div_cycle_normal_left_3vars
+#check AM_GM_div_cycle_normal_right_3vars
+#check AM_GM_div_cycle_square_left_3vars
+#check AM_GM_div_cycle_square_right_3vars
+#check AM_GM_sqrt_cbrt_left_3vars
+#check AM_GM_sqrt_cbrt_right_3vars
+#check AM_GM_normal_left_6vars
+#check AM_GM_normal_right_6vars
+#check AM_GM_normal_right_6vars

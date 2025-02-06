@@ -1,0 +1,10 @@
+import Math
+
+#check weighted_Power_Mean_Rgt1_left_2vars
+#check weighted_Power_Mean_Rgt1_right_2vars
+#check weighted_Power_Mean_Rlt1_left_2vars
+#check weighted_Power_Mean_Rlt1_right_2vars
+#check weighted_Power_Mean_Rgt1_left_3vars
+#check weighted_Power_Mean_Rgt1_right_3vars
+#check weighted_Power_Mean_Rlt1_left_3vars
+#check weighted_Power_Mean_Rlt1_right_3vars

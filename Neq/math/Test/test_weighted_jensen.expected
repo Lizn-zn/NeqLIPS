@@ -1,0 +1,8 @@
+weighted_Jensen_sqrt_div_left_3vars (u v w i1 i2 i3 k l right : ℝ) (hu : u > 0) (hv : v > 0) (hw : w > 0) (hi1 : i1 > 0)
+  (hi2 : i2 > 0) (hi3 : i3 > 0) (hk : k > 0)
+  (h : k * ((i1 / sqrt u + i2 / sqrt v + i3 / sqrt w) / sqrt(i1 + i2 + i3) ^ 3) + l ≤ right) :
+  k * (1 / sqrt(i1 * u + i2 * v + i3 * w)) + l ≤ right
+weighted_Jensen_sqrt_div_right_3vars (u v w i1 i2 i3 k l left : ℝ) (hu : u > 0) (hv : v > 0) (hw : w > 0) (hi1 : i1 > 0)
+  (hi2 : i2 > 0) (hi3 : i3 > 0) (hk : k > 0)
+  (h : left ≤ k * (sqrt(i1 + i2 + i3) ^ 3 / sqrt(i1 * u + i2 * v + i3 * w)) + l) :
+  left ≤ k * (i1 / sqrt u + i2 / sqrt v + i3 / sqrt w) + l

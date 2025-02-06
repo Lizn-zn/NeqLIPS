@@ -1,0 +1,26 @@
+Titu_normal_left_3vars (u1 u2 u3 v1 v2 v3 k l right : ℝ) (hv1 : v1 > 0) (hv2 : v2 > 0) (hv3 : v3 > 0) (hk : k > 0)
+  (h : k * (u1 ^ 2 / v1 + u2 ^ 2 / v2 + u3 ^ 2 / v3) + l ≤ right) :
+  k * ((u1 + u2 + u3) ^ 2 / (v1 + v2 + v3)) + l ≤ right
+Titu_normal_right_3vars (u1 u2 u3 v1 v2 v3 k l left : ℝ) (hv1 : v1 > 0) (hv2 : v2 > 0) (hv3 : v3 > 0) (hk : k > 0)
+  (h : left ≤ k * ((u1 + u2 + u3) ^ 2 / (v1 + v2 + v3)) + l) : left ≤ k * (u1 ^ 2 / v1 + u2 ^ 2 / v2 + u3 ^ 2 / v3) + l
+Titu_cycle_refactor_left_3vars (u1 u2 u3 v1 v2 v3 w k l right : ℝ) (hv1 : v1 > 0) (hv2 : v2 > 0) (hv3 : v3 > 0)
+  (hk : k > 0) (h : k * ((u1 + w) ^ 2 / v1 + (u2 + w) ^ 2 / v2 + (u3 + w) ^ 2 / v3) + l ≤ right) :
+  k * ((u1 + u2 + u3 + 3 * w) ^ 2 / (v1 + v2 + v3)) + l ≤ right
+Titu_cycle_refactor_right_3vars {i : ℝ} (u1 u2 u3 v1 v2 v3 w1 w2 w3 k l left : ℝ) (hv1 : v1 > 0) (hv2 : v2 > 0)
+  (hv3 : v3 > 0) (hw1 : w1 ≠ 0) (hw2 : w2 ≠ 0) (hw3 : w3 ≠ 0) (hk : k > 0)
+  (h :
+    left ≤
+      k * ((u1 * w1 + u2 * w2 + u3 * w3 + 3 * i * w1 * w2 * w3) ^ 2 / (v1 * w1 ^ 2 + v2 * w2 ^ 2 + v3 * w3 ^ 2)) + l) :
+  left ≤ k * ((u1 + i * w2 * w3) ^ 2 / v1 + (u2 + i * w3 * w1) ^ 2 / v2 + (u3 + i * w1 * w2) ^ 2 / v3) + l
+Titu_variant1_right_3vars (u1 u2 u3 v1 v2 v3 k l left : ℝ) (hv1 : v1 > 0) (hv2 : v2 > 0) (hv3 : v3 > 0) (hk : k > 0)
+  (h : left ≤ k * ((u1 + u2 + u3) ^ 2 / (u1 * v1 + u2 * v2 + u3 * v3)) + l) :
+  left ≤ k * (u1 / v1 + u2 / v2 + u3 / v3) + l
+Titu_variant2_right_3vars (u1 u2 u3 v1 v2 v3 r k l left : ℝ) (hv1 : v1 > 0) (hv2 : v2 > 0) (hv3 : v3 > 0) (hr : r > 0)
+  (hk : k > 0)
+  (h :
+    left ≤
+      k * ((u1 ^ ((r + 1) / 2) + u2 ^ ((r + 1) / 2) + u3 ^ ((r + 1) / 2)) ^ 2 / (u1 * v1 + u2 * v2 + u3 * v3)) + l) :
+  left ≤ k * (u1 ^ r / v1 + u2 ^ r / v2 + u3 ^ r / v3) + l
+Titu_variant2_Req1_right_3vars (u1 u2 u3 v1 v2 v3 r k l left : ℝ) (hv1 : v1 > 0) (hv2 : v2 > 0) (hv3 : v3 > 0)
+  (hk : k > 0) (h : left ≤ k * ((u1 + u2 + u3) ^ 2 / (u1 * v1 + u2 * v2 + u3 * v3)) + l) :
+  left ≤ k * (u1 / v1 + u2 / v2 + u3 / v3) + l

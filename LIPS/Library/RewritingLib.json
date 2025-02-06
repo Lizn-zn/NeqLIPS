@@ -1,0 +1,98 @@
+{
+    "REWRITE_NAME": {
+        "prompt": "LLM prompt",
+        "tactic": "Lean 4 tactic name",
+        "type": "rewrite_without_assumption | rewrite_with_assumption | rewrite_with_inequation",
+        "sym_only": "whether only use symbolic rewriting"
+    },
+    "rewrite_wo_assumption": {
+        "prompt": "rewrite the expression given by user into an absolutely different form",
+        "tactic": "llm_simplify",
+        "type": "rewrite_without_assumption",
+        "sym_only": false
+    },
+    "rewrite_w_assumption": {
+        "prompt": "rewrite the expression given by user into an absolutely different form",
+        "tactic": "llm_simplify",
+        "type": "rewrite_with_assumption",
+        "sym_only": false
+    },
+    "simplify_wo_assumption": {
+        "prompt": "simplify the expression given by user into a more normal form",
+        "tactic": "llm_simplify",
+        "type": "rewrite_without_assumption",
+        "sym_only": false
+    },
+    "simplify_w_assumption": {
+        "prompt": "simplify the expression given by user into a more normal form",
+        "tactic": "llm_simplify",
+        "type": "rewrite_with_assumption",
+        "sym_only": false
+    },
+    "mul_expand": {
+        "prompt": "expand the multiplication in the expression given by user, for example, (a+b)^2 -> a^2 + 2ab + b^2",
+        "tactic": "llm_mul_expand",
+        "type": "rewrite_without_assumption",
+        "sym_only": false
+    },
+    "exp_expand": {
+        "prompt": "apart the power base in the expression given by user, for example, (a*b)^(1/2) -> a^(1/2)*b^(1/2)",
+        "tactic": "llm_exp_expand",
+        "type": "rewrite_without_assumption",
+        "sym_only": false
+    },
+    "factor":{
+        "prompt": "factor the expression given by user, for example, a^2 + 2ab + b^2 -> (a+b)^2",
+        "tactic": "llm_factor",
+        "type": "rewrite_without_assumption",
+        "sym_only": false
+    },
+    "fraction_reduce": {
+        "prompt": "reduce the fraction given by user, for example, (a + b ^ 2) / b -> a / b + b",
+        "tactic": "llm_frac_reduce",
+        "type": "rewrite_without_assumption",
+        "sym_only": false
+    },
+    "fraction_apart": {
+        "prompt": "apart the fraction given by user, for example, (a + c + d ^ 2) / b -> a / b + c / b + d ^ 2 / b",
+        "tactic": "llm_frac_apart",
+        "type" : "rewrite_without_assumption",
+        "sym_only": false
+    },
+    "fraction_together":{
+        "prompt": "put together the fraction given by user, for example, a / b + c / b + d ^ 2 / b -> (a + c + d ^ 2) / b",
+        "tactic": "llm_frac_together",
+        "type": "rewrite_without_assumption",
+        "sym_only": false
+    },
+    "cancel_denominators": {
+        "prompt": "cancel the denominators of the fraction given by user, for example, a / b - a / c -> a * (c - b) / (b * c)",
+        "tactic": "llm_cancel_denom",
+        "type": "rewrite_without_assumption",
+        "sym_only": false
+    },
+    "cancel_factor": {
+        "prompt": "cancel the factor of the fraction given by user, for example, a ^ 2 * c + 2abc + b ^ 2 * c -> c * (a + b) ^ 2",
+        "tactic": "llm_cancel_factor",
+        "type": "rewrite_without_assumption",
+        "sym_only": false
+    },
+    "cancel_power": {
+        "prompt": "cancel the power of inequality given by user, for example, a ^ 2 <= b ^ 2 -> 2",
+        "tactic": "llm_cancel_power",
+        "type": "rewrite_with_inequation",
+        "sym_only": true
+    },
+    "tangent_line": {
+        "prompt": "apply the tangent line method to prove the expression given by user",
+        "tactic": "sym_tangent_line",
+        "type": "rewrite_with_inequation",
+        "sym_only": true
+    },
+    "equal_value": {
+        "prompt": "apply the equal value method to prove the expression given by user",
+        "tactic": "sym_equal_value",
+        "type": "rewrite_with_inequation",
+        "sym_only": true
+    }
+}

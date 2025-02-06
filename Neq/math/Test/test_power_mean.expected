@@ -1,0 +1,28 @@
+weighted_Power_Mean_Rgt1_left_2vars (u v i1 i2 r k l right : ℝ) (hu : u ≥ 0) (hv : v ≥ 0) (hi1 : i1 > 0) (hi2 : i2 > 0)
+  (hr : r > 1) (hk : k > 0) (h : k * (i1 + i2) * (i1 * u ^ r + i2 * v ^ r) ^ (1 / r) + l ≤ right) :
+  k * (i1 + i2) ^ (1 / r) * (i1 * u + i2 * v) + l ≤ right
+weighted_Power_Mean_Rgt1_right_2vars (u v i1 i2 r k l left : ℝ) (hu : u ≥ 0) (hv : v ≥ 0) (hi1 : i1 > 0) (hi2 : i2 > 0)
+  (hr : r > 1) (hk : k > 0) (h : left ≤ k * ((i1 * u + i2 * v) ^ r / (i1 + i2) ^ (r - 1)) + l) :
+  left ≤ k * (i1 * u ^ r + i2 * v ^ r) + l
+weighted_Power_Mean_Rlt1_left_2vars (u v i1 i2 r k l right : ℝ) (hu : u ≥ 0) (hv : v ≥ 0) (hi1 : i1 > 0) (hi2 : i2 > 0)
+  (hr : r < 1) (hr' : r > 0) (hk : k > 0) (h : k * (i1 * u + i2 * v) ^ r * (i1 + i2) ^ (1 - r) + l ≤ right) :
+  k * (i1 * u ^ r + i2 * v ^ r) + l ≤ right
+weighted_Power_Mean_Rlt1_right_2vars (u v i1 i2 r k l left : ℝ) (hu : u ≥ 0) (hv : v ≥ 0) (hi1 : i1 > 0) (hi2 : i2 > 0)
+  (hr : r < 1) (hr' : r > 0) (hk : k > 0) (h : left ≤ k * (i1 + i2) * (i1 * u ^ r + i2 * v ^ r) ^ (1 / r) + l) :
+  left ≤ k * (i1 + i2) ^ (1 / r) * (i1 * u + i2 * v) + l
+weighted_Power_Mean_Rgt1_left_3vars (u v w i1 i2 i3 r k l right : ℝ) (hu : u ≥ 0) (hv : v ≥ 0) (hw : w ≥ 0)
+  (hi1 : i1 > 0) (hi2 : i2 > 0) (hi3 : i3 > 0) (hr : r > 1) (hk : k > 0)
+  (h : k * (i1 + i2 + i3) * (i1 * u ^ r + i2 * v ^ r + i3 * w ^ r) ^ (1 / r) + l ≤ right) :
+  k * (i1 + i2 + i3) ^ (1 / r) * (i1 * u + i2 * v + i3 * w) + l ≤ right
+weighted_Power_Mean_Rgt1_right_3vars (u v w i1 i2 i3 r k l left : ℝ) (hu : u ≥ 0) (hv : v ≥ 0) (hw : w ≥ 0)
+  (hi1 : i1 > 0) (hi2 : i2 > 0) (hi3 : i3 > 0) (hr : r > 1) (hk : k > 0)
+  (h : left ≤ k * ((i1 * u + i2 * v + i3 * w) ^ r / (i1 + i2 + i3) ^ (r - 1)) + l) :
+  left ≤ k * (i1 * u ^ r + i2 * v ^ r + i3 * w ^ r) + l
+weighted_Power_Mean_Rlt1_left_3vars (u v w i1 i2 i3 r k l right : ℝ) (hu : u ≥ 0) (hv : v ≥ 0) (hw : w ≥ 0)
+  (hi1 : i1 > 0) (hi2 : i2 > 0) (hi3 : i3 > 0) (hr : r < 1) (hr' : r > 0) (hk : k > 0)
+  (h : k * (i1 * u + i2 * v + i3 * w) ^ r * (i1 + i2 + i3) ^ (1 - r) + l ≤ right) :
+  k * (i1 * u ^ r + i2 * v ^ r + i3 * w ^ r) + l ≤ right
+weighted_Power_Mean_Rlt1_right_3vars (u v w i1 i2 i3 r k l left : ℝ) (hu : u ≥ 0) (hv : v ≥ 0) (hw : w ≥ 0)
+  (hi1 : i1 > 0) (hi2 : i2 > 0) (hi3 : i3 > 0) (hr : r < 1) (hr' : r > 0) (hk : k > 0)
+  (h : left ≤ k * (i1 + i2 + i3) * (i1 * u ^ r + i2 * v ^ r + i3 * w ^ r) ^ (1 / r) + l) :
+  left ≤ k * (i1 + i2 + i3) ^ (1 / r) * (i1 * u + i2 * v + i3 * w) + l

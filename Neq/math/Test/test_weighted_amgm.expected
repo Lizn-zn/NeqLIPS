@@ -1,0 +1,12 @@
+weighted_AM_GM_normal_left_2vars {k l right : ℝ} (u v i1 i2 : ℝ) (hu : u ≥ 0) (hv : v ≥ 0) (hi1 : i1 > 0) (hi2 : i2 > 0)
+  (hk : k > 0) (h : k * ((i1 * u + i2 * v) / (i1 + i2)) ^ (i1 + i2) + l ≤ right) : k * (u ^ i1 * v ^ i2) + l ≤ right
+weighted_AM_GM_normal_right_2vars {k left l : ℝ} (u v i1 i2 : ℝ) (hu : u ≥ 0) (hv : v ≥ 0) (hi1 : i1 > 0) (hi2 : i2 > 0)
+  (hk : k > 0) (h : left ≤ k * (i1 + i2) * (u ^ i1 * v ^ i2) ^ (1 / (i1 + i2)) + l) : left ≤ k * (i1 * u + i2 * v) + l
+weighted_AM_GM_normal_left_3vars (u v w i1 i2 i3 k l right : ℝ) (hu : u ≥ 0) (hv : v ≥ 0) (hw : w ≥ 0) (hi1 : i1 > 0)
+  (hi2 : i2 > 0) (hi3 : i3 > 0) (hk : k > 0)
+  (h : k * ((i1 * u + i2 * v + i3 * w) / (i1 + i2 + i3)) ^ (i1 + i2 + i3) + l ≤ right) :
+  k * (u ^ i1 * v ^ i2 * w ^ i3) + l ≤ right
+weighted_AM_GM_normal_right_3vars (u v w i1 i2 i3 k l left : ℝ) (hu : u ≥ 0) (hv : v ≥ 0) (hw : w ≥ 0) (hi1 : i1 > 0)
+  (hi2 : i2 > 0) (hi3 : i3 > 0) (hk : k > 0)
+  (h : left ≤ k * (i1 + i2 + i3) * (u ^ i1 * v ^ i2 * w ^ i3) ^ (1 / (i1 + i2 + i3)) + l) :
+  left ≤ k * (i1 * u + i2 * v + i3 * w) + l

@@ -1,0 +1,12 @@
+AM_HM_div_left_2vars (u v k l right : ℝ) (hu : u > 0) (hv : v > 0) (hk : k > 0)
+  (h : k * (1 / u + 1 / v) / 4 + l ≤ right) : k * (1 / (u + v)) + l ≤ right
+AM_HM_div_right_2vars (u v k l left : ℝ) (hu : u > 0) (hv : v > 0) (hk : k > 0) (h : left ≤ k * (4 / (u + v)) + l) :
+  left ≤ k * (1 / u + 1 / v) + l
+AM_HM_normal_left_3vars (u v w k l right : ℝ) (hu : u > 0) (hv : v > 0) (hw : w > 0) (hk : k > 0)
+  (h : k * (u + v + w) / 9 + l ≤ right) : k * (1 / (1 / u + 1 / v + 1 / w)) + l ≤ right
+AM_HM_normal_right_3vars (u v w k l left : ℝ) (hu : u > 0) (hv : v > 0) (hw : w > 0) (hk : k > 0)
+  (h : left ≤ k * (9 / (1 / u + 1 / v + 1 / w)) + l) : left ≤ k * (u + v + w) + l
+AM_HM_div_left_3vars (u v w k l right : ℝ) (hu : u > 0) (hv : v > 0) (hw : w > 0) (hk : k > 0)
+  (h : k * (1 / u + 1 / v + 1 / w) / 9 + l ≤ right) : k * (1 / (u + v + w)) + l ≤ right
+AM_HM_div_right_3vars (u v w k l left : ℝ) (hu : u > 0) (hv : v > 0) (hw : w > 0) (hk : k > 0)
+  (h : left ≤ k * (9 / (u + v + w)) + l) : left ≤ k * (1 / u + 1 / v + 1 / w) + l

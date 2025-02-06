@@ -1,0 +1,6 @@
+import Math
+
+#check Rearrange_cycle_div_left_3vars
+#check Rearrange_cycle_div_right_3vars
+#check Rearrange_cycle_mul_left_3vars
+#check Rearrange_cycle_mul_right_3vars

@@ -1,0 +1,6 @@
+Schur_Teq1_left_3vars (u v w k l right : ℝ) (hu : u ≥ 0) (hv : v ≥ 0) (hw : w ≥ 0) (hk : k ≥ 0)
+  (h : k * (u ^ 3 + v ^ 3 + w ^ 3 + 3 * u * v * w) + l ≤ right) :
+  k * (u ^ 2 * v + u ^ 2 * w + v ^ 2 * u + v ^ 2 * w + w ^ 2 * u + w ^ 2 * v) + l ≤ right
+Schur_Teq1_right_3vars (u v w k l left : ℝ) (hu : u ≥ 0) (hv : v ≥ 0) (hw : w ≥ 0) (hk : k ≥ 0)
+  (h : left ≤ k * (u ^ 2 * v + u ^ 2 * w + v ^ 2 * u + v ^ 2 * w + w ^ 2 * u + w ^ 2 * v) + l) :
+  left ≤ k * (u ^ 3 + v ^ 3 + w ^ 3 + 3 * u * v * w) + l

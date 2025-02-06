@@ -1,0 +1,18 @@
+[package]
+name = "egg_matching"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "pyegg"
+crate-type = ["cdylib"]
+
+[dependencies]
+fxhash = "0.2.1"
+num = "0.4.3"
+log = "0.4.17"
+indexmap = "2.6.0"
+egg = { git = "https://github.com/egraphs-good/egg", branch = "main" }
+pyo3 = { version = "0.23.3", features = ["extension-module"] }
+pyo3-log = "0.12.1"
+ctrlc = "3.1.0"

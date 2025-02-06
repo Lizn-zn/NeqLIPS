@@ -1,0 +1,12 @@
+import Math
+
+#check Holder_2R_left_2vars
+#check Holder_2R_right_2vars
+#check Holder_2R_div_variant1_right_2vars
+#check Holder_2R_div_variant2_right_2vars
+#check Holder_2R_pq_div_variant1_right_3vars
+#check Holder_2R_pq_div_Peq1_right_3vars
+#check Holder_2R_pq_div_Qeq1_right_3vars
+#check Holder_2R_qp_div_variant1_right_3vars
+#check Holder_2R_qp_div_Peq1_right_3vars
+#check Holder_2R_qp_div_Qeq1_right_3vars

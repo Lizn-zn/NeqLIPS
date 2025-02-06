@@ -1,0 +1,6 @@
+import Math
+
+#check Karamata_sqrt_cycle_left_3vars
+#check Karamata_sqrt_cycle_right_3vars
+#check Karamata_square_cycle_left_3vars
+#check Karamata_square_cycle_right_3vars

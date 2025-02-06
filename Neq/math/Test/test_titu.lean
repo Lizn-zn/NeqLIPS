@@ -1,0 +1,9 @@
+import Math
+
+#check Titu_normal_left_3vars
+#check Titu_normal_right_3vars
+#check Titu_cycle_refactor_left_3vars
+#check Titu_cycle_refactor_right_3vars
+#check Titu_variant1_right_3vars
+#check Titu_variant2_right_3vars
+#check Titu_variant2_Req1_right_3vars

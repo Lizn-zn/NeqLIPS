@@ -1,0 +1,82 @@
+Holder_2R_left_2vars (u1 u2 u3 v1 v2 v3 r1 r2 k l right : ℝ) (hu1 : u1 > 0) (hu2 : u2 > 0) (hu3 : u3 > 0) (hv1 : v1 > 0)
+  (hv2 : v2 > 0) (hv3 : v3 > 0) (hr1 : r1 > 0) (hr2 : r2 > 0) (hk : k ≥ 0) (hsum : r1 + r2 = 1)
+  (h : k * (u1 + u2 + u3) ^ r1 * (v1 + v2 + v3) ^ r2 + l ≤ right) :
+  k * (u1 ^ r1 * v1 ^ r2 + u2 ^ r1 * v2 ^ r2 + u3 ^ r1 * v3 ^ r2) + l ≤ right
+Holder_2R_right_2vars (u1 u2 u3 v1 v2 v3 r1 r2 k l left : ℝ) (hu1 : u1 > 0) (hu2 : u2 > 0) (hu3 : u3 > 0) (hv1 : v1 > 0)
+  (hv2 : v2 > 0) (hv3 : v3 > 0) (hr1 : r1 > 0) (hr2 : r2 > 0) (hk : k ≥ 0)
+  (h :
+    left ≤
+      k *
+          (u1 ^ (r1 / (r1 + r2)) * v1 ^ (r2 / (r1 + r2)) + u2 ^ (r1 / (r1 + r2)) * v2 ^ (r2 / (r1 + r2)) +
+              u3 ^ (r1 / (r1 + r2)) * v3 ^ (r2 / (r1 + r2))) ^
+            (r1 + r2) +
+        l) :
+  left ≤ k * (u1 + u2 + u3) ^ r1 * (v1 + v2 + v3) ^ r2 + l
+Holder_2R_div_variant1_right_2vars (u1 u2 u3 v1 v2 v3 k l left : ℝ) (hu1 : u1 > 0) (hu2 : u2 > 0) (hu3 : u3 > 0)
+  (hv1 : v1 > 0) (hv2 : v2 > 0) (hv3 : v3 > 0) (hk : k ≥ 0)
+  (h : left ≤ k * sqrt((u1 + u2 + u3) ^ 3 / (u1 * v1 ^ 2 + u2 * v2 ^ 2 + u3 * v3 ^ 2)) + l) :
+  left ≤ k * (u1 / v1 + u2 / v2 + u3 / v3) + l
+Holder_2R_div_variant2_right_2vars (u1 u2 u3 v1 v2 v3 k l left : ℝ) (hu1 : u1 > 0) (hu2 : u2 > 0) (hu3 : u3 > 0)
+  (hv1 : v1 > 0) (hv2 : v2 > 0) (hv3 : v3 > 0) (hk : k ≥ 0)
+  (h : left ≤ k * sqrt((u1 ^ (2 / 3) + u2 ^ (2 / 3) + u3 ^ (2 / 3)) ^ 3 / (v1 ^ 2 + v2 ^ 2 + v3 ^ 2)) + l) :
+  left ≤ k * (u1 / v1 + u2 / v2 + u3 / v3) + l
+Holder_2R_pq_div_variant1_right_3vars (u1 u2 u3 v1 v2 v3 w1 w2 w3 p q k l left : ℝ) (hu1 : u1 > 0) (hu2 : u2 > 0)
+  (hu3 : u3 > 0) (hv1 : v1 > 0) (hv2 : v2 > 0) (hv3 : v3 > 0) (hw1 : w1 > 0) (hw2 : w2 > 0) (hw3 : w3 > 0) (hp : p > 0)
+  (hq : q > 0) (hk : k ≥ 0)
+  (h :
+    left ≤
+      k *
+          (((u1 / w1 ^ (q - 2)) ^ (1 / 3) + (u2 / w2 ^ (q - 2)) ^ (1 / 3) + (u3 / w3 ^ (q - 2)) ^ (1 / 3)) ^ 3 /
+            (v1 ^ (p / 2) * w1 + v2 ^ (p / 2) * w2 + v3 ^ (p / 2) * w3) ^ 2) +
+        l) :
+  left ≤ k * (u1 / (v1 ^ p * w1 ^ q) + u2 / (v2 ^ p * w2 ^ q) + u3 / (v3 ^ p * w3 ^ q)) + l
+Holder_2R_pq_div_Peq1_right_3vars (u1 u2 u3 v1 v2 v3 w1 w2 w3 q k l left : ℝ) (hu1 : u1 > 0) (hu2 : u2 > 0)
+  (hu3 : u3 > 0) (hv1 : v1 > 0) (hv2 : v2 > 0) (hv3 : v3 > 0) (hw1 : w1 > 0) (hw2 : w2 > 0) (hw3 : w3 > 0) (hq : q > 0)
+  (hk : k ≥ 0)
+  (h :
+    left ≤
+      k *
+          (((u1 / w1 ^ (q - 2)) ^ (1 / 3) + (u2 / w2 ^ (q - 2)) ^ (1 / 3) + (u3 / w3 ^ (q - 2)) ^ (1 / 3)) ^ 3 /
+            (v1 ^ (1 / 2) * w1 + v2 ^ (1 / 2) * w2 + v3 ^ (1 / 2) * w3) ^ 2) +
+        l) :
+  left ≤ k * (u1 / (v1 * w1 ^ q) + u2 / (v2 * w2 ^ q) + u3 / (v3 * w3 ^ q)) + l
+Holder_2R_pq_div_Qeq1_right_3vars (u1 u2 u3 v1 v2 v3 w1 w2 w3 p q k l left : ℝ) (hu1 : u1 > 0) (hu2 : u2 > 0)
+  (hu3 : u3 > 0) (hv1 : v1 > 0) (hv2 : v2 > 0) (hv3 : v3 > 0) (hw1 : w1 > 0) (hw2 : w2 > 0) (hw3 : w3 > 0) (hp : p > 0)
+  (hk : k ≥ 0)
+  (h :
+    left ≤
+      k *
+          (((u1 * w1) ^ (1 / 3) + (u2 * w2) ^ (1 / 3) + (u3 * w3) ^ (1 / 3)) ^ 3 /
+            (v1 ^ (p / 2) * w1 + v2 ^ (p / 2) * w2 + v3 ^ (p / 2) * w3) ^ 2) +
+        l) :
+  left ≤ k * (u1 / (v1 ^ p * w1) + u2 / (v2 ^ p * w2) + u3 / (v3 ^ p * w3)) + l
+Holder_2R_qp_div_variant1_right_3vars (u1 u2 u3 v1 v2 v3 w1 w2 w3 p q k l left : ℝ) (hu1 : u1 > 0) (hu2 : u2 > 0)
+  (hu3 : u3 > 0) (hv1 : v1 > 0) (hv2 : v2 > 0) (hv3 : v3 > 0) (hw1 : w1 > 0) (hw2 : w2 > 0) (hw3 : w3 > 0) (hp : p > 0)
+  (hq : q > 0) (hk : k ≥ 0)
+  (h :
+    left ≤
+      k *
+          (((u1 / v1 ^ (p - 2)) ^ (1 / 3) + (u2 / v2 ^ (p - 2)) ^ (1 / 3) + (u3 / v3 ^ (p - 2)) ^ (1 / 3)) ^ 3 /
+            (v1 * w1 ^ (q / 2) + v2 * w2 ^ (q / 2) + v3 * w3 ^ (q / 2)) ^ 2) +
+        l) :
+  left ≤ k * (u1 / (v1 ^ p * w1 ^ q) + u2 / (v2 ^ p * w2 ^ q) + u3 / (v3 ^ p * w3 ^ q)) + l
+Holder_2R_qp_div_Peq1_right_3vars (u1 u2 u3 v1 v2 v3 w1 w2 w3 q k l left : ℝ) (hu1 : u1 > 0) (hu2 : u2 > 0)
+  (hu3 : u3 > 0) (hv1 : v1 > 0) (hv2 : v2 > 0) (hv3 : v3 > 0) (hw1 : w1 > 0) (hw2 : w2 > 0) (hw3 : w3 > 0) (hq : q > 0)
+  (hk : k ≥ 0)
+  (h :
+    left ≤
+      k *
+          (((u1 * v1) ^ (1 / 3) + (u2 * v2) ^ (1 / 3) + (u3 * v3) ^ (1 / 3)) ^ 3 /
+            (v1 * w1 ^ (q / 2) + v2 * w2 ^ (q / 2) + v3 * w3 ^ (q / 2)) ^ 2) +
+        l) :
+  left ≤ k * (u1 / (v1 * w1 ^ q) + u2 / (v2 * w2 ^ q) + u3 / (v3 * w3 ^ q)) + l
+Holder_2R_qp_div_Qeq1_right_3vars (u1 u2 u3 v1 v2 v3 w1 w2 w3 p k l left : ℝ) (hu1 : u1 > 0) (hu2 : u2 > 0)
+  (hu3 : u3 > 0) (hv1 : v1 > 0) (hv2 : v2 > 0) (hv3 : v3 > 0) (hw1 : w1 > 0) (hw2 : w2 > 0) (hw3 : w3 > 0) (hp : p > 0)
+  (hk : k ≥ 0)
+  (h :
+    left ≤
+      k *
+          (((u1 / v1 ^ (p - 2)) ^ (1 / 3) + (u2 / v2 ^ (p - 2)) ^ (1 / 3) + (u3 / v3 ^ (p - 2)) ^ (1 / 3)) ^ 3 /
+            (v1 * w1 ^ (1 / 2) + v2 * w2 ^ (1 / 2) + v3 * w3 ^ (1 / 2)) ^ 2) +
+        l) :
+  left ≤ k * (u1 / (v1 ^ p * w1) + u2 / (v2 ^ p * w2) + u3 / (v3 ^ p * w3)) + l

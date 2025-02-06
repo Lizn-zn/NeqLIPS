@@ -1,0 +1,22 @@
+import Math
+
+#check Jensen_sqrt_left_2vars
+#check Jensen_sqrt_right_2vars
+#check Jensen_sqrt_left_3vars
+#check Jensen_sqrt_right_3vars
+#check Jensen_square_div_left_3vars
+#check Jensen_square_div_right_3vars
+#check Jensen_sqrt_div_left_3vars
+#check Jensen_sqrt_div_right_3vars
+#check Jensen_dick_div_left_3vars
+#check Jensen_dick_div_right_3vars
+#check Jensen_pow_Rlt1_left_3vars
+#check Jensen_pow_Rlt1_right_3vars
+#check Jensen_pow_Rgt1_left_3vars
+#check Jensen_pow_Rgt1_right_3vars
+#check Jensen_pow_Rlt1_left_4vars
+#check Jensen_pow_Rlt1_right_4vars
+#check Jensen_pow_Rgt1_left_4vars
+#check Jensen_pow_Rgt1_right_4vars
+#check Jensen_square_div_left_4vars
+#check Jensen_square_div_right_4vars

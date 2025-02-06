@@ -1,0 +1,10 @@
+theorem extracted_1 (c : ℝ) : 0 ≤ c := sorry
+Test/test_tactics.lean:3:0: warning: declaration uses 'sorry'
+theorem extracted_1 (c : ℝ) : 0 ≤ c := sorry
+Test/test_tactics.lean:8:0: warning: declaration uses 'sorry'
+theorem extracted_1 (a b c : ℝ) (h1 : a + b ≥ 0) (h2 : b * c ≥ 0) : a * c + b * b ≤ 0 := sorry
+Test/test_tactics.lean:13:0: warning: declaration uses 'sorry'
+theorem extracted_1 (a b c : ℝ) (h1 : a ≥ 0) (h2 : b + c ≥ 0) : a ≤ b + c := sorry
+Test/test_tactics.lean:18:0: warning: declaration uses 'sorry'
+theorem extracted_1 (b c : ℝ) : b ≤ c := sorry
+Test/test_tactics.lean:23:0: warning: declaration uses 'sorry'

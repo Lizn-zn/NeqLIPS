@@ -1,0 +1,33 @@
+Cauchy_Schwarz_normal_left_2vars (u1 u2 v1 v2 k l right : ℝ) (h1 : k ≥ 0)
+  (h2 : k * (u1 ^ 2 + u2 ^ 2) * (v1 ^ 2 + v2 ^ 2) + l ≤ right) : k * (u1 * v1 + u2 * v2) ^ 2 + l ≤ right
+Cauchy_Schwarz_normal_right_2vars (u1 u2 v1 v2 k l left : ℝ) (h1 : k ≥ 0)
+  (h2 : left ≤ k * (u1 * v1 + u2 * v2) ^ 2 + l) : left ≤ k * (u1 ^ 2 + u2 ^ 2) * (v1 ^ 2 + v2 ^ 2) + l
+Cauchy_Schwarz_sqrt_left_2vars (u1 u2 v1 v2 k l right : ℝ) (h1 : k ≥ 0)
+  (h2 : k * sqrt(u1 ^ 2 + u2 ^ 2) * sqrt(v1 ^ 2 + v2 ^ 2) + l ≤ right) : k * (u1 * v1 + u2 * v2) + l ≤ right
+Cauchy_Schwarz_sqrt_right_2vars (u1 u2 v1 v2 k l left : ℝ) (h1 : k ≥ 0) (h2 : left ≤ k * (u1 * v1 + u2 * v2) + l) :
+  left ≤ k * sqrt(u1 ^ 2 + u2 ^ 2) * sqrt(v1 ^ 2 + v2 ^ 2) + l
+Cauchy_Schwarz_sqrt_cycle_left_2vars (u1 u2 u3 u4 u5 u6 v1 v2 v3 v4 v5 v6 k l right : ℝ) (hk : k ≥ 0)
+  (h :
+    k *
+          (sqrt(u1 ^ 2 + u2 ^ 2) * sqrt(v1 ^ 2 + v2 ^ 2) + sqrt(u3 ^ 2 + u4 ^ 2) * sqrt(v3 ^ 2 + v4 ^ 2) +
+            sqrt(u5 ^ 2 + u6 ^ 2) * sqrt(v5 ^ 2 + v6 ^ 2)) +
+        l ≤
+      right) :
+  k * (u1 * v1 + u2 * v2 + u3 * v3 + u4 * v4 + u5 * v5 + u6 * v6) + l ≤ right
+Cauchy_Schwarz_sqrt_cycle_right_2vars (u1 u2 u3 u4 u5 u6 v1 v2 v3 v4 v5 v6 k l left : ℝ) (hu1 : u1 ≥ 0) (hu2 : u2 ≥ 0)
+  (hu3 : u3 ≥ 0) (hu4 : u4 ≥ 0) (hu5 : u5 ≥ 0) (hu6 : u6 ≥ 0) (hv1 : v1 ≥ 0) (hv2 : v2 ≥ 0) (hv3 : v3 ≥ 0)
+  (hv4 : v4 ≥ 0) (hv5 : v5 ≥ 0) (hv6 : v6 ≥ 0) (hk : k ≥ 0)
+  (h : left ≤ k * (sqrt(u1 * v1) + sqrt(u2 * v2) + sqrt(u3 * v3) + sqrt(u4 * v4) + sqrt(u5 * v5) + sqrt(u6 * v6)) + l) :
+  left ≤ k * (sqrt(u1 + u2) * sqrt(v1 + v2) + sqrt(u3 + u4) * sqrt(v3 + v4) + sqrt(u5 + u6) * sqrt(v5 + v6)) + l
+Cauchy_Schwarz_normal_left_3vars (u1 u2 u3 v1 v2 v3 k l right : ℝ) (h1 : k ≥ 0)
+  (h2 : k * (u1 ^ 2 + u2 ^ 2 + u3 ^ 2) * (v1 ^ 2 + v2 ^ 2 + v3 ^ 2) + l ≤ right) :
+  k * (u1 * v1 + u2 * v2 + u3 * v3) ^ 2 + l ≤ right
+Cauchy_Schwarz_normal_right_3vars (u1 u2 u3 v1 v2 v3 k l left : ℝ) (h1 : k ≥ 0)
+  (h2 : left ≤ k * (u1 * v1 + u2 * v2 + u3 * v3) ^ 2 + l) :
+  left ≤ k * (u1 ^ 2 + u2 ^ 2 + u3 ^ 2) * (v1 ^ 2 + v2 ^ 2 + v3 ^ 2) + l
+Cauchy_Schwarz_sqrt_left_3vars (u1 u2 u3 v1 v2 v3 k l right : ℝ) (h1 : k ≥ 0)
+  (h2 : k * sqrt(u1 ^ 2 + u2 ^ 2 + u3 ^ 2) * sqrt(v1 ^ 2 + v2 ^ 2 + v3 ^ 2) + l ≤ right) :
+  k * (u1 * v1 + u2 * v2 + u3 * v3) + l ≤ right
+Cauchy_Schwarz_sqrt_right_3vars (u1 u2 u3 v1 v2 v3 k l left : ℝ) (h1 : k ≥ 0)
+  (h2 : left ≤ k * (u1 * v1 + u2 * v2 + u3 * v3) + l) :
+  left ≤ k * sqrt(u1 ^ 2 + u2 ^ 2 + u3 ^ 2) * sqrt(v1 ^ 2 + v2 ^ 2 + v3 ^ 2) + l
