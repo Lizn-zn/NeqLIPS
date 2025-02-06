@@ -7,7 +7,7 @@ from . import parser
 from ..logger_config import default_logger, setup_logger
 
 credential = DefaultAzureCredential(
-    managed_identity_client_id="7e0d39de-9cb1-4585-85af-1e82ea00b36d"
+    managed_identity_client_id="xxx"
 )
 token_provider = get_bearer_token_provider(
     credential, "https://cognitiveservices.azure.com/.default"
@@ -28,7 +28,7 @@ class LLM:
         self.top_p = top_p
         self.max_tokens = max_tokens
         self.idx = 0
-        self.num_llms = 5
+        self.num_llms = 1
         # Setup logger if log_file is provided
         self.logger = logger or default_logger
 
@@ -36,31 +36,7 @@ class LLM:
         if idx == 0:
             client = AzureOpenAI(
                 api_version="2024-05-01-preview",
-                azure_endpoint="https://aimtest14.openai.azure.com/",
-                azure_ad_token_provider=token_provider,
-            )
-        elif idx == 1:
-            client = AzureOpenAI(
-                api_version="2024-05-01-preview",
-                azure_endpoint="https://aimtest2.openai.azure.com/",
-                azure_ad_token_provider=token_provider,
-            )
-        elif idx == 2:
-            client = AzureOpenAI(
-                api_version="2024-05-01-preview",
-                azure_endpoint="https://aimtest12.openai.azure.com/",
-                azure_ad_token_provider=token_provider,
-            )         
-        elif idx == 3:   
-            client = AzureOpenAI(
-                api_version="2024-05-01-preview",
-                azure_endpoint="https://aimtest9.openai.azure.com/",
-                azure_ad_token_provider=token_provider,
-            )
-        elif idx == 4:
-            client = AzureOpenAI(
-                api_version="2024-05-01-preview",
-                azure_endpoint="https://aimtest8.openai.azure.com/",
+                azure_endpoint="https://xxx.openai.azure.com/",
                 azure_ad_token_provider=token_provider,
             )
         else:
