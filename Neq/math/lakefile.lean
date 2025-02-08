@@ -24,7 +24,7 @@ lean_lib «Math» {
 require mathlib from git
   "https://github.com/leanprover-community/mathlib4" @ "v4.11.0"
 
-require smt from git "https://github.com/Lizn-zn/lean-smt" @ "v4.11.0"
+-- require smt from git "https://github.com/Lizn-zn/lean-smt" @ "v4.11.0"
 
 require LeanCopilot from git "https://github.com/lean-dojo/LeanCopilot.git" @ "v1.6.0"
 

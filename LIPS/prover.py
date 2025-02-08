@@ -124,7 +124,6 @@ class Prover:
         # thm.build("set_option maxHeartbeats 1000000000")
         self.leanio.build("local macro_rules | `($x / $y)   => `(HDiv.hDiv ($x : ℝ) ($y : ℝ))")
         proof_state = self.leanio.build(problem)
-        # print(Fore.BLUE + str(thm.print_proof()) + Style.RESET_ALL)
         goals = self.leanio.get_goals(proof_state)
         if len(goals) > 1:
             raise NotImplementedError("Multiple goals are not supported yet")
@@ -446,7 +445,6 @@ class Prover:
         """
         ps_lst = [self.ranker.init_ps, self.ranker.best_ps]
         gs_lst = [self.ranker.init_goal, self.ranker.best_goal]
-        print(ps_lst, gs_lst)
         for ps, gs in zip(ps_lst, gs_lst):
             # make the problem homogeneous
             tactics = self.make_by_homogeneous(gs)
@@ -466,16 +464,15 @@ class Prover:
                 print("The FINAL PROOF IS AS FOLLOWS")
                 print(self.leanio.print_trace(new_proof_state))
                 return True
-        for ps, gs in zip(ps_lst, gs_lst):
-            # check by positivity
-            print("SMT try to prove the goal: ", gs)
-            next_ps = self.leanio.apply("smt_only!", ps)
-            goals = self.leanio.get_goals(next_ps)
-            if len(goals) == 0:
-                print("FINISH!!!")
-                print("The FINAL PROOF IS AS FOLLOWS")
-                print(self.leanio.print_trace(next_ps))
-                return True
+        # for ps, gs in zip(ps_lst, gs_lst):
+        #     print("SMT try to prove the goal: ", gs)
+        #     next_ps = self.leanio.apply("smt_only!", ps)
+        #     goals = self.leanio.get_goals(next_ps)
+        #     if len(goals) == 0:
+        #         print("FINISH!!!")
+        #         print("The FINAL PROOF IS AS FOLLOWS")
+        #         print(self.leanio.print_trace(next_ps))
+        #         return True
         return False
 
     def clean(self):
