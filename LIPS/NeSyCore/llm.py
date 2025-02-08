@@ -1,17 +1,10 @@
 import re
+import warnings
 from wrapt_timeout_decorator import timeout
-from openai import AzureOpenAI, OpenAI
-from azure.identity import DefaultAzureCredential, get_bearer_token_provider
+from openai import OpenAI
 
 from . import parser
 from ..logger_config import default_logger, setup_logger
-
-credential = DefaultAzureCredential(
-    managed_identity_client_id="xxx"
-)
-token_provider = get_bearer_token_provider(
-    credential, "https://cognitiveservices.azure.com/.default"
-)
 
 
 class LLM:
@@ -34,11 +27,7 @@ class LLM:
 
     def set_api_key(self, idx=0):
         if idx == 0:
-            client = AzureOpenAI(
-                api_version="2024-05-01-preview",
-                azure_endpoint="https://xxx.openai.azure.com/",
-                azure_ad_token_provider=token_provider,
-            )
+            client = None
         else:
             raise IndexError("No more API keys")
         return client
@@ -62,10 +51,15 @@ class LLM:
         Returns:
             str: the response from the openai api
         """
-        self.idx = self.idx // self.num_llms
-        client = (
-            self.set_api_key(self.idx // self.num_llms)
-        )  # bad implementation, but no other ways to support multiprocess
+        try:
+            self.idx = self.idx // self.num_llms
+            client = (
+                self.set_api_key(self.idx // self.num_llms)
+            )  # bad implementation, but no other ways to support multiprocess
+        except Exception as e:
+            self.logger.error(f"gpt-4 with index {self.idx} encounter an error {e}")
+            warnings.warn(f"gpt-4 encounter an error {e}")
+            return r"\\box{{0}}"
         max_tokens = max_tokens or self.max_tokens
         temperature = temperature or self.temperature
         top_p = top_p or self.top_p

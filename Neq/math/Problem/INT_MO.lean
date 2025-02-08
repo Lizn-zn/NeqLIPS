@@ -1,6 +1,5 @@
 import Mathlib
 import Math
-import Smt
 
 open Real
 

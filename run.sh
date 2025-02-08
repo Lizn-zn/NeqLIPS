@@ -36,8 +36,7 @@ python -u main.py \
     --rewrite_limit 1 \
     --init_test "auto" \
     --smt_config "{'smt_timeout': 15, 'smt_level': 0, 'smt_solvers': ['z3', 'cvc5', 'mplbt', 'mplrc', 'mmard', 'mmafi', 'sysol', 'syopt'], 'smt_update': True}" \
-    --prover_vb 1 \
-    > "Results/$theorem_name/output.txt" 2>&1
+    --prover_vb 1 
 
   sleep 1
 done

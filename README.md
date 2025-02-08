@@ -12,37 +12,64 @@ Then, it selects the best proof state by symbolic filtering and neural ranking.
 #### 1. Clone the repository
 
 ```
-git clone https://github.com/Lizn-zn/NeqLIPS.git
+git clone https://github.com/Lizn-zn/NeqLIPS.git 
+cd NeqLIPS
 ```
 
-#### 2. Install by Script
+#### 2. Install Lean 4 & Lean-REPL
+
+Follow the instructions on the [Lean installation page](https://lean-lang.org/lean4/doc/setup.html) to install Lean 4. Then, install lean-repl via the following command.
 
 ```
-./Installation/install.sh
+git submodule init && git submodule update 
 ```
 
-#### 3. Initialize the LLM interface
+#### 3. Install dependencies
 
 ```
-./NeSyCore/llm.py
+conda env create -f ./Installation/env.yml 
+conda activate NeqLIPS 
+pip install git+https://github.com/Lizn-zn/pysmt.git@Bottema 
+pip install git+https://github.com/Lizn-zn/MT-Solver.git
 ```
 
-#### 4. Run the Inequality Prover
+#### 4. Install Rust & Egg
+
+Follow the instructions on the [Rust installation page](https://www.rust-lang.org/tools/install) to install Rust. Then, install Egg via the following command.
+```
+cargo install maturin && maturin develop --release --manifest-path LIPS/egg_matching/Cargo.toml
+```
+
+#### 5. Install Symbolic Solver (Optional)
+
+We strongly recommend installing one of the [maple](https://www.maplesoft.com/) or [mathematica](https://www.wolfram.com/mathematica/) for the counterexample checking
+
+#### 6. Initialize the LLM interface
+
+Set your own GPT interface in `./NeSyCore/llm.py`
+
+#### 7. Run the Inequality Prover
+
+Use the shell `run.sh` or the following command
 
 ```shell
-python main.py --problem "theorem P14 {a b c : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) : 9 / (1 + a * b * c) ≤ (1 / a + 1 / b + 1 / c) * (1 / (1 + a) + 1 / (1 + b) + 1 / (1 + c)) := by sorry"
+python main.py --problem "theorem P1 {a b c : ℝ} : a * b + b * c + c * a ≤ a ^ 2 + b ^ 2 + c ^ 2 := by sorry"
 ```
 
-#### Note:
+Please refer to `LIPS/args.py` for more arguments.
 
-1. If installation by script failed, please check the step-by-step readme in `./Installation` or build docker instead.
-2. For more parameters in running or default parameters, see `run.sh`
+#### 8. Proof Visualization
 
-## Proof Visualization
 
+## Include more tactics
+
+## Results
+
+The generated formal proof are provided in `Neq/Math/Problem`, 
 
 
 ## TODO List
+
 - [ ] README in `./Installation`
 - [ ] Visualization of Proof Tree
 - [ ] Alternative LLM DeepSeek instead of GPT-4

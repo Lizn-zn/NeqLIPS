@@ -3,6 +3,7 @@ import Lean.Elab.Command
 import Lean.Elab.Tactic.BuiltinTactic
 
 import Math.NeqNorm
+-- import Smt
 
 open Lean Parser Parser.Tactic Elab Command Elab.Tactic Meta
 open Real
@@ -161,28 +162,29 @@ macro "norm_frac" : tactic =>
 /-
 automation tactics for scaling
 -/
-macro "automation" : tactic =>
-  `(tactic| ( (try all_goals norm_cast);
-              (try all_goals push_cast);
-              (try all_goals norm_num);
-              (try all_goals (repeat rwp [mul_rpow])); -- (a * b) ^ c = a ^ c * b ^ c
-              (try all_goals (repeat rwp [<-sqrt_eq_rpow]));
-              (try all_goals simp);
-              (try all_goals (repeat rwp [($(mkIdent `sqrt_reduce))]));
-              (try all_goals (repeat rwp [($(mkIdent `sqrt_reduce1))]));
-              (try all_goals (repeat rwp [($(mkIdent `sqrt_reduce2))]));
-              (first
-                | done
-                | linarith
-                | ·ring_nf
-                | (field_simp; (first | done
-                                          | linarith
-                                          |·ring_nf
-                                          |·(ring_nf; field_simp)
-                                          -- | ·polyrith
-                                   ))
-                | field_simp [*]; linarith
-              )))
+-- macro "automation" : tactic =>
+--   `(tactic| ( (try all_goals norm_cast);
+--               (try all_goals push_cast);
+--               (try all_goals norm_num);
+--               (try all_goals (repeat rwp [mul_rpow])); -- (a * b) ^ c = a ^ c * b ^ c
+--               (try all_goals (repeat rwp [<-sqrt_eq_rpow]));
+--               (try all_goals simp);
+--               (try all_goals (repeat rwp [($(mkIdent `sqrt_reduce))]));
+--               (try all_goals (repeat rwp [($(mkIdent `sqrt_reduce1))]));
+--               (try all_goals (repeat rwp [($(mkIdent `sqrt_reduce2))]));
+--               (first
+--                 | done
+--                 | linarith
+--                 | ·ring_nf
+--                 | (field_simp; (first | done
+--                                           | linarith
+--                                           |·ring_nf
+--                                           |·(ring_nf; field_simp)
+--                                           | smt_only!
+--                                           | ·polyrith
+--                                    ))
+--                 | field_simp [*]; linarith
+--               )))
 
 
 -- macro "scale " h:term : tactic =>
@@ -192,6 +194,7 @@ macro "automation" : tactic =>
 --                           (try any_goals positivity);
 --                           (try any_goals linarith);
 --                           (repeat fail_if_no_progress norm_expr)))
+
 
 macro "scale " h:term : tactic =>
     `(tactic| (first | apply $h; (try any_goals positivity); norm_expr

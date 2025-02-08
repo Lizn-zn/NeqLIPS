@@ -1,3 +1,0 @@
-{"cmd": "def f : Nat := by apply Nat.succ"}
-
-{"cmd": "def f (x : Bool) : Nat := by\n  by_cases x\n  { apply Nat.succ }"}
