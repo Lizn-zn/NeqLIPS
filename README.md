@@ -52,6 +52,8 @@ Set your own GPT interface in `./NeSyCore/llm.py`
 
 Use the shell `run.sh` or the following command
 
+Use the shell `run.sh` or the following command
+
 ```shell
 python main.py --problem "theorem P1 {a b c : ℝ} : a * b + b * c + c * a ≤ a ^ 2 + b ^ 2 + c ^ 2 := by sorry"
 ```
@@ -60,6 +62,12 @@ Please refer to `LIPS/args.py` for more arguments.
 
 #### 8. Proof Visualization
 
+
+## Include more tactics
+
+## Results
+
+The generated formal proof are provided in `Neq/Math/Problem`, 
 
 ## Include more tactics
 
