@@ -1,7 +1,6 @@
 from LIPS import parse_args
 from LIPS import Prover
 import datetime
-from colorama import Fore, Style
 from pprint import pprint
 
 # from collections import deque
@@ -13,23 +12,23 @@ from pstats import SortKey
 
 
 def generate(prover: Prover, problem: str):
-    print(Fore.GREEN + "=" * 50 + " Prover Configs " + "=" * 50 + "\n" + f"{prover} " + Style.RESET_ALL)
+    print("=" * 50 + " Prover Configs " + "=" * 50 + "\n" + f"{prover} ")
     prover.set_problem(problem)
     for idx in range(200):
         prover.clean()
         prover.save_json()
         proof_state = prover.get_next()
-        print(Fore.GREEN + "=" * 50 + f" Iteration {idx} " + "=" * 50 + Style.RESET_ALL)
-        print(Fore.GREEN + "Start time: " + f" {datetime.datetime.now()} " + Style.RESET_ALL)
+        print("=" * 50 + f" Iteration {idx} " + "=" * 50)
+        print("Start time: " + f" {datetime.datetime.now()} ")
         if proof_state == -1:
-            print(Fore.RED + " No more proof states available " + Style.RESET_ALL)
+            print(" No more proof states available ")
             break
         if idx > 0:
             smt_res, msg = prover.probe_state(proof_state)
         else:
             smt_res = 1
         if smt_res <= 0:
-            print(Fore.RED + f"Failed to solve the problem: {msg}" + Style.RESET_ALL)
+            print(f"Failed to solve the problem: {msg}")
             states = []
         else:
             steps = prover.get_steps(proof_state)
@@ -41,7 +40,7 @@ def generate(prover: Prover, problem: str):
             prover.rank_state()
     sos = prover.close_by_sym()
     if sos == False:
-        print(Fore.RED + "Failed to prove the problem" + Style.RESET_ALL)
+        print("Failed to prove the problem")
 
 
 if __name__ == "__main__":
