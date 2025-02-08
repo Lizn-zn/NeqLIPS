@@ -24,40 +24,41 @@ Follow the instructions on the [Lean installation page](https://lean-lang.org/le
 git submodule init && git submodule update 
 ```
 
-#### 2. Install dependencies
+#### 3. Install dependencies
 
 ```
-conda env create -f ./Installation/env.yml \
-    && conda activate NeqLIPS && pip install git+https://github.com/Lizn-zn/pysmt.git@Bottema \
-    && pip install --force-reinstall git+https://github.com/Lizn-zn/MT-Solver.git
+conda env create -f ./Installation/env.yml 
+conda activate NeqLIPS 
+pip install git+https://github.com/Lizn-zn/pysmt.git@Bottema 
+pip install git+https://github.com/Lizn-zn/MT-Solver.git
 ```
 
-#### 3. Install Rust & Egg
+#### 4. Install Rust & Egg
 
 Follow the instructions on the [Rust installation page](https://www.rust-lang.org/tools/install) to install Rust. Then, install Egg via the following command.
 ```
 cargo install maturin && maturin develop --release --manifest-path LIPS/egg_matching/Cargo.toml
 ```
 
-#### 4. Install Symbolic Solver (Optional)
+#### 5. Install Symbolic Solver (Optional)
 
 We strongly recommend installing one of the [maple](https://www.maplesoft.com/) or [mathematica](https://www.wolfram.com/mathematica/) for the counterexample checking
 
-#### 5. Initialize the LLM interface
+#### 6. Initialize the LLM interface
 
 Set your own GPT interface in `./NeSyCore/llm.py`
 
-#### 4. Run the Inequality Prover
+#### 7. Run the Inequality Prover
 
 Use the shell `run.sh` or the following command
 
 ```shell
-python main.py --problem "theorem P1 {a b c : ℝ} : a * b + b * c + c * a ≤ a ^ 2 + b ^ 2 + c ^ 2 := by := by sorry"
+python main.py --problem "theorem P1 {a b c : ℝ} : a * b + b * c + c * a ≤ a ^ 2 + b ^ 2 + c ^ 2 := by sorry"
 ```
 
 Please refer to `LIPS/args.py` for more arguments.
 
-## Proof Visualization
+#### 8. Proof Visualization
 
 
 ## Include more tactics
