@@ -119,6 +119,18 @@ The formal proofs of MO-INT, ChenNEQ, and 567Neq are provided in `Neq/Math/Probl
     ```
 - Add corresponding Lean lemmas in `Neq/math/Math/NeqScales.lean`
 
+## Include more tactics
+
+## Results
+
+The generated formal proof are provided in `Neq/Math/Problem`, 
+
+## Include more tactics
+
+## Results
+
+The generated formal proof are provided in `Neq/Math/Problem`, 
+
 
 ## TODO List
 

@@ -133,7 +133,6 @@ class Prover:
         # thm.build("set_option maxHeartbeats 1000000000")
         self.leanio.build("local macro_rules | `($x / $y)   => `(HDiv.hDiv ($x : ℝ) ($y : ℝ))")
         proof_state = self.leanio.build(problem)
-        # print(Fore.BLUE + str(thm.print_proof()) + Style.RESET_ALL)
         goals = self.leanio.get_goals(proof_state)
         if len(goals) > 1:
             raise NotImplementedError("Multiple goals are not supported yet")

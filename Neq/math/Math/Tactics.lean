@@ -5,6 +5,7 @@ import Lean.Elab.Tactic.BuiltinTactic
 import Smt
 
 import Math.NeqNorm
+-- import Smt
 
 open Lean Parser Parser.Tactic Elab Command Elab.Tactic Meta
 open Real
@@ -196,6 +197,7 @@ elab "automation " : tactic => do
     Tactic.evalTactic (← `(tactic| auto_verify;))
   else
     Tactic.evalTactic (← `(tactic| closed_by_axiom;))
+
 
 macro "scale " h:term : tactic =>
     `(tactic| (first | apply $h; (try any_goals positivity); norm_expr

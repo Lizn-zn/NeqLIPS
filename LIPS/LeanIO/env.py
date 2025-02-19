@@ -45,8 +45,8 @@ class LeanIO(ProofTree):
         if (not os.path.isdir(lake_dir)) or force_rebuild:
             msg = run_lake_build(self.MathDir, 'mathlib')
             self.logger.info(f"build mathlib: {msg}")
-            msg = run_lake_build(self.MathDir, 'smt')
-            self.logger.info(f"build smt: {msg}")
+            # msg = run_lake_build(self.MathDir, 'smt')
+            # self.logger.info(f"build smt: {msg}")
             msg = run_lake_build(self.MathDir, '')
             self.logger.info(f"build lean: {msg}")
         ## build REPL

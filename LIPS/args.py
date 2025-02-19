@@ -6,7 +6,7 @@ def parse_args():
     """
     argparser = argparse.ArgumentParser(description="Process theorem statement and values.")
     argparser.add_argument("--problem", default="", type=str, help="Input theorem statement")
-    argparser.add_argument("--save_dir", default=None, type=str, help="Saved path for output file")
+    argparser.add_argument("--save_dir", default="Results", type=str, help="Saved path for output file")
     argparser.add_argument("--log_level", default="INFO", type=str, choices=["INFO", "DEBUG", "WARNING", "ERROR"], help="Log level for output")
     argparser.add_argument("--num_threads", default=96, type=int, help="Number of threads")
     ### LeanIO params
