@@ -1,6 +1,8 @@
 import os
 import re
 import json
+from wrapt_timeout_decorator import timeout
+
 from .cmds import *
 from .tree import ProofTree
 
@@ -43,8 +45,8 @@ class LeanIO(ProofTree):
         if (not os.path.isdir(lake_dir)) or force_rebuild:
             msg = run_lake_build(self.MathDir, 'mathlib')
             self.logger.info(f"build mathlib: {msg}")
-            # msg = run_lake_build(self.MathDir, 'smt')
-            # self.logger.info(f"build smt: {msg}")
+            msg = run_lake_build(self.MathDir, 'smt')
+            self.logger.info(f"build smt: {msg}")
             msg = run_lake_build(self.MathDir, '')
             self.logger.info(f"build lean: {msg}")
         ## build REPL
@@ -104,6 +106,7 @@ class LeanIO(ProofTree):
         """
         raise NotImplementedError("The declare function is not implemented")
     
+    @timeout(30)
     def apply(self, cmd: str, ps: int) -> int:
         """
         Apply the tactic to the given proof state

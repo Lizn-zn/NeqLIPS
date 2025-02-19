@@ -142,7 +142,7 @@ theorem P22 {a b : ℝ} (ha : a > 0) (hb : b > 0) (h : a + b < 6): 1 / sqrt (1 +
 
 theorem P23 {a b c : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) : a / sqrt (a ^ 2 + 8 * b * c) + b / sqrt (b ^ 2 + 8 * a * c) + c / sqrt (c ^ 2 + 8 * a * b) ≤ 2 := by
   intro_by_homogeneous a + b + c = 3
-  closed_by_sos
+  sorry
 
 theorem P24 {a b c : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) (h : a + b + c = 1) : 1 / (a + 2) + 1 / (b + 2) + 1 / (c + 2) ≤ 1 / (6 * sqrt (a * b) + c) + 1 / (6 * sqrt (b * c) + a) + 1 / (6 * sqrt (c * a) + b) := by
   scale AM_GM_div_cycle_normal_right_2vars (u1 := a) (u2 := b) (u3 := a) (v1 := b) (v2 := c) (v3 := c) (i1 := 6) (i2 := 6) (i3 := 6) (j1 := c) (j2 := a) (j3 := b) (k := 1) (l := 0) (left := 1 / (a + 2) + 1 / (b + 2) + 1 / (c + 2))
@@ -296,11 +296,7 @@ theorem P40 {a b c : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) (h : a + b + c 
   try close
 
 theorem P41 {a b c : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) : (a + b + c) ^ 3 ≤ (a ^ 5 - a ^ 2 + 3) * (b ^ 5 - b ^ 2 + 3) * (c ^ 5 - c ^ 2 + 3) := by
-  closed_by_sos
+  sos!
 
 theorem P42 {a b c : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) (h : a + b + c = a ^ (1 / 7) + b ^ (1 / 7) + c ^ (1 / 7)) : 1 ≤ a ^ a * b ^ b * c ^ c := by
-  sorry
-
-/-- a variable substitution to P23 -/
-theorem P23a {a b c : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) (h : a * b * c = 1) : 1 / sqrt (1 + 8 * a) + 1 / sqrt (1 + 8 * b) + 1 / sqrt (1 + 8 * c) ≤ 2 := by
   sorry

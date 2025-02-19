@@ -1,10 +1,10 @@
 {
     "LEMMA_NAME_VERSION_DIRECTION_VARS": {
-        "input": "Lemma_Input",
-        "output": "Lemma_Output",
-        "type": "Direction",
-        "var": ["Var_List"],
-        "condition": ["Equality_Condition"]
+        "input": "LEMMA_INPUT",
+        "output": "LEMMA_OUTPUT",
+        "type": "DIRECTION",
+        "var": ["VAR_LIST"],
+        "condition": ["EQUALITY_CONDITION"]
     },
     "Cauchy_Schwarz_normal_left_2vars": {
         "input": "k * (u1 * v1 + u2 * v2) ^ 2 + l",
@@ -636,6 +636,20 @@
         "var": ["u", "v", "w", "p", "k", "l"],
         "condition": ["u = v", "v = w"]
     },
+    "Muirhead_Qeq1Req0_right_3vars": {
+        "input": "k * (u ^ p + v ^ p + w ^ p) + l",
+        "output": "k * (u ^ (p - 1) * v + v ^ (p - 1) * w + w ^ (p - 1) * u) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "p", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Muirhead_Qeq1Req0_split_right_3vars": {
+        "input": "k * (u ^ p + v ^ p + w ^ p) + l",
+        "output": "k * (u ^ (p - 1) * v + v ^ (p - 1) * w + w ^ (p - 1) * u + u ^ (p - 1) * w + v ^ (p - 1) * u + w ^ (p - 1) * v) / 2 + l",
+        "type": "right",
+        "var": ["u", "v", "w", "p", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
     "Muirhead_Qeq1Req0_div_right_3vars": {
         "input": "k * (1 / (i * (u ^ p * v + v ^ p * w + w ^ p * u) + j)) + l",
         "output": "k * (1 / (i * (u ^ (p + 1) + v ^ (p + 1) + w ^ (p + 1)) + j)) + l",
@@ -867,6 +881,20 @@
         "var": ["u", "v", "w", "k", "l"],
         "condition": ["u = v", "v = w"]
     },
+    "Karamata_div_cycle_left_3vars": {
+        "input": "k * (1 / u + 1 / v + 1 / w) + l",
+        "output": "k * (1 / (u + v - w) + 1 / (u + w - v) + 1 / (v + w - u)) + l",
+        "type": "left",
+        "var": ["u", "v", "w", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Karamata_div_cycle_right_3vars": {
+        "input": "k * (1 / (u + v - w) + 1 / (u + w - v) + 1 / (v + w - u)) + l",
+        "output": "k * (1 / u + 1 / v + 1 / w) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
     "weighted_Jensen_sqrt_div_left_3vars": {
         "input": "k * (1 / sqrt (i1 * u + i2 * v + i3 * w)) + l",
         "output": "k * ((i1 / sqrt u + i2 / sqrt v + i3 / sqrt w) / sqrt (i1 + i2 + i3) ^ 3) + l",
@@ -907,6 +935,13 @@
         "output": "k * ((u1 * w1 + u2 * w2 + u3 * w3 + 3 * i * w1 * w2 * w3) ^ 2 / (v1 * w1 ^ 2 + v2 * w2 ^ 2 + v3 * w3 ^ 2)) + l",
         "type": "right",
         "var": ["u1", "u2", "u3", "v1", "v2", "v3", "w1", "w2", "w3", "i", "k", "l"],
+        "condition": ["u1 / v1 = u2 / v2", "u2 / v2 = u3 / v3"]
+    },
+    "Titu_cycle_mul_refactor_right_3vars":{
+        "input": "k * (u1 ^ 2 * w1 / v1 + u2 ^ 2 * w2 / v2 + u3 ^ 2 * w3 / v3) + l",
+        "output": "k * ((u1 + u2 + u3) ^ 2 / (v1 / w1 + v2 / w2 + v3 / w3)) + l",
+        "type": "right",
+        "var": ["u1", "u2", "u3", "v1", "v2", "v3", "w1", "w2", "w3", "k", "l"],
         "condition": ["u1 / v1 = u2 / v2", "u2 / v2 = u3 / v3"]
     },
     "Titu_variant1_right_3vars": {
@@ -993,7 +1028,21 @@
         "var": ["u", "v", "w", "k", "l"],
         "condition": ["u = v", "v = w"]
     },
-    "Holder_2R_left_2vars": {
+    "Schur_Teq2_left_3vars": {
+        "input": "k * (u * v ^ 3 + u * w ^ 3 + v * u ^ 3 + v * w ^ 3 + w * u ^ 3 + w * v ^ 3) + l",
+        "output": "k * (u ^ 4 + v ^ 4 + w ^ 4 + u ^ 2 * v * w + v ^ 2 * w * u + w ^ 2 * u * v) + l",
+        "type": "left",
+        "var": ["u", "v", "w", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Schur_Teq2_right_3vars": {
+        "input": "k * (u ^ 4 + v ^ 4 + w ^ 4 + u ^ 2 * v * w + v ^ 2 * w * u + w ^ 2 * u * v) + l",
+        "output": "k * (u * v ^ 3 + u * w ^ 3 + v * u ^ 3 + v * w ^ 3 + w * u ^ 3 + w * v ^ 3) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Holder_2R_left_3vars": {
         "input": "k * (u1 ^ r1 * v1 ^ r2 + u2 ^ r1 * v2 ^ r2 + u3 ^ r1 * v3 ^ r2) + l",
         "output": "k * (u1 + u2 + u3) ^ r1 * (v1 + v2 + v3) ^ r2 + l",
         "type": "left",
@@ -1090,5 +1139,19 @@
         "type": "right",
         "var": ["u1", "u2", "u3", "u4", "v1", "v2", "v3", "v4", "k", "l"],
         "condition": ["u1 / u2 = v1 / v2", "u2 / u3 = v2 / v3", "u3 / u4 = v3 / v4"]
+    },
+    "Vasc_left_3vars": {
+        "input": "k * (u ^ 3 * v + v ^ 3 * w + w ^ 3 * u) + l",
+        "output": "k * (u ^ 2 + v ^ 2 + w ^ 2) ^ 2 / 3 + l",
+        "type": "left",
+        "var": ["u", "v", "w", "k", "l"],
+        "condition": ["u = v", "v = w"]
+    },
+    "Vasc_right_3vars": {
+        "input": "k * (u ^ 2 + v ^ 2 + w ^ 2) ^ 2 + l",
+        "output": "k * 3 * (u ^ 3 * v + v ^ 3 * w + w ^ 3 * u) + l",
+        "type": "right",
+        "var": ["u", "v", "w", "k", "l"],
+        "condition": ["u = v", "v = w"]
     }
 }

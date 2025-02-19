@@ -191,3 +191,76 @@ def parse_math_dict(msg):
         value = sympify(value.strip(), rational=True)
         result[key] = value
     return result
+
+
+def cycle_sum(expr: Expr):
+    cycle_mappings = [{a : b, b : c, c : a}, {a : c, c : b, b : a}]
+    sum_expr = expr
+    for mapping in cycle_mappings:
+        sum_expr += expr.xreplace(mapping)
+    return sympify(sum_expr, evaluate=True)
+
+def cycle_prod(expr: Expr):
+    cycle_mappings = [{a : b, b : c, c : a}, {a : c, c : b, b : a}]
+    prod_expr = expr
+    for mapping in cycle_mappings:
+        prod_expr *= expr.xreplace(mapping)
+    return sympify(prod_expr, evaluate=True)
+    
+# https://aritra-12.github.io/pdfs/The_pqr_handout%20(1).pdf
+p, q, r = symbols("p q r", positive=True)
+
+def get_pqr():
+    return p, q, r
+
+pqr_mappings = {
+    cycle_sum(a)   : p,
+    cycle_sum(a ** 2) : p ** 2 - 2 * q,
+    cycle_sum(a ** 3) : p ** 3 - 3 * p * q + 3 * r,
+    cycle_sum(a ** 4) : p ** 4 - 4 * p ** 2 * q + 4 * p * r + 2 * q ** 2,
+    cycle_sum(a ** 5) : p ** 5 - 5 * p ** 3 * q + 5 * p ** 2 * r + 5 * p * q ** 2 + 5 * q * r,
+    cycle_sum(a ** 6) : p ** 6 - 6 * p ** 4 * q + 6 * p ** 3 * r + 9 * p ** 2 * q ** 2 - 2 * q ** 3 - 12 * p * q * r + 3 * r ** 2,
+    
+    cycle_sum(a * b)                 : q,
+    cycle_sum((a * b) ** 2)          : q ** 2 - 2 * p * r,
+    cycle_sum((a * b) ** 3)          : q ** 3 - 3 * p * q * r + 3 * r ** 2,
+    cycle_sum((a * b) ** 4)          : q ** 4 - 4 * p * q ** 2 * r + 2 * p ** 2 * r ** 2 + 4 * q * r ** 2,
+    cycle_sum((a * b) ** 5)          : q ** 5 - 5 * p * q ** 3 * r + 5 * p ** 2 * q * r ** 2 + 5 * q ** 2 * r ** 2 - 5 * p * r ** 3,
+    cycle_sum(a ** 2 * b + a * b ** 2)      : p * q - 3 * r,
+    cycle_sum(a ** 3 * b + a * b ** 3)      : p ** 2 * q - 2 * q ** 2 - p * r,
+    cycle_sum(a ** 4 * b + a * b ** 4)      : p ** 3 * q - 3 * p * q ** 2 - p ** 2 * r + 5 * q * r,
+    cycle_sum(a ** 5 * b + a * b ** 5)      : p ** 4 * q - p ** 3 * r - 4 * p ** 2 * q ** 2 + 7 * p * q * r + 2 * q ** 3 - 3 * r ** 2,
+    
+    cycle_sum(a ** 2 * b * c)          : p * r,
+    cycle_sum(a ** 3 * b * c)          : p ** 2 * r - 2 * q * r,
+    cycle_sum(a ** 4 * b * c)          : p ** 3 * r - 3 * p * q * r + 3 * r ** 2,
+    cycle_sum(a ** 2 * b ** 2 * c)        : q * r,
+    cycle_sum(a ** 3 * b ** 2 * c + a ** 3 * b * c ** 2) : p * q * r - 3 * r ** 2,
+    cycle_sum(a ** 3 * b ** 2 + a ** 2 * b ** 3) : p * q ** 2 - 2 * p ** 2 * r - q * r,
+    
+    cycle_sum(a ** 4 * b ** 2 + a ** 2 * b ** 4)          : p ** 2 * q ** 2 - 2 * q ** 3 - 2 * p ** 3 * r + 4 * p * q * r - 3 * r ** 2,
+    cycle_sum(a ** 4 * b ** 3 + a ** 3 * b ** 4)          : p * q ** 3 - 3 * p ** 2 * q * r + 5 * p * r ** 2 - q ** 2 * r,
+    cycle_sum((a + b) * (b + c))                          : p ** 2 + q,
+    cycle_sum((1 + a) * (1 + b))                          : 2 * p + q + 3,
+    cycle_sum((1 + a) ** 2 * (1 + b) ** 2)                : 2 * p ** 2 + 2 * p * q - 2 * p * r + q ** 2 + 4 * q - 6 * r + 3,
+    cycle_sum((a + b) ** 2 * (b + c) ** 2)                : p ** 4 - p ** 2 * q + q ** 2 - 4 * p * r,
+    cycle_sum((a ** 2 + a * b + b ** 2) * (b ** 2 + b * c + c ** 2)) : p ** 4 - 3 * p ** 2 * q + 3 * q ** 2,
+
+    cycle_prod(a)                                          : r,
+    cycle_prod(a ** 2)                                     : r ** 2,
+    cycle_prod(a + b)                                      : p * q - r,
+    cycle_prod(1 + a)                                      : 1 + p + q + r,
+    cycle_prod(1 + a ** 2)                                 : p ** 2 + q ** 2 + r ** 2 - 2 * p * r - 2 * q + 1,
+    cycle_prod(1 + a ** 3)                                 : p ** 3 + q ** 3 + r ** 3 - 3 * p * q * r - 3 * p * q - 3 * r ** 2 + 3 * r + 1,
+    cycle_prod(a ** 2 + a * b + b ** 2)                    : p ** 2 * q ** 2 - 3 * q ** 3 - p ** 3 * r,
+
+    # Two complex product expressions
+    cycle_prod((a ** 3 * b + b ** 3 * c + c ** 3 * a) * (a * b ** 3 + b * c ** 3 + c * a ** 3)) : p ** 5 * r - 5 * p ** 3 * q * r + p * q ** 2 * r + 7 * p ** 2 * r ** 2 + q ** 4,
+    cycle_prod((a ** 2 * b + b ** 2 * c + c ** 2 * a) * (a * b ** 2 + b * c ** 2 + c * a ** 2)) : p ** 3 * r + 9 * r ** 2 - 6 * p * q * r + q ** 3,
+
+    cycle_prod((a - b) ** 2)                               : -4 * p ** 3 * r + p ** 2 * q ** 2 + 18 * p * q * r - 4 * q ** 3 - 27 * r ** 2,
+
+    # additional
+    cycle_sum(a * b) * cycle_sum(a) * cycle_prod(a)        : p * q * r,
+    cycle_prod(a) * cycle_sum(a * b) ** 2                  : r * q ** 2,
+}

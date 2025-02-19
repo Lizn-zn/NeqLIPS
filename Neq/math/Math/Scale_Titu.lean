@@ -60,6 +60,19 @@ theorem Titu_cycle_refactor_right_3vars (u1 u2 u3 v1 v2 v3 w1 w2 w3 k l left : �
     field_simp [*]
     ring_nf
 
+
+/-- (u1 ^ 2 * w1 / v1 + u2 ^ 2 * w2 / v2 + u3 ^ 2 * w3 / v3 -> (u1 + u2 + u3) ^ 2 / (v1 / w1 + v2 / w2 + v3 / w3) -/
+theorem Titu_cycle_mul_refactor_right_3vars (u1 u2 u3 v1 v2 v3 w1 w2 w3 k l left : ℝ) (hv1 : v1 > 0) (hv2 : v2 > 0) (hv3 : v3 > 0) (hw1 : w1 > 0) (hw2 : w2 > 0) (hw3 : w3 > 0) (hk : k > 0)
+  (h : left ≤ k * ((u1 + u2 + u3) ^ 2 / (v1 / w1 + v2 / w2 + v3 / w3)) + l) :
+  left ≤ k * (u1 ^ 2 * w1 / v1 + u2 ^ 2 * w2 / v2 + u3 ^ 2 * w3 / v3) + l := by
+    suffices (u1 + u2 + u3) ^ 2 / (v1 / w1 + v2 / w2 + v3 / w3) ≤ (u1 ^ 2 * w1 / v1 + u2 ^ 2 * w2 / v2 + u3 ^ 2 * w3 / v3) by nlinarith
+    have hv1' : v1 / w1 > 0 := by positivity
+    have hv2' : v2 / w2 > 0 := by positivity
+    have hv3' : v3 / w3 > 0 := by positivity
+    have h_ := Titu_3vars (u1) (u2) (u3) (v1 / w1) (v2 / w2) (v3 / w3) hv1' hv2' hv3'
+    convert h_ using 1
+    field_simp [*]
+
 /-- The variants of Titu inequalities: a / b -> a^2 / ab; a / b -> a^r / b^(r-1) -/
 theorem Titu_variant1_right_3vars (u1 u2 u3 v1 v2 v3 k l left : ℝ) (hv1 : v1 > 0) (hv2 : v2 > 0) (hv3 : v3 > 0) (hk : k > 0)
   (h : left ≤ k * ((u1 + u2 + u3) ^ 2 / (u1 * v1 + u2 * v2 + u3 * v3)) + l) :
@@ -81,6 +94,25 @@ theorem Titu_variant2_Req1_right_3vars (u1 u2 u3 v1 v2 v3 r k l left : ℝ) (hv1
     norm_num at h_
     apply h_
     exact h
+
+/-- The variants of Titu inequalities: 1 / (a + bc) -> (b + c) ^ 2 / (a + bc)*(b+c)^2 --/
+theorem Titu_variant3_right_3vars (u1 u2 u3 v1 v2 v3 j1 j2 j3 k l left : ℝ) (hu1 : u1 > 0) (hu2 : u2 > 0) (hu3 : u3 > 0) (hv1 : v1 > 0) (hv2 : v2 > 0) (hv3 : v3 > 0) (hj1 : j1 > 0) (hj2 : j2 > 0) (hj3 : j3 > 0) (hk : k > 0)
+  (h : left ≤ k * ((u1 + u2 + u3 + v1 + v2 + v3) ^ 2 / (((u1 * v1 + j1) * (u1 + v1) ^ 2) + ((u2 * v2 + j2) * (u2 + v2) ^ 2) + ((u3 * v3 + j3) * (u3 + v3) ^ 2))) + l) :
+  left ≤ k * ((1 / (u1 * v1 + j1)) + (1 / (u2 * v2 + j2)) + (1 / (u3 * v3 + j3))) + l := by
+    suffices (u1 + u2 + u3 + v1 + v2 + v3) ^ 2 / (((u1 * v1 + j1) * (u1 + v1) ^ 2) + ((u2 * v2 + j2) * (u2 + v2) ^ 2) + ((u3 * v3 + j3) * (u3 + v3) ^ 2)) ≤ ((1 / (u1 * v1 + j1)) + (1 / (u2 * v2 + j2)) + (1 / (u3 * v3 + j3))) by nlinarith
+    have hv1' : (u1 * v1 + j1) * (u1 + v1) ^ 2 > 0 := by positivity
+    have hv2' : (u2 * v2 + j2) * (u2 + v2) ^ 2 > 0 := by positivity
+    have hv3' : (u3 * v3 + j3) * (u3 + v3) ^ 2 > 0 := by positivity
+    have h_ := Titu_3vars (u1 + v1) (u2 + v2) (u3 + v3) ((u1 * v1 + j1) * (u1 + v1) ^ 2) ((u2 * v2 + j2) * (u2 + v2) ^ 2) ((u3 * v3 + j3) * (u3 + v3) ^ 2) hv1' hv2' hv3'
+    convert h_ using 1
+    rw[<-add_assoc]; rw[<-add_assoc]; field_simp [*]; ring_nf
+    have h1 : (u1 + v1) ^ 2 / ((u1 * v1 + j1) * (u1 + v1) ^ 2) = 1 / (u1 * v1 + j1) := by
+      field_simp [*]; linarith
+    have h2 : (u2 + v2) ^ 2 / ((u2 * v2 + j2) * (u2 + v2) ^ 2) = 1 / (u2 * v2 + j2) := by
+      field_simp [*]; linarith
+    have h3 : (u3 + v3) ^ 2 / ((u3 * v3 + j3) * (u3 + v3) ^ 2) = 1 / (u3 * v3 + j3) := by
+      field_simp [*]; linarith
+    rw[h1, h2, h3]
 
 end Titu_3vars
 

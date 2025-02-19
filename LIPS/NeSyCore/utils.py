@@ -22,7 +22,6 @@ def sympy_equal(expr1: Expr, expr2: Expr):
     Compare two sympy expressions
     """
     try:
-        # return simplify(powsimp(expr1, force=True) - powsimp(expr2, force=True), force=True) == 0 ### this is too slow
         if expr1.free_symbols != expr2.free_symbols:
             return False
         vars = expr1.free_symbols
@@ -40,10 +39,11 @@ def sympy_equal(expr1: Expr, expr2: Expr):
             val_not_equal = False
         if val_not_equal:
             return False
-        return simplify(powsimp(expr1, force=True) - powsimp(expr2, force=True), force=True) == 0
-    except:
-        # print(expr1, expr2)
-        raise ValueError
+        # return simplify(powsimp(expr1, force=True) - powsimp(expr2, force=True), force=True) == 0 # this is too slow
+        return powsimp(expr1, force=True).equals(powsimp(expr2, force=True))
+    except Exception as exc:
+        warnings.warn(f"sympy equal error {exc} for {expr1} = {expr2}")
+        return False
 
 
 def sympy_simp(expr: str) -> Tuple[str, Expr, Expr]:
@@ -121,7 +121,17 @@ def sosprove(code, smt_solvers, smt_timeout) -> Tuple[bool, str]:
             smts[s] = {"timeout": smt_timeout}
     ok, msg = mtsolver.prove(code, solvers=smts)
     return ok, msg
-    
+
+@timeout(60)
+def single_var_solve(exprs: List[Expr], var: Expr) -> Expr:
+    """Solve an expression with single variable
+    """
+    try:
+        solutions = solve(exprs, var, dict=True)
+        # Return the unique solution if exactly one exists, otherwise empty dict
+        return solutions[0] if len(solutions) == 1 else {}
+    except:
+        return {}
 
 def get_degree(expr: Expr) -> int:
     """Get the degree of an expression
@@ -187,6 +197,30 @@ def make_homogeneous(expr: Expr, delta: Expr, delta_degree: int) -> Expr:
                 new_args.append(arg)
     return func(*new_args)
 
+def has_var_denom(expr: Expr) -> bool:
+    """Check if an expression has a variable in the denominator
+    """
+    numer, denom = expr.as_numer_denom()
+    if len(denom.free_symbols) > 0:
+        return True
+    else:
+        return any([has_var_power(arg) for arg in expr.args])
+    
+def has_var_power(expr: Expr) -> bool:
+    """Check if an expression has a variable in the power
+    """
+    if expr.is_Symbol or expr.is_Number:
+        return False
+    else:
+        if expr.is_Pow:
+            base, exp = expr.args
+            if is_const(exp):
+                return False
+            else:
+                return True
+        else:
+            return any([has_var_power(arg) for arg in expr.args])
+                
 def make_rearrange(expr: Expr) -> Expr:
     """Make an expression rearranged
     
@@ -273,7 +307,8 @@ def cal_depth(expr: Expr, max_depth=3) -> int:
     Returns:
         int: the depth of the expression
     """
-    expr = simplify(powsimp(powdenest(expr, force=True), force=True))
+    # expr = simplify(powsimp(powdenest(expr, force=True), force=True))
+    expr = powsimp(powdenest(expr, force=True), force=True) # remove simplify for efficiency
     args = [expr]
     depth = 0
     while args:
@@ -407,3 +442,5 @@ def filter(pattern: Dict[str, str], var_lst: List[str]) -> bool:
     if any([pattern[v] == "0" for v in var_lst if v not in ["k", "l"] and "j" not in v]):
         return False
     return True
+
+    

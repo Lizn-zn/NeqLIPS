@@ -145,7 +145,7 @@ pub fn ematch(
     // println!("expr_op_count: {}, ast_size: {}", expr_ops, ast_size);
     // println!("pat_op_count: {}", pat_ops);
     // println!("expand_op_count: {}", expand_pat_ops);
-    if (expr_ops < 24 && ast_size < 36) || expand_pat_ops < 24 { // if the expr or pattern is simple, use ematch_aux
+    if (expr_ops < 24 && ast_size <= 28) || expand_pat_ops < 24 { // if the expr or pattern is simple, use ematch_aux
         // println!("use ematch_aux");
         return ematch_aug(&expr, &pattern, timeout);
     }

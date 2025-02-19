@@ -71,14 +71,20 @@
         "type": "rewrite_without_assumption",
         "sym_only": false
     },
+    "cancel_numerators": {
+        "prompt": "cancel the numerators of the fraction given by user, for example, 2 * a / (b + 2 * a) -> 1 - b / (b + 2 * a)",
+        "tactic": "llm_cancel_numer",
+        "type": "rewrite_without_assumption",
+        "sym_only": false
+    },
     "cancel_factor": {
-        "prompt": "cancel the factor of the fraction given by user, for example, a ^ 2 * c + 2abc + b ^ 2 * c -> c * (a + b) ^ 2",
+        "prompt": "cancel the factor of the expression given by user, for example, a ^ 2 * c + 2 * a * b * c -> a * c * (a + 2 * b)",
         "tactic": "llm_cancel_factor",
         "type": "rewrite_without_assumption",
         "sym_only": false
     },
     "cancel_power": {
-        "prompt": "cancel the power of inequality given by user, for example, a ^ 2 <= b ^ 2 -> 2",
+        "prompt": "cancel the power of inequality given by user, for example, sqrt a <= sqrt b -> 2",
         "tactic": "llm_cancel_power",
         "type": "rewrite_with_inequation",
         "sym_only": true
@@ -92,6 +98,12 @@
     "equal_value": {
         "prompt": "apply the equal value method to prove the expression given by user",
         "tactic": "sym_equal_value",
+        "type": "rewrite_with_inequation",
+        "sym_only": true
+    },
+    "pqr_method": {
+        "prompt": "apply the pqr substitution method to prove the expression given by user",
+        "tactic": "sym_pqr_method",
         "type": "rewrite_with_inequation",
         "sym_only": true
     }
