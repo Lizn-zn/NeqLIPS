@@ -5,9 +5,9 @@ import ast
 import json
 from wrapt_timeout_decorator import timeout
 from concurrent import futures
-from sympy import Add, Pow, fraction, Symbol, Function, Eq, Le
-from sympy import sympify, simplify, factor, lcm, gcd
-from sympy import symbols, solve, diff
+from sympy import Add, fraction, Symbol, Rational, Eq, Le, Lt, Ge
+from sympy import sympify, simplify, factor, lcm, sqrt
+from sympy import symbols, solve, diff, poly, reduce_inequalities
 from sympy.simplify.powsimp import powsimp, powdenest
 
 from . import parser
@@ -17,6 +17,7 @@ from .problem import Problem
 
 from ..logger_config import default_logger, setup_logger
 
+
 class Rewriter:
     def __init__(
         self,
@@ -25,9 +26,9 @@ class Rewriter:
         smt_config: str = "",
         sym_rewrite: int = 0,
         num_threads: int = 1,
-        logger=None
+        logger=None,
     ):
-        # Set the number of rewrite repeat 
+        # Set the number of rewrite repeat
         self.rewrite_limit = rewrite_limit
         # Set LLM
         self.llm = llm
@@ -147,7 +148,9 @@ class Rewriter:
                         self.logger.debug(f"Check {premise} result: Rewrite without assumption success")
                         break
                     else:
-                        self.logger.debug(f"Check {premise} result: LLM rewrite failed. The result cannot pass the sympy equal test")
+                        self.logger.debug(
+                            f"Check {premise} result: LLM rewrite failed. The result cannot pass the sympy equal test"
+                        )
 
         if not tactics:
             tactics = self.rewrite_with_sympy(neq, premise)
@@ -177,9 +180,7 @@ class Rewriter:
         tactics = []
 
         if not sym_only and self.all_sym == False:
-            select_prompt = self.rwa_prompt.format(
-                prompt=prompt, problem=orig_expr, condition=self.equality_assumption
-            )
+            select_prompt = self.rwa_prompt.format(prompt=prompt, problem=orig_expr, condition=self.equality_assumption)
             for i in range(self.rewrite_limit):
                 answers = self.llm.adaptive_response(select_prompt)
                 self.logger.debug(f"Rewrite ({i}-th try) of {premise}: \n {orig_expr} -> {answers}")
@@ -204,7 +205,9 @@ class Rewriter:
                     self.logger.debug(f"Check {premise} result: Rewrite without assumption success")
                     break
                 else:
-                    self.logger.debug(f"Check {premise} result: LLM rewrite failed. The result The SMT result is `{msg}`")
+                    self.logger.debug(
+                        f"Check {premise} result: LLM rewrite failed. The result The SMT result is `{msg}`"
+                    )
 
         if not tactics:
             tactics = self.rewrite_with_sympy(neq, premise)
@@ -229,9 +232,7 @@ class Rewriter:
         )
         tactics = []
         if sym_only == False and self.all_sym == False:
-            raise NotImplementedError(
-                f"llm rewrite with inequation is not supported yet"
-            )
+            raise NotImplementedError(f"llm rewrite with inequation is not supported yet")
         if tactics == []:
             tactics = self.rewrite_with_sympy(neq, premise)
         return tactics
@@ -247,9 +248,7 @@ class Rewriter:
             List[str]: the tactics to rewrite the expression
         """
         if "≤" not in neq:
-            raise ValueError(
-                f"The problem should be in the form of lhs ≤ rhs, but got: {neq}"
-            )
+            raise ValueError(f"The problem should be in the form of lhs ≤ rhs, but got: {neq}")
         if premise not in self.rewriting_tactics.keys():  # check the premise
             raise ValueError(f"Please select a valid tactic, received `{premise}`")
         content = self.rewriting_tactics[premise]
@@ -274,9 +273,7 @@ class Rewriter:
             List[str]: the tactics to rewrite the expression
         """
         if "≤" not in neq:
-            raise ValueError(
-                f"The problem should be in the form of lhs ≤ rhs, but got: {neq}"
-            )
+            raise ValueError(f"The problem should be in the form of lhs ≤ rhs, but got: {neq}")
         premise_list = self.rewriting_tactics.keys()
         parallel_executor = futures.ProcessPoolExecutor(max_workers=self.num_threads)
         futures_to_premise = {}
@@ -319,10 +316,12 @@ class Rewriter:
             "fraction_apart": self.sym_frac_apart,
             "fraction_together": self.sym_frac_together,
             "cancel_denominators": self.sym_cancel_denom,
+            "cancel_numerators": self.sym_cancel_numer,
             "cancel_power": self.sym_cancel_power,
             "cancel_factor": self.sym_cancel_factor,
             "tangent_line": self.sym_tangent_line,
-            "equal_value": self.sym_equal_value
+            "equal_value": self.sym_equal_value,
+            "pqr_method": self.sym_pqr_method,
         }
         if premise in sym_rewriting_tactics:
             return sym_rewriting_tactics[premise](neq)
@@ -353,7 +352,7 @@ class Rewriter:
         lhs, rhs = neq.split("≤", 1)
         lhs, rhs = lhs.strip(), rhs.strip()
         orig_expr = f"{lhs.strip()} - ({rhs.strip()})"
-        a, b, c, d, e = symbols("a b c d e", positive=True) # NOTE: should not using global variables
+        a, b, c, d, e = symbols("a b c d e", positive=True)  # NOTE: should not using global variables
         sympy_expr = parser.lean2sympy(orig_expr, local_dict={"a": a, "b": b, "c": c, "d": d, "e": e})
         try:
             sympy_expr = powsimp(powdenest(sympy_expr, force=True), force=True)
@@ -362,7 +361,7 @@ class Rewriter:
             self.logger.error(f"simplify failed for {orig_expr}, due to {e}")
             return []
         # rearrange the expression
-        if utils.cal_ops(sympy_expr) > 128:
+        if utils.cal_ops(sympy_expr) > 1280:
             self.logger.debug(f"simplify canceled for {orig_expr}, due to too many ops")
             return []
         sympy_expr = utils.normalize(sympy_expr)
@@ -388,11 +387,13 @@ class Rewriter:
         # simplify original expr
         sympy_expr = parser.lean2sympy(orig_expr)
         try:
-            sympy_expr = sympy_expr.expand() # power_base=False, power_exp=False, mul=True, multinomial=False, force=True
+            sympy_expr = (
+                sympy_expr.expand()
+            )  # power_base=False, power_exp=False, mul=True, multinomial=False, force=True
         except Exception as e:
             self.logger.error(f"mul_expand failed for {orig_expr}, due to {e}")
             return []
-        if utils.cal_ops(sympy_expr) > 128:
+        if utils.cal_ops(sympy_expr) > 1280:
             self.logger.debug(f"mul_expand canceled for {orig_expr}, due to too many ops")
             return []
         sympy_expr = utils.normalize(sympy_expr)
@@ -400,7 +401,7 @@ class Rewriter:
         tactics = [f"llm_mul_expand {orig_expr.strip()} = {new_expr.strip()}"]
         self.logger.debug(f"Symbolic Mul_expand finished \n==> Get {orig_expr} = {new_expr}")
         return tactics
-    
+
     @timeout(10)
     def sym_exp_expand(self, neq: str) -> List[str]:
         """Expand the expression, e.g., (a * b) ^ r -> a ^ r * b ^ r
@@ -425,7 +426,7 @@ class Rewriter:
         except Exception as e:
             self.logger.error(f"mul_expand failed for {orig_expr}, due to {e}")
             return []
-        if utils.cal_ops(sympy_expr) > 128:
+        if utils.cal_ops(sympy_expr) > 1280:
             self.logger.debug(f"exp_expand canceled for {orig_expr}, due to too many ops")
             return []
         sympy_expr = utils.normalize(sympy_expr)
@@ -456,7 +457,7 @@ class Rewriter:
         for a in self.expr_decompose(sympy_expr):
             new_args.append(factor(a))
         sympy_expr = Add(*new_args, evaluate=True)
-        if utils.cal_ops(sympy_expr) > 128:
+        if utils.cal_ops(sympy_expr) > 1280:
             self.logger.debug(f"factor canceled for {orig_expr}, due to too many ops")
             return []
         sympy_expr = utils.normalize(sympy_expr)
@@ -514,12 +515,12 @@ class Rewriter:
                         k -= 1
                 if k != 0:
                     new_args.append(k)
-                    new_args.append(numer / denom)
+                    new_args.append(-numer / denom)
                     continue
                 # if all of the above failed
                 new_args.append(a)
         sympy_expr = Add(*new_args, evaluate=True)
-        if utils.cal_ops(sympy_expr) > 128:
+        if utils.cal_ops(sympy_expr) > 1280:
             self.logger.debug(f"frac_reduce canceled for {orig_expr}, due to too many ops")
             return []
         sympy_expr = utils.normalize(sympy_expr)
@@ -555,7 +556,7 @@ class Rewriter:
                 numers = self.expr_decompose(numer)
                 new_args = new_args + [n / denom for n in numers]
         sympy_expr = Add(*new_args, evaluate=True)
-        if utils.cal_ops(sympy_expr) > 128:
+        if utils.cal_ops(sympy_expr) > 1280:
             self.logger.debug(f"frac_apart canceled for {orig_expr}, due to too many ops")
             return []
         sympy_expr = utils.normalize(sympy_expr)
@@ -595,7 +596,7 @@ class Rewriter:
         for denom, numer in common_denominator_terms.items():
             new_args.append(sympify(numer, evaluate=True) / denom)
         sympy_expr = Add(*new_args, evaluate=True)
-        if utils.cal_ops(sympy_expr) > 128:
+        if utils.cal_ops(sympy_expr) > 1280:
             self.logger.debug(f"frac_together canceled for {orig_expr}, due to too many ops")
             return []
         sympy_expr = utils.normalize(sympy_expr)
@@ -623,7 +624,7 @@ class Rewriter:
             self.logger.debug(f"cancel_denom skipped, due to denom = 1")
             return []
         else:
-            if utils.cal_ops(numer) > 128:
+            if utils.cal_ops(numer) > 1280:
                 self.logger.debug(f"cancel_denom canceled for {orig_expr}, due to too many ops")
                 return []
             numer = utils.normalize(numer)
@@ -631,6 +632,47 @@ class Rewriter:
             tactics = [f"llm_cancel_denom {orig_expr} = {new_expr}"]
             self.logger.debug(f"Symbolic Cancel_denom finished \n==> Get {orig_expr} = {new_expr}")
             return tactics
+
+    @timeout(10)
+    def sym_cancel_numer(self, neq: str) -> List[str]:
+        """Cancel the numerators, e.g., a / b - c / b -> 1 / (b / a) - 1 / (b / c)
+
+        Args:
+            neq (str): the expression to be numer canceled
+
+        Returns:
+            List[str]: the tactics to numer cancel the expression
+        """
+        lhs, rhs = neq.split("≤", 1)
+        lhs, rhs = lhs.strip(), rhs.strip()
+        orig_expr = f"({lhs}) - ({rhs})"
+        sympy_expr = parser.lean2sympy(orig_expr, evaluate=True)
+        args = self.expr_decompose(sympy_expr)
+        new_args = []
+        for a in args:
+            numer, denom = a.as_numer_denom()
+            new_numer = denom
+            k = 0
+            while True:
+                tmp_numer = new_numer.extract_additively(numer)
+                if tmp_numer is None:
+                    break
+                else:
+                    new_numer = tmp_numer
+                    k += 1
+            if k == 0:
+                new_args.append(a)
+            else:
+                new_args.append(1 / Rational(k) - (new_numer / (k * denom)))
+        sympy_expr = Add(*new_args, evaluate=True)
+        if utils.cal_ops(sympy_expr) > 128:
+            self.logger.debug(f"cancel_numer canceled for {orig_expr}, due to too many ops")
+            return []
+        sympy_expr = utils.normalize(sympy_expr)
+        new_expr = parser.sympy2lean(sympy_expr)
+        tactics = [f"llm_cancel_numer {orig_expr.strip()} = {new_expr.strip()}"]
+        self.logger.debug(f"Symbolic Cancel_numer finished \n==> Get {orig_expr} = {new_expr}")
+        return tactics
 
     @timeout(10)
     def sym_cancel_power(self, neq: str) -> List[str]:
@@ -707,7 +749,7 @@ class Rewriter:
         orig_expr = f"({lhs}) - ({rhs})"
         sympy_expr = parser.lean2sympy(orig_expr)
         sympy_expr = factor(sympy_expr)
-        if utils.cal_ops(sympy_expr) > 128:
+        if utils.cal_ops(sympy_expr) > 1280:
             self.logger.debug(f"cancel_factor canceled for {orig_expr}, due to too many ops")
             return []
         if sympy_expr.is_Mul:  # we must handle neg notation
@@ -723,7 +765,7 @@ class Rewriter:
                         term = neg_a
                         neg = False
                 subexprs.append(parser.sympy2lean(term))
-            if neg == True: # add -1 to the last term if neg is True
+            if neg == True:  # add -1 to the last term if neg is True
                 term = utils.normalize(-args[-1])
                 subexprs.append(parser.sympy2lean(term))
             else:
@@ -736,11 +778,11 @@ class Rewriter:
             self.logger.debug(f"cancel_factor skipped, due to not failed to factor")
             tactics = []
         return tactics
-    
+
     @timeout(10)
     def sym_tangent_line(self, neq: str) -> List[str]:
         """Use the tangent line to rewrite the expression
-        
+
         Args:
             neq (str): the expression to be tangent line
 
@@ -751,26 +793,24 @@ class Rewriter:
         lhs, rhs = lhs.strip(), rhs.strip()
         expr = f"0 ≤ ({rhs}) - ({lhs})"
         _, rearranged_expr = expr.split("≤", 1)
-        a, b, c, d, e = symbols("a b c d e") # NOTE: should not using global variables
+        a, b, c, d, e = symbols("a b c d e")  # NOTE: should not using global variables
         orig_expr = parser.lean2sympy(rearranged_expr, local_dict={"a": a, "b": b, "c": c, "d": d, "e": e})
         var_sum, num_vars = sum(orig_expr.free_symbols), len(orig_expr.free_symbols)
-        eq_ass = [] 
-        for x in self.equality_assumption: 
+        eq_ass = []
+        for x in self.equality_assumption:
             eq_ass.append(parser.lean2sympy(x))
-        try:
-            res = solve(eq_ass, var_sum, dict=True)[0]
-        except Exception as e:
-            res = {}
+        res = utils.single_var_solve(eq_ass, var_sum)
         if var_sum not in res:
             degree = utils.get_degree(orig_expr)
-            if degree != float("inf"): # the problem is homogeneous
+            if degree != float("inf"):  # the problem is homogeneous
                 res = {var_sum: num_vars}
-        if res == {}:
+        if res == {} or var_sum not in res:
             return []
         expr = utils.make_independent(orig_expr, res)
         args = self.expr_decompose(expr)
         is_independent = all([len(x.free_symbols) <= 1 for x in args])
-        if not is_independent or var_sum not in res:
+        is_cycle = all([expr.equals(expr.xreplace(maps)) for maps in self.cycle_mappings])
+        if not is_independent or not is_cycle:
             return []
         for x_ in set([res[var_sum] / num_vars, 1]):
             fun = Add(*[x for x in args if x.has(a)])
@@ -780,15 +820,17 @@ class Rewriter:
             concl = fun >= new_fun
             code = parser.sympy2smt(self.sym_cons, concl)
             ok, msg = utils.smtsolve(code, self.smt_solvers, self.smt_timeout)
-            if str(ok) == "unsat": 
+            if str(ok) == "unsat":
                 """check the validaty after applying the tangent line
-                   fun(a) is the single variable function (only w.r.t. a)
-                   fun + Add(*[fun.subs(s, simultaneous=True) for s in self.cycle_mappings]) is the entire function (w.r.t. all variables)
-                   since we may have residual terms, i.e., sympy_expr - (fun + Add(*[fun.subs(s, simultaneous=True) for s in self.cycle_mappings]))
-                   we need to check the validaty of the residual terms when substitute the fun by new_fun   
+                fun(a) is the single variable function (only w.r.t. a)
+                fun + Add(*[fun.subs(s, simultaneous=True) for s in self.cycle_mappings]) is the entire function (w.r.t. all variables)
+                since we may have residual terms, i.e., sympy_expr - (fun + Add(*[fun.subs(s, simultaneous=True) for s in self.cycle_mappings]))
+                we need to check the validaty of the residual terms when substitute the fun by new_fun
                 """
                 delta_expr = orig_expr - (fun + Add(*[fun.subs(s, simultaneous=True) for s in self.cycle_mappings]))
-                sympy_expr = delta_expr + new_fun + Add(*[new_fun.subs(s, simultaneous=True) for s in self.cycle_mappings])
+                sympy_expr = (
+                    delta_expr + new_fun + Add(*[new_fun.subs(s, simultaneous=True) for s in self.cycle_mappings])
+                )
                 sympy_expr = simplify(sympy_expr)
                 new_concl = sympy_expr >= 0
                 code = parser.sympy2smt(self.sym_cons, new_concl)
@@ -798,10 +840,10 @@ class Rewriter:
                     new_expr = parser.sympy2lean(sympy_expr)
                     return [f"sym_tangent_line {new_expr.strip()} ≤ {rearranged_expr.strip()}"]
         return []
-    
+
     def sym_equal_value(self, neq: str) -> List[str]:
         """Use the equal value (n-1 EV) method to rewrite the expression
-        
+
         Args:
             neq (str): the expression to be equal value
 
@@ -812,27 +854,24 @@ class Rewriter:
         lhs, rhs = lhs.strip(), rhs.strip()
         expr = f"0 ≤ ({rhs}) - ({lhs})"
         _, rearranged_expr = expr.split("≤", 1)
-        a, b, c, d, e = symbols("a b c d e") # NOTE: should not using global variables
+        a, b, c, d, e = symbols("a b c d e")  # NOTE: should not using global variables
         sympy_expr = parser.lean2sympy(rearranged_expr, local_dict={"a": a, "b": b, "c": c, "d": d, "e": e})
         var_sum, num_vars = sum(sympy_expr.free_symbols), len(sympy_expr.free_symbols)
         expr_vars = [a, b, c, d, e][:num_vars]
-        eq_ass = [] 
-        for x in self.equality_assumption: 
+        eq_ass = []
+        for x in self.equality_assumption:
             eq_ass.append(parser.lean2sympy(x))
-        try:
-            res = solve(eq_ass, var_sum, dict=True)[-1]
-        except IndexError as e:
-            res = {}
+        res = utils.single_var_solve(eq_ass, var_sum)
         if var_sum not in res:
             degree = utils.get_degree(sympy_expr)
-            if degree != float("inf"): # the problem is homogeneous
+            if degree != float("inf"):  # the problem is homogeneous
                 res = {var_sum: num_vars}
-        if res == {}:
+        if res == {} or var_sum not in res:
             return []
         expr = utils.make_independent(sympy_expr, res)
-        args = self.expr_decompose(expr)
-        is_independent = all([len(x.free_symbols) <= 1 for x in args])
-        if not is_independent or var_sum not in res:
+        is_independent = all([len(x.free_symbols) <= 1 for x in self.expr_decompose(expr)])
+        is_cycle = all([expr.equals(expr.xreplace(maps)) for maps in self.cycle_mappings])
+        if not is_independent or not is_cycle:
             return []
         ### Check exactly one inflection point
         fun = Add(*[x for x in args if x.has(a)])
@@ -857,6 +896,137 @@ class Rewriter:
             new_expr = parser.sympy2lean(sympy_expr)
             return [f"sym_equal_value 0 ≤ {new_expr.strip()}"]
         return []
-        
 
+    def sym_pqr_method(self, neq: str) -> List[str]:
+        """Use the pqr method to rewrite the expression
+            (1) determine whether the expression can be converted into pqr format
+            (2) if so, check c = 0 and a = b
 
+        Args:
+            neq (str): the expression to be pqr method
+
+        Returns:
+            List[str]: the tactics to pqr method the expression
+        """
+        lhs, rhs = neq.split("≤", 1)
+        lhs, rhs = lhs.strip(), rhs.strip()
+        a, b, c, d, e = parser.get_symbols()
+        p, q, r = parser.get_pqr()
+        lhs_expr = parser.lean2sympy(lhs, local_dict={"a": a, "b": b, "c": c, "d": d, "e": e})
+        rhs_expr = parser.lean2sympy(rhs, local_dict={"a": a, "b": b, "c": c, "d": d, "e": e})
+        if utils.has_var_denom(lhs_expr - rhs_expr):  # denominator should be constant
+            return []
+        if not lhs_expr.free_symbols.issubset({a, b, c}) or not rhs_expr.free_symbols.issubset({a, b, c}):  # only support 3 variables
+            return []
+        if not all(
+            [(x > 0) in self.sym_cons or (x >= 0) in self.sym_cons for x in [a, b, c]]
+        ):  # only support positive variables
+            return []
+        lhs = lhs_expr.expand()
+        lhs_coeffs = sorted(set(poly(lhs, gens=[a, b, c]).coeffs()))
+        pqr_format = []
+        for t, map_t in parser.pqr_mappings.items():
+            t = t.expand()
+            k = 0
+            for coeff in lhs_coeffs:
+                tmp_expr = lhs.extract_additively((coeff * t))
+                if tmp_expr is None:
+                    break
+                else:
+                    k = coeff
+            if k > 0:
+                lhs = lhs.extract_additively((k * t).expand()).expand()
+                pqr_format.append(k * map_t)
+        if not utils.is_const(lhs):  # cannot be convert to pqr format
+            return []
+        lhs_pqr = Add(*pqr_format)
+        rhs = rhs_expr.expand()
+        rhs_coeffs = sorted(set(poly(rhs, gens=[a, b, c]).coeffs()))
+        pqr_format = []
+        for t, map_t in parser.pqr_mappings.items():
+            t = t.expand()
+            k = 0
+            for coeff in rhs_coeffs:
+                tmp_expr = rhs.extract_additively((coeff * t))
+                if tmp_expr is None:
+                    break
+                else:
+                    k = coeff
+            if k > 0:
+                rhs = rhs.extract_additively((k * t).expand()).expand()
+                pqr_format.append(k * map_t)
+        if not utils.is_const(rhs):  # cannot be convert to pqr format
+            return []
+        rhs_pqr = Add(*pqr_format)
+        pqr_expr = poly(lhs_pqr - rhs_pqr, gens=[r])
+        # solve p, q, r
+        eq_ass = []
+        for x in self.equality_assumption:
+            eq_ass.append(parser.lean2sympy(x))
+        for x, y in zip([p, q, r], [a + b + c, a * b + b * c + a * c, a * b * c]):
+            res = utils.single_var_solve(eq_ass, y)
+            if res != {} and utils.is_const(res[y]):
+                pqr_expr = pqr_expr.replace(x, res[y])
+        A, B, C = pqr_expr.nth(2), pqr_expr.nth(1), pqr_expr.nth(0)
+        a_pos, b_pos, c_pos = symbols("a_ b_ c_", positive=True)
+        if Ge(A, 0) == True:
+            new_expr = None
+            rearranged_expr = (lhs_expr - rhs_expr)
+            """Check if an expression is provable by single variable (default positive)
+            1) for homogeneous expression, convert to single variable
+            2) for non-homogeneous expression with equations, make it homogeneous
+            """
+            degree = utils.get_degree(rearranged_expr)
+            if degree == float("inf") and eq_ass != []:
+                delta_expr = eq_ass[0].lhs / eq_ass[0].rhs
+                delta_degree = utils.get_degree(delta_expr)
+                if delta_degree != float("inf"):
+                    rearranged_expr = utils.make_homogeneous(rearranged_expr, delta_expr, delta_degree)
+                    degree = utils.get_degree(rearranged_expr)
+            if degree != float("inf"):
+                constant = rearranged_expr.xreplace({c: 0})
+                constant = constant.xreplace({b : 1, a : a_pos})
+                if reduce_inequalities(constant <= 0) == True: # no counter example
+                    new_expr = simplify(rearranged_expr.xreplace({c: b}))
+            elif len(eq_ass) > 0: 
+                """
+                if there are equations, check c = 0 and reduce b by a
+                """
+                eq_ass_ceq0 = [eq.xreplace({a: a_pos, b: b_pos, c: 0}) for eq in eq_ass]
+                res = utils.single_var_solve(eq_ass_ceq0, b_pos)
+                if res != {}: # replace b_pos by a_pos
+                    b_val = res[b_pos]
+                    constant = rearranged_expr.xreplace({a: a_pos, b: b_val, c: 0})
+                    if reduce_inequalities(constant <= 0) == True: # no counter example
+                        eq_ass_ceqb = [eq.xreplace({c: b_pos, a: a_pos, b: b_pos}) for eq in eq_ass]
+                        res = utils.single_var_solve(eq_ass_ceqb, b_pos)
+                        if res != {}: # replace b_pos by a_pos
+                            new_expr = rearranged_expr.xreplace({c: b}).xreplace({b: res[b_pos], a: a_pos})
+                        else:
+                            res = utils.single_var_solve(eq_ass_ceqb, a_pos)
+                            if res != {}: # replace a_pos by a
+                                """
+                                new_expr <= 0 and a_val > 0 should be true
+                                a_val and new_expr are in the different sign
+                                """
+                                new_expr = rearranged_expr.xreplace({c: b}).xreplace({b: b_pos, a: res[a_pos]}) * res[a_pos]
+                                numer, denom = new_expr.as_numer_denom()
+                                new_expr = numer * denom
+                if new_expr is not None and reduce_inequalities(new_expr <= 0) != True:
+                    new_expr = None
+                else:
+                    new_expr = new_expr.xreplace({a_pos: a, b_pos: b, c_pos: c})
+            if new_expr is not None:
+                sympy_expr = utils.normalize(new_expr)
+                sympy_expr = parser.sympy2lean(sympy_expr)
+                return [f"sym_pqr_method {sympy_expr.strip()} ≤ 0"]            
+        elif Lt(A, 0) == True:
+            Delta = B**2 - 4 * A * C
+            concl = simplify(Delta.xreplace({p: a + b + c, q: a * b + b * c + a * c})) <= 0
+            code = parser.sympy2smt(self.sym_cons, concl)
+            ok, msg = utils.smtsolve(code, self.smt_solvers, self.smt_timeout)
+            if str(ok) == "unsat":
+                sympy_expr = utils.normalize(concl)
+                new_expr = parser.sympy2lean(sympy_expr)
+                return [f"sym_pqr_method {sympy_expr.strip()} ≤ 0"]
+        return []

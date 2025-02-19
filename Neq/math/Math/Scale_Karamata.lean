@@ -22,6 +22,22 @@ theorem Karamata_sqrt_cycle_right_3vars (u v w k l left : ℝ) (hu : u ≥ 0) (h
   suffices sqrt (u + v - w) + sqrt (u + w - v) + sqrt (v + w - u) ≤ sqrt u + sqrt v + sqrt w by nlinarith
   exact Karamata_sqrt_cycle_3vars u v w hu hv hw h1 h2 h3
 
+/-- The Karamata for div function -/
+theorem Karamata_div_cycle_3vars (u v w : ℝ) (hu : u ≥ 0) (hv : v ≥ 0) (hw : w ≥ 0) (h1 : u + v - w > 0) (h2 : u + w - v > 0) (h3 : v + w - u > 0) : 1 / u + 1 / v + 1 / w ≤ 1 / (u + v - w) + 1 / (u + w - v) + 1 / (v + w - u) := by
+  sorry
+
+theorem Karamata_div_cycle_left_3vars (u v w k l right : ℝ) (hu : u ≥ 0) (hv : v ≥ 0) (hw : w ≥ 0) (h1 : u + v - w > 0) (h2 : u + w - v > 0) (h3 : v + w - u > 0) (hk : k ≥ 0)
+  (h : k * (1 / (u + v - w) + 1 / (u + w - v) + 1 / (v + w - u)) + l ≤ right) :
+  k * (1 / u + 1 / v + 1 / w) + l ≤ right := by
+  suffices 1 / u + 1 / v + 1 / w ≤ 1 / (u + v - w) + 1 / (u + w - v) + 1 / (v + w - u) by nlinarith
+  exact Karamata_div_cycle_3vars u v w hu hv hw h1 h2 h3
+
+theorem Karamata_div_cycle_right_3vars (u v w k l left : ℝ) (hu : u ≥ 0) (hv : v ≥ 0) (hw : w ≥ 0) (h1 : u + v - w > 0) (h2 : u + w - v > 0) (h3 : v + w - u > 0) (hk : k ≥ 0)
+  (h : left ≤ k * (1 / u + 1 / v + 1 / w) + l) :
+  left ≤ k * (1 / (u + v - w) + 1 / (u + w - v) + 1 / (v + w - u)) + l := by
+  suffices 1 / u + 1 / v + 1 / w ≤ 1 / (u + v - w) + 1 / (u + w - v) + 1 / (v + w - u) by nlinarith
+  exact Karamata_div_cycle_3vars u v w hu hv hw h1 h2 h3
+
 /-- The Karamata for square function -/
 theorem Karamata_square_cycle_3vars (u v w : ℝ) : u ^ 2 + v ^ 2 + w ^ 2 ≤ (u + v - w) ^ 2 + (u + w - v) ^ 2 + (v + w - u) ^ 2 := by
   sorry

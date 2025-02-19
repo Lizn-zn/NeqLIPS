@@ -12,6 +12,7 @@ import Math.Scale_Weighted_Jensen
 import Math.Scale_Titu
 import Math.Scale_Schur
 import Math.Scale_Holder
+import Math.Scale_Vasc
 
 -- import Math.Scale_Chebyshev
 -- import Math.Scale_LOG

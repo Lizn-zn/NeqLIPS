@@ -41,3 +41,28 @@ theorem Schur_x2y_right_3vars (u v w k l left : ℝ) (hu : u ≥ 0) (hv : v ≥ 
   left ≤ k * (u ^ 2 * v + v ^ 2 * w + w ^ 2 * u + 3 * u * v * w) + l := by
   suffices (u * v * w) ^ (1 / 3) * (u * v + v * w + w * u) + (u * v * w) ^ (2 / 3) * (u + v + w) ≤ u ^ 2 * v + v ^ 2 * w + w ^ 2 * u + 3 * u * v * w by nlinarith
   exact Schur_x2y_3vars u v w hu hv hw
+
+
+/-
+  The basic Schur inequality for 3 variables: {\displaystyle x^{t}(x-y)(x-z)+y^{t}(y-z)(y-x)+z^{t}(z-x)(z-y)\geq 0}
+-/
+theorem Schur_Teq2_3vars (u v w : ℝ) (hu : u ≥ 0) (hv : v ≥ 0) (hw : w ≥ 0) : (u ^ 4 + v ^ 4 + w ^ 4 + u ^ 2 * v * w + v ^ 2 * w * u + w ^ 2 * u * v ≥ u ^ 3 * v + u ^ 3 * w + v ^ 3 * u + v ^ 3 * w + w ^ 3 * u + w ^ 3 * v) := by
+    sorry
+
+theorem Schur_Teq2_left_3vars (u v w k l right : ℝ) (hu : u ≥ 0) (hv : v ≥ 0) (hw : w ≥ 0) (hk : k ≥ 0)
+  (h : k * (u ^ 4 + v ^ 4 + w ^ 4 + u ^ 2 * v * w + v ^ 2 * w * u + w ^ 2 * u * v) + l ≤ right) :
+  k * (u * v ^ 3 + u * w ^ 3 + v * u ^ 3 + v * w ^ 3 + w * u ^ 3 + w * v ^ 3) + l ≤ right := by
+  suffices u ^ 4 + v ^ 4 + w ^ 4 + u ^ 2 * v * w + v ^ 2 * w * u + w ^ 2 * u * v ≥ u ^ 3 * v + u ^ 3 * w + v ^ 3 * u + v ^ 3 * w + w ^ 3 * u + w ^ 3 * v by nlinarith
+  exact Schur_Teq2_3vars u v w hu hv hw
+
+theorem Schur_Teq2_fact_left_3vars (u v w k l right : ℝ) (hu : u ≥ 0) (hv : v ≥ 0) (hw : w ≥ 0) (hk : k ≥ 0)
+  (h : k * (u ^ 4 + v ^ 4 + w ^ 4 + u ^ 2 * v * w + v ^ 2 * w * u + w ^ 2 * u * v) + l ≤ right) :
+  k * (u ^ 3 * (v + w) + v ^ 3 * (u + w) + w ^ 3 * (u + v)) + l ≤ right := by
+  suffices u ^ 4 + v ^ 4 + w ^ 4 + u ^ 2 * v * w + v ^ 2 * w * u + w ^ 2 * u * v ≥ u ^ 3 * v + u ^ 3 * w + v ^ 3 * u + v ^ 3 * w + w ^ 3 * u + w ^ 3 * v by nlinarith
+  exact Schur_Teq2_3vars u v w hu hv hw
+
+theorem Schur_Teq2_right_3vars (u v w k l left : ℝ) (hu : u ≥ 0) (hv : v ≥ 0) (hw : w ≥ 0) (hk : k ≥ 0)
+  (h : left ≤ k * (u ^ 3 * v + u ^ 3 * w + v ^ 3 * u + v ^ 3 * w + w ^ 3 * u + w ^ 3 * v) + l) :
+  left ≤ k * (u ^ 4 + v ^ 4 + w ^ 4 + u ^ 2 * v * w + v ^ 2 * w * u + w ^ 2 * u * v) + l := by
+  suffices u ^ 3 * v + u ^ 3 * w + v ^ 3 * u + v ^ 3 * w + w ^ 3 * u + w ^ 3 * v ≤ u ^ 4 + v ^ 4 + w ^ 4 + u ^ 2 * v * w + v ^ 2 * w * u + w ^ 2 * u * v by nlinarith
+  exact Schur_Teq2_3vars u v w hu hv hw

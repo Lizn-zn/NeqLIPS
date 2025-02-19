@@ -80,4 +80,5 @@ class Problem:
         for d in range(1, len(vars)):
             self.cycle_mappings.extend([{vars[idx]: vars[(idx + d) % len(vars)] for idx in range(len(vars))}])
         self.is_cycle = all([utils.sympy_equal(expr, expr.xreplace(s)) for s in self.cycle_mappings])
+        return self.is_cycle
         

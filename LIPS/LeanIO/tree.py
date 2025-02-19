@@ -30,7 +30,8 @@ class ProofTree(Tree):
         for node in self.all_nodes_itr():
             if node.identifier == node_idx:
                 return node
-        
+        return None
+    
     def set_node_idx(self, ps_idx: int) -> int:
         """
         Set the node index for the given proof state index
@@ -105,9 +106,9 @@ class ProofTree(Tree):
             path_to_root = []
             node = self.get_node(node_idx)
             while node:
-                path_to_root.append(self.node2ps(node.identifier)[1])
+                path_to_root.append(node.identifier)
                 node = self.parent(node.identifier)
-            return reversed(path_to_root)
+            return [p for p in reversed(path_to_root)]
         
     def remove_step(self, ps_idx: int) -> None:
         """
@@ -115,6 +116,12 @@ class ProofTree(Tree):
         """
         node_idx = self.ps2node[ps_idx]
         self.remove_node(node_idx)
+    
+    def exist_step(self, ps_idx: int) -> bool:
+        """
+        Check if the given proof state index exists in the tree
+        """
+        return self.get_node(ps_idx) is not None
         
     def remove_proof(self, ps_idx: int) -> int:
         """
@@ -192,13 +199,17 @@ class ProofTree(Tree):
         pass
 
 
-    def to_dict(self, nid=None):
-        """Transform the whole tree into a dict (hook the original implementation)"""
+    def to_dict(self, nid=None, golden_path=[]):
+        """Transform the whole tree into a dict (hook the original implementation)
+            golden_path: the path from the root to the finish state
+            nid: the node id
+        """
         nid = self.root if (nid is None) else nid
+        is_golden = True if nid in golden_path else False
         tree_dict = {"name": '\n'.join(self[nid].data['goal']), "children": []}
-        tree_dict["data"] = self[nid].data
+        tree_dict["data"] = {**self[nid].data, "is_golden": is_golden}
         if self[nid].expanded:
             for elem in self.children(nid):
                 tree_dict["children"].append(
-                    self.to_dict(elem.identifier))
+                    self.to_dict(elem.identifier, golden_path))
             return tree_dict

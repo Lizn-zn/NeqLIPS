@@ -134,16 +134,17 @@ class Ranker:
             except Exception as exc:
                 self.logger.error(f"cal complexity error {exc} for the expression {lhs} <= {rhs}")
                 cost = 10000
-            self.costs_pair.update({(ps, gs) : cost})  # smooth to avoid the zero division
+            self.costs_pair.update({(ps, gs) : cost})  
+            has_var_denom = 1 if utils.has_var_denom(lhs - rhs) else 0
+            if self.best_cost > cost + 10000 * has_var_denom: # save the best proof state and goal
+                self.best_cost = cost + 10000 * has_var_denom
+                self.best_ps, self.best_goal = ps, gs
         flatten_costs_pair = sorted(self.costs_pair.items(), key=lambda x: x[1])
         val = flatten_costs_pair[: self.rank_size][-1][1]
         num_candidates = len([c for c in flatten_costs_pair if c[1] <= val])
         self.num_candidates = num_candidates
         self.proof_states = [c[0][0] for c in flatten_costs_pair]
         self.subgoals = [c[0][1] for c in flatten_costs_pair]
-        if self.best_cost > flatten_costs_pair[0][1]: # save the best proof state and goal
-            self.best_cost = flatten_costs_pair[0][1]
-            self.best_ps, self.best_goal = flatten_costs_pair[0][0]
         self.logger.info("RANK by Complexity")
         # for i in range(min(num_candidates, len(self.costs_pair))):
         for i in range(len(self.costs_pair)):

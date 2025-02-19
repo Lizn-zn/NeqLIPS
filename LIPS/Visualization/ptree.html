@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theorem Visualization</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    #tree-container {
+      margin: 20px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    #theorem-container {
+      margin: 20px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .node {
+      cursor: pointer;
+    }
+    .node:hover {
+      fill: #1f77b4;
+    }
+    #node-info {
+      position: fixed;
+      top: 30px;
+      right: 30px;
+      width: 1000px;
+      height: auto;
+      max-height: 80vh;
+      padding: 30px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      display: none;
+      overflow-y: auto;
+    }
+    #node-info h3 {
+      font-size: 1.4em;
+      margin-bottom: 20px;
+    }
+    #node-info p {
+      font-size: 1.1em;
+      line-height: 1.5;
+      margin: 15px 0;
+    }
+    #node-info .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      cursor: pointer;
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      background-color: transparent;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 50%;
+    }
+    #node-info .close-btn:hover {
+      background-color: #f1f1f1;
+    }
+    .link {
+      fill: none;
+      stroke: #ccc;
+      stroke-width: 2px;
+    }
+  </style>
+  <script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+  </script>
+</head>
+<body>
+
+<!-- Add D3.js before our visualization code -->
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+<div id="tree-container">
+  <h2>Proof Tree Visualization</h2>
+  <svg></svg>
+</div>
+
+<!-- Modal box to display node info -->
+<div id="node-info">
+  <span class="close-btn" onclick="closeNodeInfo()">×</span>
+  <h3>Node Information</h3>
+  <p><strong>Goal:</strong> <span id="goal"></span></p>
+  <p><strong>Tactic:</strong> <span id="tactic"></span></p>
+</div>
+
+<script>
+  // Get JSON file path from URL parameters
+  const urlParams = new URLSearchParams(window.location.search);
+  const jsonFilePath = urlParams.get('json');
+  console.log(jsonFilePath)
+
+  if (!jsonFilePath) {
+    console.error(`No JSON file path provided in URL parameters (${jsonFilePath})`);
+  } else {
+    // Load JSON file
+    d3.json(jsonFilePath).then(function(treeData) {
+      console.log("Loaded tree data:", treeData);
+
+      // Basic setup
+      const nodeSize = 17;
+      const width = 928;
+      
+      // Create hierarchy and collapse all nodes
+      const root = d3.hierarchy(treeData);
+      root.descendants().forEach(d => {
+        if (d.children) {
+          d._children = d.children;
+          d.children = null;
+        }
+      });
+      const initialHeight = (root.descendants().length + 1) * nodeSize;
+
+      function update(source) {
+        // Recompute indices for proper positioning
+        root.descendants().forEach((d, i) => d.index = i);
+        const nodes = root.descendants();
+        const links = root.links();
+        const height = (nodes.length + 1) * nodeSize;
+
+        // Update SVG size
+        d3.select("svg")
+          .attr("width", width)
+          .attr("height", height)
+          .attr("viewBox", [-nodeSize / 2, -nodeSize * 3 / 2, width, height]);
+
+        // Clear existing content
+        svg.selectAll("*").remove();
+
+        // Create links
+        svg.append("g")
+          .attr("fill", "none")
+          .attr("stroke", "#999")
+          .selectAll("path")
+          .data(links)
+          .join("path")
+          .attr("d", d => `
+            M${d.source.depth * nodeSize},${d.source.index * nodeSize}
+            V${d.target.index * nodeSize}
+            h${nodeSize}
+          `);
+
+        // Create nodes
+        const node = svg.append("g")
+          .selectAll("g")
+          .data(nodes)
+          .join("g")
+          .attr("transform", d => `translate(0,${d.index * nodeSize})`)
+          .attr("class", "node")
+          .style("cursor", "pointer")
+          .on("click", (event, d) => {
+            // Collapse other nodes at the same level
+            if (d.parent) {  // Check if not root node
+              d.parent.children.forEach(sibling => {
+                if (sibling !== d && sibling.children) {
+                  sibling._children = sibling.children;
+                  sibling.children = null;
+                }
+              });
+            }
+
+            // Toggle children of clicked node
+            if (d.children) {
+              d._children = d.children;
+              d.children = null;
+            } else {
+              d.children = d._children;
+              d._children = null;
+            }
+            update(d);
+
+            // Show node info
+            const nodeInfo = document.getElementById("node-info");
+            const goalSpan = document.getElementById("goal");
+            const tacticSpan = document.getElementById("tactic");
+
+            goalSpan.textContent = d.data.name;
+            tacticSpan.textContent = d.data.data.tactic || "No tactic available";
+
+            nodeInfo.style.display = "block";
+            
+            // Prevent event from bubbling up
+            event.stopPropagation();
+          });
+
+        // Add circles
+        node.append("circle")
+          .attr("cx", d => d.depth * nodeSize)
+          .attr("r", 2.5)
+          .attr("fill", d => {
+            console.log(d.data.data.is_golden)
+            if (d.data.data && d.data.data.is_golden === true) {
+              return "#ff4136";  // Red for golden nodes
+            } else if (d._children || d.children) {
+              return "#1f77b4";  // Blue for nodes with children (collapsed or expanded)
+            } else {
+              return "#999";     // Grey for leaf nodes
+            }
+          });
+
+        // Add hover styles for the nodes
+        node.selectAll("circle")
+          .on("mouseover", function() {
+            d3.select(this).attr("r", 3.5);  // Slightly larger on hover
+          })
+          .on("mouseout", function() {
+            d3.select(this).attr("r", 2.5);  // Back to normal size
+          });
+
+        // Add labels
+        node.append("text")
+          .attr("dy", "0.32em")
+          .attr("x", d => d.depth * nodeSize + 6)
+          .text(d => {
+            let name = d.data.name;
+            if (name === "") return "QED!";
+            const splitIndex = name.indexOf("⊢");
+            let displayText = splitIndex !== -1 ? name.slice(splitIndex + 1).trim() : name;
+            return displayText.length > 256 ? displayText.slice(0, 256) + "..." : displayText;
+          });
+
+        // Add hover titles
+        node.append("title")
+          .text(d => d.ancestors().reverse().map(d => d.data.name).join("/"));
+      }
+
+      // Set up SVG
+      const svg = d3.select("svg")
+        .attr("width", width)
+        .attr("height", initialHeight)
+        .attr("viewBox", [-nodeSize / 2, -nodeSize * 3 / 2, width, initialHeight])
+        .attr("style", "max-width: 100%; height: auto; font: 12px sans-serif; overflow: visible;");
+
+      // Initial display
+      update(root);
+
+  }).catch(function(error) {
+    console.error("Failed to load tree data:", error);
+  });
+  }
+
+  // Close node info function
+  function closeNodeInfo() {
+    document.getElementById("node-info").style.display = "none";
+  }
+</script>
+
+<style>
+  /* Update node info styles */
+  #node-info {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    width: 1000px;
+    height: auto;
+    max-height: 80vh;
+    padding: 30px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: none;
+    overflow-y: auto;
+  }
+
+  #node-info h3 {
+    font-size: 1.4em;
+    margin-bottom: 20px;
+  }
+
+  #node-info p {
+    font-size: 1.1em;
+    line-height: 1.5;
+    margin: 15px 0;
+  }
+
+  #node-info .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    background-color: transparent;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 50%;
+  }
+
+  #node-info .close-btn:hover {
+    background-color: #f1f1f1;
+  }
+
+  .node:hover circle {
+    fill: #1f77b4;
+  }
+</style>
+</body>
+</html>

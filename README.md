@@ -7,7 +7,9 @@ This is the official code for NeqLIPS, a powerful Olympiad Inequalities Prover.
 NeqLIPS first enumerates all possible scaling tactics using symbolic tools, and prompts LLMs to generate rewriting tactics. 
 Then, it selects the best proof state by symbolic filtering and neural ranking.
 
-## Quick Start
+For detailed information, please refer to our [research paper](https://openreview.net/forum?id=FiyS0ecSm0).
+
+## Installation
 
 #### 1. Clone the repository
 
@@ -46,26 +48,76 @@ We strongly recommend installing one of the [maple](https://www.maplesoft.com/) 
 
 #### 6. Initialize the LLM interface
 
-Set your own GPT interface in `./NeSyCore/llm.py`
+Set your own GPT-4 interface in `./NeSyCore/llm.py`
 
-#### 7. Run the Inequality Prover
+## Usage
 
-Use the shell `run.sh` or the following command
+#### 1. Run the Inequality Prover
 
-Use the shell `run.sh` or the following command
+Use either the provided shell script or run directly:
 
-```shell
-python main.py --problem "theorem P1 {a b c : ℝ} : a * b + b * c + c * a ≤ a ^ 2 + b ^ 2 + c ^ 2 := by sorry"
+```bash
+python prove.py --problem "theorem P1 {a b c : ℝ} : a * b + b * c + c * a ≤ a ^ 2 + b ^ 2 + c ^ 2 := by sorry"
 ```
 
-Please refer to `LIPS/args.py` for more arguments.
+For additional configuration options, see `LIPS/args.py`.
 
-#### 8. Proof Visualization
+#### 2. Visualize the Proof Tree
 
+Run the following command to visualize the proof tree.
+```bash
+python viz.py /path/to/proof_tree.json
 ```
-python -m http.server 8000 & open http://localhost:8000/tree.html
-```
 
+Example proof tree visualization for the running example:
+
+![Proof Tree Example](./figures/ptree.png)
+
+
+## Performance
+
+Results on the MO-INT benchmark:
+
+| Model | DeepSeek-R1 | GPT-o3mini | AIPS | NeqLIPS (w/o SOS) | NeqLIPS (w/ SOS) | 
+| :---: | :---: | :---: | :---: | :---: | :---: |
+| Success Rate | 80% | 15% | 80% | 80% | 90% |
+
+NeqLIPS with sum-of-squares (SOS) successfully proves 18 out of 20 IMO-level problems. 
+The formal proofs of MO-INT, ChenNEQ, and 567Neq are provided in `Neq/Math/Problem`.
+
+## Extending NeqLIPS
+
+#### 1. Add new rewriting tactics
+- Location: `LIPS/Library/RewritingLib.json`
+- Format:
+    ```json
+    {
+        "REWRITE_NAME": {
+            "prompt": "LLM prompt",
+            "tactic": "Lean 4 tactic name",
+            "type": "rewrite_without_assumption | rewrite_with_assumption | rewrite_with_inequation",
+            "sym_only": "whether only use symbolic rewriting"
+        }
+    }
+    ```
+- Add corresponding Lean tactics in `Neq/math/Math/Tactics.lean`
+
+#### 2. Add new scaling tactics
+
+- Location: `LIPS/Library/ScalingLib.json`
+- Format:
+    ```json
+    {
+        "LEMMA_NAME": {
+            "input": "Lemma_Input",
+            "output": "Lemma_Output",
+            "type": "Direction",
+            "var": ["Var_List"],
+            "condition": ["Equality_Condition"]
+        }
+    }
+    ```
+- Add corresponding Lean lemmas in `Neq/math/Math/NeqScales.lean`
 
 ## Include more tactics
 
@@ -82,8 +134,9 @@ The generated formal proof are provided in `Neq/Math/Problem`,
 
 ## TODO List
 
-- [ ] Bump Lean version to v4.15.0 && Support macOS
-- [ ] Change backbone lean-repl to alternatives
+- [ ] Update to `Lean v4.15.0` with macOS support
+- [ ] Replace lean-repl with alternative solutions
+- [ ] Implement local SFT model as GPT-4o alternative
 
 ## Questions and Bugs
 

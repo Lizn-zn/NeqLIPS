@@ -2,15 +2,19 @@ import Mathlib
 import Lean.Elab.Command
 import Lean.Elab.Tactic.BuiltinTactic
 
+import Smt
+
 import Math.NeqNorm
 -- import Smt
 
 open Lean Parser Parser.Tactic Elab Command Elab.Tactic Meta
 open Real
 
-
 local macro_rules | `($x / $y)   => `(HDiv.hDiv ($x : ℝ) ($y : ℝ))
 
+/--
+Define a dummy axiom to close the goal
+--/
 axiom AXIOM (P : Prop) : P
 
 def closeWithAxiom : TacticM Unit := do
@@ -19,6 +23,16 @@ def closeWithAxiom : TacticM Unit := do
 
 elab "closed_by_axiom" : tactic => do
   closeWithAxiom
+
+register_option by_axiom : Bool := {
+  defValue := true
+  group := "proof"
+  descr := "use axiom to close the goal"
+}
+
+def use_axiom : MetaM Bool := do
+  let opts ← getOptions
+  return opts.getBool by_axiom.name by_axiom.defValue
 
 /-
 augmented versions of some fundmental tactics: (1) suppose; (2) rewrite with positivity
@@ -162,47 +176,36 @@ macro "norm_frac" : tactic =>
 /-
 automation tactics for scaling
 -/
--- macro "automation" : tactic =>
---   `(tactic| ( (try all_goals norm_cast);
---               (try all_goals push_cast);
---               (try all_goals norm_num);
---               (try all_goals (repeat rwp [mul_rpow])); -- (a * b) ^ c = a ^ c * b ^ c
---               (try all_goals (repeat rwp [<-sqrt_eq_rpow]));
---               (try all_goals simp);
---               (try all_goals (repeat rwp [($(mkIdent `sqrt_reduce))]));
---               (try all_goals (repeat rwp [($(mkIdent `sqrt_reduce1))]));
---               (try all_goals (repeat rwp [($(mkIdent `sqrt_reduce2))]));
---               (first
---                 | done
---                 | linarith
---                 | ·ring_nf
---                 | (field_simp; (first | done
---                                           | linarith
---                                           |·ring_nf
---                                           |·(ring_nf; field_simp)
---                                           | smt_only!
---                                           | ·polyrith
---                                    ))
---                 | field_simp [*]; linarith
---               )))
 
+macro "auto_verify" : tactic =>
+  `(tactic| first | ·(norm_cast; push_cast; norm_num;
+                      (first
+                       | done
+                       | linarith
+                       | ring_nf
+                       | (field_simp (config := {decide := true}))
+                       | (ring_nf; field_simp (config := {decide := true}))
+                       | polyrith
+                      )
+                      field_simp (config := {decide := true}) [*]; linarith
+                    )
+                  | smt_decide!
+              )
 
--- macro "scale " h:term : tactic =>
---     `(tactic| (first | apply $h; (try any_goals positivity); norm_expr
---                        -- here we ignore the first goal because it is sufficient
---                      | suppose $h; (convert ($(mkIdent `this)) using 1 <;> next => automation);
---                           (try any_goals positivity);
---                           (try any_goals linarith);
---                           (repeat fail_if_no_progress norm_expr)))
+elab "automation " : tactic => do
+  if !(← getBoolOption `by_axiom by_axiom.defValue) then
+    Tactic.evalTactic (← `(tactic| auto_verify;))
+  else
+    Tactic.evalTactic (← `(tactic| closed_by_axiom;))
 
 
 macro "scale " h:term : tactic =>
     `(tactic| (first | apply $h; (try any_goals positivity); norm_expr
-                       -- here we ignore the first goal because it is sufficient
-                     | suppose $h; (convert ($(mkIdent `this)) using 1 <;> next => closed_by_axiom);
-                          (try any_goals positivity);
-                          (try any_goals linarith);
-                          (repeat fail_if_no_progress norm_expr)))
+                        -- here we ignore the first goal because it is sufficient
+                       | suppose $h; (convert ($(mkIdent `this)) using 1 <;> next => automation);
+                            (try any_goals positivity);
+                            (try any_goals linarith);
+                            (repeat fail_if_no_progress norm_expr)))
 
 
 /-
@@ -250,14 +253,14 @@ macro "simplify " h:term : tactic =>
 
 macro "sym_simplify " h:term : tactic =>
     `(tactic| (apply move_left;
-                rwp [show $h by (closed_by_axiom)];
+                rwp [show $h by automation];
                 (try simp only [tsub_le_iff_right]);
                 (try apply tsub_le_iff_right_p);
                 norm_expr))
 
 macro "llm_simplify " h:term : tactic =>
     `(tactic| (apply move_left;
-                rwp [show $h by (closed_by_axiom)];
+                rwp [show $h by automation];
                 (try simp only [tsub_le_iff_right]);
                 (try apply tsub_le_iff_right_p);
                 norm_expr))
@@ -282,7 +285,7 @@ macro "llm_frac_together " h:term : tactic =>
 
 macro "llm_cancel_denom " h:term : tactic
  => `(tactic| (apply move_left;
-                rwp [show $h by (closed_by_axiom)];
+                rwp [show $h by automation];
                 (repeat (first | (apply frac_reduce; (first | assumption | positivity | ·simp[*] | linarith))
                                | (apply frac_reduce'; (first | assumption | positivity | ·simp[*] | linarith))
                 ));
@@ -294,9 +297,16 @@ macro "llm_cancel_denom " h:term : tactic
                 (try apply tsub_le_iff_right_p);
                 norm_expr;))
 
+macro "llm_cancel_numer " h:term : tactic
+ => `(tactic| (apply move_left;
+                rwp [show $h by automation];
+                (try simp only [tsub_le_iff_right]);
+                (try apply tsub_le_iff_right_p);
+                norm_expr))
+
 macro "llm_cancel_factor " h:term : tactic
  => `(tactic| (apply move_left;
-                rw [show $h by (closed_by_axiom)];
+                rw [show $h by automation];
                 (repeat (first | (apply factor_reduce; (first | assumption | positivity | ·simp[*] | linarith))
                                | (apply factor_reduce'; (first | assumption | positivity | ·simp[*] | linarith))
                                | (apply factor_reduce_neg; (first | assumption | positivity | ·simp[*] | linarith))
@@ -307,13 +317,13 @@ macro "llm_cancel_factor " h:term : tactic
                 norm_expr;))
 
 macro "make_homogeneous " h:term : tactic
- => `(tactic| ((suffices $h by (closed_by_axiom));
+ => `(tactic| ((suffices $h by closed_by_axiom);
                 (try simp only [tsub_le_iff_right]);
                 (try apply tsub_le_iff_right_p);
                 norm_expr;))
 
 macro "intro_by_homogeneous" h:term : tactic
- => `(tactic| (have homo : $h := by (closed_by_axiom)))
+ => `(tactic| (have homo : $h := by closed_by_axiom))
 
 theorem neq_trans {a b : ℝ} (h : a ≤ b) (h' : 0 ≤ a) : 0 ≤ b := by linarith
 
@@ -329,15 +339,46 @@ macro "sym_equal_value" h:term : tactic =>
                closed_by_axiom
               ))
 
+macro "sym_pqr_method" h:term : tactic =>
+    `(tactic| (apply move_right;
+               suffices $h by closed_by_axiom;
+              ))
+
 /-
 tactic of closing the goal
 -/
 
 elab "closed_by_sos" : tactic => do
-  closeWithAxiom
+  if !(← getBoolOption `by_axiom by_axiom.defValue) then
+    Tactic.evalTactic (← `(tactic| sos!))
+  else
+    Tactic.evalTactic (← `(tactic| closed_by_axiom;))
+
+elab "closed_by_eval" : tactic => do
+  if !(← getBoolOption `by_axiom by_axiom.defValue) then
+    Tactic.evalTactic (← `(tactic| smt_decide!))
+  else
+    Tactic.evalTactic (← `(tactic| closed_by_axiom;))
 
 macro "close" : tactic =>
     `(tactic| ( (try (apply frac_reduce; positivity))
+                (try (repeat rw [cubic_root_of_8]));
+                (try (repeat rw [cubic_root_of_27]));
+                (try simp only [one_div]);
+                (try (repeat rwp [sqrt_reduce]));
+                (try (repeat rwp [sqrt_reduce_plus]));
+                (try (repeat rwp [sqrt_reduce_plus']));
+                (first | done | positivity | ·simp [*] | ·nlinarith | ·ring_nf)
+              ))
+
+theorem add_apart {a b : ℝ} (h : a ≥ 0) (h' : b ≥ 0) : 0 ≤ a + b := by linarith
+
+macro "cycle_close" h:term : tactic =>
+    `(tactic| ( (have cycle : $h := by (closed_by_axiom));
+                (repeat (rcases cycle with ⟨ _ , cycle ⟩));
+                (try (apply add_apart));
+                (try (any_goals positivity));
+                (try (apply frac_reduce; positivity));
                 (try (repeat rw [cubic_root_of_8]));
                 (try (repeat rw [cubic_root_of_27]));
                 (try simp only [one_div]);

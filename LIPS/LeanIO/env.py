@@ -1,6 +1,8 @@
 import os
 import re
 import json
+from wrapt_timeout_decorator import timeout
+
 from .cmds import *
 from .tree import ProofTree
 
@@ -104,6 +106,7 @@ class LeanIO(ProofTree):
         """
         raise NotImplementedError("The declare function is not implemented")
     
+    @timeout(30)
     def apply(self, cmd: str, ps: int) -> int:
         """
         Apply the tactic to the given proof state

@@ -148,7 +148,7 @@ class Scaler:
                 else:
                     self.logger.info(f"Failed to set equality condition case {msg}")
 
-    @timeout(10)
+    @timeout(30)
     def check_by_test(
         self,
         rel_test: Expr,
@@ -324,7 +324,6 @@ class Scaler:
             msg = "cached results"
             return self.cache_check_validity[check_key], msg
         ## check the validity of the scaling
-        ## we set tol = 1e-8 for the floating point comparison
         if ttype == "right":
             # fmt: off
             def rel_test(y):

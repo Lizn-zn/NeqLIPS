@@ -253,6 +253,29 @@ theorem Muirhead_Qeq1Req0_left_3vars (u v w p k l right : ℝ) (ha : u ≥ 0) (h
   simp at h
   exact h
 
+theorem Muirhead_Qeq1Req0_right_3vars (u v w p k l left : ℝ) (ha : u ≥ 0) (hb : v ≥ 0) (hc : w ≥ 0) (hp : p ≥ 1) (hk : k ≥ 0)
+  (hl : left ≤ k * (u ^ (p - 1) * v + v ^ (p - 1) * w + w ^ (p - 1) * u) + l) :
+  left ≤ k * (u ^ p + v ^ p + w ^ p) + l := by
+  suffices u ^ (p - 1) * v + v ^ (p - 1) * w + w ^ (p - 1) * u ≤ u ^ p + v ^ p + w ^ p by nlinarith
+  have hq : (1:ℝ) ≥ 0 := by linarith
+  have hp' : p - 1 ≥ 0 := by linarith
+  have h := Muirhead_Req0_3vars u v w (p - 1) 1 ha hb hc hp' hq
+  simp at h
+  exact h
+
+theorem Muirhead_Qeq1Req0_split_right_3vars (u v w p k l left : ℝ) (ha : u ≥ 0) (hb : v ≥ 0) (hc : w ≥ 0) (hp : p ≥ 1) (hk : k ≥ 0)
+  (hl : left ≤ k * (u ^ (p - 1) * v + v ^ (p - 1) * w + w ^ (p - 1) * u + u ^ (p - 1) * w + v ^ (p - 1) * u + w ^ (p - 1) * v) / 2 + l) :
+  left ≤ k * (u ^ p + v ^ p + w ^ p) + l := by
+  suffices u ^ (p - 1) * v + v ^ (p - 1) * w + w ^ (p - 1) * u + u ^ (p - 1) * w + v ^ (p - 1) * u + w ^ (p - 1) * v ≤ 2 * (u ^ p + v ^ p + w ^ p) by nlinarith
+  have hq : (1:ℝ) ≥ 0 := by linarith
+  have hp' : p - 1 ≥ 0 := by linarith
+  have h1 := Muirhead_Req0_3vars u v w (p - 1) 1 ha hb hc hp' hq
+  have h2 := Muirhead_Req0_3vars u w v (p - 1) 1 ha hc hb hp' hq
+  have h := add_le_add h1 h2
+  convert h using 1
+  field_simp; ring_nf
+  field_simp; ring_nf
+
 theorem Muirhead_Qeq1Req0_div_right_3vars (u v w p q k l left : ℝ) (ha : u ≥ 0) (hb : v ≥ 0) (hc : w ≥ 0) (hp : p ≥ 0) (hq : q ≥ 0) (hi : i ≥ 0) (hk : k ≥ 0)
   (hneg : i * (u ^ p * v + v ^ p * w + w ^ p * u) + j > 0)
   (hl : left ≤ k * (1 / (i * (u ^ (p + 1) + v ^ (p + 1) + w ^ (p + 1)) + j)) + l) :

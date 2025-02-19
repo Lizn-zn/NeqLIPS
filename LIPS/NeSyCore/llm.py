@@ -27,7 +27,7 @@ class LLM:
 
     def set_api_key(self, idx=0):
         if idx == 0:
-            client = None
+            client = OpenAI(api_key='OPENAI_API_KEY')
         else:
             raise IndexError("No more API keys")
         return client
