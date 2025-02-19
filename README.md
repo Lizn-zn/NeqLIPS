@@ -52,6 +52,8 @@ Set your own GPT interface in `./NeSyCore/llm.py`
 
 Use the shell `run.sh` or the following command
 
+Use the shell `run.sh` or the following command
+
 ```shell
 python main.py --problem "theorem P1 {a b c : ℝ} : a * b + b * c + c * a ≤ a ^ 2 + b ^ 2 + c ^ 2 := by sorry"
 ```
@@ -60,6 +62,16 @@ Please refer to `LIPS/args.py` for more arguments.
 
 #### 8. Proof Visualization
 
+```
+python -m http.server 8000 & open http://localhost:8000/tree.html
+```
+
+
+## Include more tactics
+
+## Results
+
+The generated formal proof are provided in `Neq/Math/Problem`, 
 
 ## Include more tactics
 
@@ -70,11 +82,8 @@ The generated formal proof are provided in `Neq/Math/Problem`,
 
 ## TODO List
 
-- [ ] README in `./Installation`
-- [ ] Visualization of Proof Tree
-- [ ] Alternative LLM DeepSeek instead of GPT-4
-- [ ] Automation for rewrite tactics
-- [ ] Convert SOS proof into Lean 4
+- [ ] Bump Lean version to v4.15.0 && Support macOS
+- [ ] Change backbone lean-repl to alternatives
 
 ## Questions and Bugs
 
