@@ -165,7 +165,17 @@
           .attr("class", "node")
           .style("cursor", "pointer")
           .on("click", (event, d) => {
-            // Toggle children
+            // Collapse other nodes at the same level
+            if (d.parent) {  // Check if not root node
+              d.parent.children.forEach(sibling => {
+                if (sibling !== d && sibling.children) {
+                  sibling._children = sibling.children;
+                  sibling.children = null;
+                }
+              });
+            }
+
+            // Toggle children of clicked node
             if (d.children) {
               d._children = d.children;
               d.children = null;
@@ -219,11 +229,10 @@
           .attr("x", d => d.depth * nodeSize + 6)
           .text(d => {
             let name = d.data.name;
+            if (name === "") return "QED!";
             const splitIndex = name.indexOf("⊢");
-            if (splitIndex !== -1) {
-              return name.slice(splitIndex + 1).trim();
-            }
-            return name;
+            let displayText = splitIndex !== -1 ? name.slice(splitIndex + 1).trim() : name;
+            return displayText.length > 256 ? displayText.slice(0, 256) + "..." : displayText;
           });
 
         // Add hover titles

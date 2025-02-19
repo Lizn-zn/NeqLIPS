@@ -1,10 +1,9 @@
 #!/bin/bash
 
 theorem_list=(
-  "theorem P23a {a b c : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) (h : a * b * c = 1) : 1 / sqrt (1 + 8 * a) + 1 / sqrt (1 + 8 * b) + 1 / sqrt (1 + 8 * c) ≤ 2 := by sorry"
-  "theorem P46 {a b c : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) (h : a * b * c = 1) : (a - 1 + 1 / b) * (b - 1 + 1 / c) * (c - 1 + 1 / a) ≤ 1 := by sorry"
-  "theorem P47 {a b c : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) : 1 ≤ a / sqrt (a ^ 2 + 8 * b * c) + b / sqrt (b ^ 2 + 8 * a * c) + c / sqrt (c ^ 2 + 8 * a * b) := by sorry"
-  "theorem P48 {a b c : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) : (a + b + 2 * c) ^ 2 / (2 * c ^ 2 + (a + b) ^ 2) + (b + c + 2 * a) ^ 2 / (2 * a ^ 2 + (b + c) ^ 2) + (c + a + 2 * b) ^ 2 / (2 * b ^ 2 + (c + a) ^ 2) ≤ 8 := by sorry"
+  "theorem P1 {a b c d : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) (hd : d > 0) (h : a * b + b * c + c * d + d * a = 1) : 1 / 3 ≤ a ^ 3 / (b + c + d) + b ^ 3 / (c + d + a) + c ^ 3 / (d + a + b) + d ^ 3 / (a + b + c) := by sorry",
+  "theorem P2  {a b c d : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) (hd : d > 0) : 2 / 3 ≤ a / (b + 2 * c + 3 * d) + b / (c + 2 * d + 3 * a) + c / (d + 2 * a + 3 * b) + d / (a + 2 * b + 3 * c) := by sorry",
+  "theorem P3 {a b c : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) (h : a * b * c = 1) : 3 / 2 ≤ 1 / (c ^ 3 * (a + b)) + 1 / (a ^ 3 * (b + c)) + 1 / (b ^ 3 * (c + a)) := by sorry"
 )
 
 
@@ -25,10 +24,10 @@ python -u main.py \
     --temperature 0.1 \
     --top_p 0.95 \
     --max_tokens 4096 \
-    --focus_ops "dm" \
+    --focus_ops "d" \
     --norm_goal 1 \
     --rank_size 10 \
-    --check_cycle 1 \
+    --check_cycle 0 \
     --scale_limit 128 \
     --scale_equality 1 \
     --check_homogeneous 1 \
