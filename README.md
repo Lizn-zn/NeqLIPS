@@ -80,7 +80,7 @@ Results on the MO-INT benchmark:
 
 | Model | DeepSeek-R1 | GPT-o3mini | AIPS | NeqLIPS (w/o SOS) | NeqLIPS (w/ SOS) | 
 | :---: | :---: | :---: | :---: | :---: | :---: |
-| Success Rate | 80% | 15% | 80% | 80% | 90% |
+| Success Rate | TBD | 15% | 50% | 80% | 90% |
 
 NeqLIPS with sum-of-squares (SOS) successfully proves 18 out of 20 IMO-level problems. 
 The formal proofs of MO-INT, ChenNEQ, and 567Neq are provided in `Neq/Math/Problem`.
