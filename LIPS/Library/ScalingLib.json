@@ -1,10 +1,10 @@
 {
     "LEMMA_NAME_VERSION_DIRECTION_VARS": {
-        "input": "LEMMA_INPUT",
-        "output": "LEMMA_OUTPUT",
-        "type": "DIRECTION",
-        "var": ["VAR_LIST"],
-        "condition": ["EQUALITY_CONDITION"]
+        "input": "Lemma_Input",
+        "output": "Lemma_Output",
+        "type": "Direction",
+        "var": ["Var_List"],
+        "condition": ["Equality_Condition"]
     },
     "Cauchy_Schwarz_normal_left_2vars": {
         "input": "k * (u1 * v1 + u2 * v2) ^ 2 + l",
