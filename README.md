@@ -59,8 +59,10 @@ Use either the provided shell script or run directly:
 ```bash
 python prove.py --problem "{a b c : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) (h : a + b + c = 1) : 1 / (a + 2) + 1 / (b + 2) + 1 / (c + 2) ≤ 1 / (6 * sqrt (a * b) + c) + 1 / (6 * sqrt (b * c) + a) + 1 / (6 * sqrt (c * a) + b) := by sorry"
 ```
-Note that it will take about xxx minutes to pre-compile the lemma library when first running the prover.
-For additional configuration options, see `LIPS/args.py`.
+
+**First-Time Setup**: Initial compilation of the lemma library takes approximately 20 minutes. Subsequent runs will be significantly faster.
+
+**More arguments**: For a complete list of configuration options, refer to `LIPS/args.py`.
 
 #### 2. Visualize the Proof Tree
 
@@ -80,7 +82,7 @@ Results on the MO-INT benchmark:
 
 | Model | DeepSeek-R1 | GPT-o3mini | AIPS | NeqLIPS (w/o SOS) | NeqLIPS (w/ SOS) | 
 | :---: | :---: | :---: | :---: | :---: | :---: |
-| Success Rate | TBD | 15% | 50% | 80% | 90% |
+| Success Rate | 20% | 15% | 50% | 80% | 90% |
 
 NeqLIPS with sum-of-squares (SOS) successfully proves 18 out of 20 IMO-level problems. 
 The formal proofs of MO-INT, ChenNEQ, and 567Neq are provided in `Neq/Math/Problem`.
