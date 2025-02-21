@@ -1,0 +1,23 @@
+{
+  "name": "a b c : ℝ\nha : a > 0\nhb : b > 0\nhc : c > 0\nh : a + b + c = 1\n⊢ 1 / (a + 2) + 1 / (b + 2) + 1 / (c + 2) ≤\n    1 / (6 * sqrt(a * b) + c) + 1 / (6 * sqrt(b * c) + a) + 1 / (6 * sqrt(c * a) + b)",
+  "children": [
+    {
+      "name": "a b c : ℝ\nha : a > 0\nhb : b > 0\nhc : c > 0\nh : a + b + c = 1\n⊢ 1 / (2 * a + 2 * b + 3 * c) + 1 / (2 * a + 3 * b + 2 * c) + 1 / (3 * a + 2 * b + 2 * c) ≤\n    1 / (c + 6 * sqrt(a * b)) + 1 / (b + 6 * sqrt(a * c)) + 1 / (a + 6 * sqrt(b * c))",
+      "children": [],
+      "data": {
+        "tactic": "make_homogeneous 1 / (2 * a + 2 * b + 3 * c) + 1 / (2 * a + 3 * b + 2 * c) + 1 / (3 * a + 2 * b + 2 * c) - (1 / (a + 6 * sqrt (b * c))) - (1 / (b + 6 * sqrt (a * c))) - (1 / (c + 6 * sqrt (a * b))) ≤ 0",
+        "goal": [
+          "a b c : ℝ\nha : a > 0\nhb : b > 0\nhc : c > 0\nh : a + b + c = 1\n⊢ 1 / (2 * a + 2 * b + 3 * c) + 1 / (2 * a + 3 * b + 2 * c) + 1 / (3 * a + 2 * b + 2 * c) ≤\n    1 / (c + 6 * sqrt(a * b)) + 1 / (b + 6 * sqrt(a * c)) + 1 / (a + 6 * sqrt(b * c))"
+        ],
+        "is_golden": false
+      }
+    }
+  ],
+  "data": {
+    "tactic": "theorem PExample {a b c : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) (h : a + b + c = 1) : 1 / (a + 2) + 1 / (b + 2) + 1 / (c + 2) ≤ 1 / (6 * sqrt (a * b) + c) + 1 / (6 * sqrt (b * c) + a) + 1 / (6 * sqrt (c * a) + b) := by sorry",
+    "goal": [
+      "a b c : ℝ\nha : a > 0\nhb : b > 0\nhc : c > 0\nh : a + b + c = 1\n⊢ 1 / (a + 2) + 1 / (b + 2) + 1 / (c + 2) ≤\n    1 / (6 * sqrt(a * b) + c) + 1 / (6 * sqrt(b * c) + a) + 1 / (6 * sqrt(c * a) + b)"
+    ],
+    "is_golden": false
+  }
+}

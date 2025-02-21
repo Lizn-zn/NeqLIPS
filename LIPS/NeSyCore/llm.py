@@ -27,7 +27,7 @@ class LLM:
 
     def set_api_key(self, idx=0):
         if idx == 0:
-            client = OpenAI(api_key='OPENAI_API_KEY')
+            client = OpenAI(api_key='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')
         else:
             raise IndexError("No more API keys")
         return client

@@ -57,9 +57,9 @@ Set your own GPT-4 interface in `./NeSyCore/llm.py`
 Use either the provided shell script or run directly:
 
 ```bash
-python prove.py --problem "theorem P1 {a b c : ℝ} : a * b + b * c + c * a ≤ a ^ 2 + b ^ 2 + c ^ 2 := by sorry"
+python prove.py --problem "{a b c : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) (h : a + b + c = 1) : 1 / (a + 2) + 1 / (b + 2) + 1 / (c + 2) ≤ 1 / (6 * sqrt (a * b) + c) + 1 / (6 * sqrt (b * c) + a) + 1 / (6 * sqrt (c * a) + b) := by sorry"
 ```
-
+Note that it will take about xxx minutes to pre-compile the lemma library when first running the prover.
 For additional configuration options, see `LIPS/args.py`.
 
 #### 2. Visualize the Proof Tree
@@ -102,7 +102,7 @@ The formal proofs of MO-INT, ChenNEQ, and 567Neq are provided in `Neq/Math/Probl
     ```
 - Add corresponding Lean tactics in `Neq/math/Math/Tactics.lean`
 
-#### 2. Add new scaling tactics
+#### - Add new scaling tactics
 
 - Location: `LIPS/Library/ScalingLib.json`
 - Format:
@@ -118,19 +118,6 @@ The formal proofs of MO-INT, ChenNEQ, and 567Neq are provided in `Neq/Math/Probl
     }
     ```
 - Add corresponding Lean lemmas in `Neq/math/Math/NeqScales.lean`
-
-## Include more tactics
-
-## Results
-
-The generated formal proof are provided in `Neq/Math/Problem`, 
-
-## Include more tactics
-
-## Results
-
-The generated formal proof are provided in `Neq/Math/Problem`, 
-
 
 ## TODO List
 

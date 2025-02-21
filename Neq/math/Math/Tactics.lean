@@ -5,7 +5,6 @@ import Lean.Elab.Tactic.BuiltinTactic
 import Smt
 
 import Math.NeqNorm
--- import Smt
 
 open Lean Parser Parser.Tactic Elab Command Elab.Tactic Meta
 open Real
