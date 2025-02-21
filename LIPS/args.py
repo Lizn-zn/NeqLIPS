@@ -17,7 +17,7 @@ def parse_args():
     argparser.add_argument("--check_cycle", default=0, choices=[0,1], type=int, help="Whether using the cycle check, filtering out non-cycle states")
     argparser.add_argument("--check_homogeneous", default=1, choices=[0, 1], type=int, help="Whether to make the problem homogeneous previously")
     # Ranker params
-    argparser.add_argument("--focus_ops", default="d+", type=str, help="Operator encouraged for the problem, e.g., d+")
+    argparser.add_argument("--focus_ops", default="dm", type=str, help="Operator encouraged for the problem, e.g., d+")
     argparser.add_argument("--norm_goal", default=0, choices=[0,1], type=int, help="Whether to normalize the goal")
     argparser.add_argument("--rank_size", default=10, type=int, help="Filter size for the Ranker")
     # Scaler params

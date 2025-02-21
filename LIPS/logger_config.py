@@ -38,7 +38,8 @@ def setup_logger(log_file=None, log_level="WARNING"):
         log_path = Path(log_file)
         log_path.parent.mkdir(parents=True, exist_ok=True)
         # Create or truncate the file
-        log_path.touch(exist_ok=True)
+        if log_path.exists():
+            log_path.unlink()
         file_handler = logging.FileHandler(log_file)
         file_handler.setFormatter(file_formatter)
         logger.addHandler(file_handler)

@@ -501,9 +501,9 @@ class Prover:
 
     def clean(self):
         try:
-            subprocess.run(["pkill", "-9", "mserver"], check=False)
-            subprocess.run(["pkill", "-9", "mtsolve"], check=False)
-            subprocess.run(["pkill", "-9", "wolframscript"], check=False)
-            subprocess.run(["pkill", "-9", "WolframKernel"], check=False)
+            subprocess.run(["pkill", "-9", "mserver"], check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            subprocess.run(["pkill", "-9", "mtsolve"], check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            subprocess.run(["pkill", "-9", "wolframscript"], check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            subprocess.run(["pkill", "-9", "WolframKernel"], check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         except subprocess.CalledProcessError as e:
             pass

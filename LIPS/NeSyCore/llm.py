@@ -1,4 +1,5 @@
 import re
+import os
 import warnings
 from wrapt_timeout_decorator import timeout
 from openai import OpenAI
@@ -27,7 +28,7 @@ class LLM:
 
     def set_api_key(self, idx=0):
         if idx == 0:
-            client = OpenAI(api_key='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')
+            client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
         else:
             raise IndexError("No more API keys")
         return client

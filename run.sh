@@ -18,7 +18,7 @@ python -u prove.py \
     --log_level "INFO" \
     --num_threads 192 \
     --force_rebuild 1 \
-    --oai_version "gpt-4o" \
+    --oai_version "gpt-4o-mini" \
     --temperature 0.1 \
     --top_p 0.95 \
     --max_tokens 4096 \
@@ -32,7 +32,7 @@ python -u prove.py \
     --rewrite_length 5 \
     --rewrite_limit 1 \
     --init_test "auto" \
-    --smt_config "{'smt_timeout': 15, 'smt_level': 0, 'smt_solvers': ['z3', 'cvc5', 'mplbt', 'mplrc', 'mmard', 'mmafi', 'sysol', 'syopt'], 'smt_update': True}" \
+    --smt_config "{'smt_timeout': 5, 'smt_level': 0, 'smt_solvers': ['z3', 'cvc5', 'mplbt', 'mplrc', 'mmard', 'mmafi', 'sysol', 'syopt'], 'smt_update': True}" \
     --prover_vb 1 
 
   sleep 1

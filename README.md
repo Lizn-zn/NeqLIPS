@@ -48,7 +48,7 @@ We strongly recommend installing one of the [maple](https://www.maplesoft.com/) 
 
 #### 6. Initialize the LLM interface
 
-Set your own GPT-4 interface in `./NeSyCore/llm.py`
+Set your own GPT-4 key by `export OPENAI_API_KEY="your_api_key_here"`
 
 ## Usage
 
