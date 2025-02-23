@@ -2,7 +2,7 @@
 
 This is the official code for NeqLIPS, a powerful Olympiad Inequalities Prover.
 
-![NeqLIPS](./figures/framework.png)
+![NeqLIPS](./Figures/framework.png)
 
 NeqLIPS first enumerates all possible scaling tactics using symbolic tools, and prompts LLMs to generate rewriting tactics. 
 Then, it selects the best proof state by symbolic filtering and neural ranking.
@@ -73,7 +73,7 @@ python viz.py /path/to/proof_tree.json
 
 Example proof tree visualization for the running example:
 
-![Proof Tree Example](./figures/ptree.png)
+![Proof Tree Example](./Figures/ptree.png)
 
 
 ## Performance
@@ -129,7 +129,7 @@ The formal proofs of MO-INT, ChenNEQ, and 567Neq are provided in `Neq/Math/Probl
 
 ## Questions and Bugs
 
-To report a potential bug, please open an issue.
+If you have any questions, feel free to contact us at [lizn@smail.nju.edu.cn](mailto:lizn@smail.nju.edu.cn) or submit an issue here.
 
 ## License
 
