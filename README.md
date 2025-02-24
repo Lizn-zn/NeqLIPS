@@ -144,7 +144,7 @@ Zenan Li*, [Zhaoyu Li](https://www.zhaoyu-li.com/)*, Wen Tang, [Xian Zhang](http
 
 ```bibtex
 @inproceedings{li2025lips,
-  title={Proving Olympiad Inequalities by Synergizing LLMs and Symbolic Reasoning},
+  title={Proving Olympiad Inequalities by Synergizing {LLMs} and Symbolic Reasoning},
   author={Li, Zenan and Li, Zhaoyu and Tang, Wen and Zhang, Xian and Yao, Yuan and Si, Xujie and Yang, Fan and Yang, Kaiyu and Ma, Xiaoxing},
   booktitle={International Conference on Learning Representations (ICLR)},
   year={2025}
