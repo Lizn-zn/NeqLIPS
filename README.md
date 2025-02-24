@@ -7,7 +7,7 @@ This is the official code for NeqLIPS, a powerful Olympiad Inequalities Prover.
 NeqLIPS first enumerates all possible scaling tactics using symbolic tools, and prompts LLMs to generate rewriting tactics. 
 Then, it selects the best proof state by symbolic filtering and neural ranking.
 
-For detailed information, please refer to our [research paper](https://openreview.net/forum?id=FiyS0ecSm0).
+For detailed information, please refer to our [research paper](#citation).
 
 ## Installation
 
@@ -137,3 +137,16 @@ This code repository is licensed under the MIT License.
 
 ## Citation
 
+[Proving Olympiad Inequalities by Synergizing LLMs and Symbolic Reasoning](https://arxiv.org/abs/2502.13834)      
+International Conference on Learning Representations (ICLR), 2025  
+Zenan Li*, [Zhaoyu Li](https://www.zhaoyu-li.com/)*, Wen Tang, [Xian Zhang](https://www.microsoft.com/en-us/research/people/zhxian/), Yuan Yao, [Xujie Si](https://www.cs.toronto.edu/~six/), [Fan Yang](https://fanyangcs.github.io/), [Kaiyu Yang](https://yangky11.github.io/)†, [Xiaoxing Ma](https://ics.nju.edu.cn/people/xiaoxingma/)†  
+(\* equal contribution; † equal advising)
+
+```bibtex
+@inproceedings{li2025lips,
+  title={Proving Olympiad Inequalities by Synergizing LLMs and Symbolic Reasoning},
+  author={Li, Zenan and Li, Zhaoyu and Tang, Wen and Zhang, Xian and Yao, Yuan and Si, Xujie and Yang, Fan and Yang, Kaiyu and Ma, Xiaoxing},
+  booktitle={International Conference on Learning Representations (ICLR)},
+  year={2025}
+}
+```
