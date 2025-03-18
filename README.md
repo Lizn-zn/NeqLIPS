@@ -44,11 +44,11 @@ cargo install maturin && maturin develop --release --manifest-path LIPS/egg_matc
 
 #### 5. Install Symbolic Solver (Optional)
 
-We strongly recommend installing one of the [maple](https://www.maplesoft.com/) or [mathematica](https://www.wolfram.com/mathematica/) for the counterexample checking
+We strongly recommend installing one of the [maple](https://www.maplesoft.com/) or [mathematica](https://www.wolfram.com/mathematica/) for the counterexample checking. 
 
 #### 6. Initialize the LLM interface
 
-Set your own GPT-4 key by `export OPENAI_API_KEY="your_api_key_here"`
+Set your own GPT-4 key by `export OPENAI_API_KEY="your_api_key_here"`.
 
 ## Usage
 
