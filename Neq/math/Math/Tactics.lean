@@ -33,6 +33,11 @@ def use_axiom : MetaM Bool := do
   let opts ← getOptions
   return opts.getBool by_axiom.name by_axiom.defValue
 
+elab "check_goal_nums " n:num : tactic => do
+  let numGoals := (← getGoals).length
+  guard (numGoals <= n.getNat) <|>
+    throwError "expected <= {n.getNat} goals but found {numGoals}"
+
 /-
 augmented versions of some fundmental tactics: (1) suppose; (2) rewrite with positivity
 -/
@@ -204,7 +209,7 @@ macro "scale " h:term : tactic =>
                      | suppose $h; (convert ($(mkIdent `this)) using 1 <;> next => automation);
                             (try any_goals positivity);
                             (try any_goals linarith);
-                            guard_goal_nums 1;
+                            check_goal_nums 1;
                             (repeat fail_if_no_progress norm_expr)))
 
 
@@ -275,11 +280,11 @@ macro "llm_cancel_denom " h:term : tactic
                (repeat (first | (apply frac_reduce; (first | assumption | positivity | ·simp[*] | linarith))
                               | (apply frac_reduce'; (first | assumption | positivity | ·simp[*] | linarith))
                ));
-               first | guard_goal_nums 1 | (try any_goals assumption);
-               first | guard_goal_nums 1 | (try any_goals positivity);
-               first | guard_goal_nums 1 | (try any_goals ·simp[*]);
-               first | guard_goal_nums 1 | (try any_goals linarith);
-               guard_goal_nums 1;
+               first | check_goal_nums 1 | (try any_goals assumption);
+               first | check_goal_nums 1 | (try any_goals positivity);
+               first | check_goal_nums 1 | (try any_goals ·simp[*]);
+               first | check_goal_nums 1 | (try any_goals linarith);
+               check_goal_nums 1;
                try simp only [tsub_le_iff_right];
                try apply tsub_le_iff_right_p;
                norm_expr;))
