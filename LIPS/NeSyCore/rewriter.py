@@ -617,7 +617,7 @@ class Rewriter:
         """
         lhs, rhs = neq.split("≤", 1)
         lhs, rhs = lhs.strip(), rhs.strip()
-        orig_expr = f"({lhs}) - ({rhs})"
+        orig_expr = f"{lhs} - ({rhs})"
         sympy_expr = parser.lean2sympy(orig_expr)
         numer, denom = sympy_expr.as_numer_denom()
         if denom == 1:

@@ -182,18 +182,13 @@ automation tactics for scaling
 -/
 
 macro "auto_verify" : tactic =>
-  `(tactic| first | ·(norm_cast; push_cast; norm_num;
-                      (first
-                       | done
-                       | linarith
-                       | ring_nf
-                       | (field_simp (config := {decide := true}))
-                       | (ring_nf; field_simp (config := {decide := true}))
-                       | polyrith
-                      )
-                      field_simp (config := {decide := true}) [*]; linarith
-                    )
-                  | smt_decide!
+  `(tactic| first | ·(try norm_cast; push_cast; norm_num;
+                      (first | done | linarith | ring_nf
+                             | (field_simp (config := {decide := true})); (first | done | linarith)
+                             | (ring_nf; field_simp (config := {decide := true}))
+                             | polyrith)
+                     )
+                  | smt_decide! (solvers := z3,cvc5,sysol,syopt)
               )
 
 elab "automation " : tactic => do
