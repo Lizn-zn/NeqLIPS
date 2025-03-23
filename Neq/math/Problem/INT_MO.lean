@@ -4,7 +4,7 @@ import Smt
 
 open Real
 
-set_option maxHeartbeats 400000
+set_option maxHeartbeats 0
 
 set_option linter.unusedVariables false
 set_option by_axiom true
@@ -172,7 +172,7 @@ theorem P14 {a b c : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) (h : a * b * c 
   sym_simplify 1 / 3  -  3 * (1 / (9 * (a * b * c) ^ (2 / 3))) * (a * b * a * c * b * c) ^ (1 / 3) = 0
   try close
 
-theorem P15 {a b c : ℝ} (ha : a ≥ 0) (hb : b ≥ 0) (hc : c ≥ 0) (h : a ^ 2 + b ^ 2 + c ^ 2 + (a + b + c) ^ 2 ≤ 4) : 3 ≤ (a * b + 1) / (a + b) ^ 2 + (b * c + 1) / (b + c) ^ 2 + (c * a + 1) / (c + a) ^ 2 := by
+theorem P15 {a b c : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) (h : a ^ 2 + b ^ 2 + c ^ 2 + (a + b + c) ^ 2 ≤ 4) : 3 ≤ (a * b + 1) / (a + b) ^ 2 + (b * c + 1) / (b + c) ^ 2 + (c * a + 1) / (c + a) ^ 2 := by
   make_homogeneous 3 - ((a ^ 2 / 4 + b ^ 2 / 4 + c ^ 2 / 4 + (a + b + c) ^ 2 / 4 + a * b) / ((a + b) ^ 2)) - ((a ^ 2 / 4 + b ^ 2 / 4 + c ^ 2 / 4 + (a + b + c) ^ 2 / 4 + a * c) / ((a + c) ^ 2)) - ((a ^ 2 / 4 + b ^ 2 / 4 + c ^ 2 / 4 + (a + b + c) ^ 2 / 4 + b * c) / ((b + c) ^ 2)) ≤ 0
   llm_cancel_factor (3) - ((a ^ 2 / 4 + b ^ 2 / 4 + c ^ 2 / 4 + (a + b + c) ^ 2 / 4 + b * c) / (b + c) ^ 2 + (a ^ 2 / 4 + b ^ 2 / 4 + c ^ 2 / 4 + (a + b + c) ^ 2 / 4 + a * c) / (a + c) ^ 2 + (a ^ 2 / 4 + b ^ 2 / 4 + c ^ 2 / 4 + (a + b + c) ^ 2 / 4 + a * b) / (a + b) ^ 2) = (1 / 2) * (1 / ((a + b) ^ 2)) * (1 / ((a + c) ^ 2)) * (1 / ((b + c) ^ 2)) * (a ^ 2 + b ^ 2 + c ^ 2 + 3 * a * b + 3 * a * c + 3 * b * c) * (a ^ 2 * b ^ 2 + a ^ 2 * c ^ 2 + b ^ 2 * c ^ 2 - (a ^ 4) - (b ^ 4) - (c ^ 4))
   scale Rearrange_cycle_mul_right_3vars (u := (c ^ 2)) (v := (b ^ 2)) (w := (a ^ 2)) (i1 := 1) (j1 := 0) (i2 := 1) (j2 := 0) (k := 1) (l := 0) (left := a ^ 2 * b ^ 2 + a ^ 2 * c ^ 2 + b ^ 2 * c ^ 2)
