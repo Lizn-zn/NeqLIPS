@@ -182,18 +182,20 @@ automation tactics for scaling
 -/
 
 macro "auto_verify" : tactic =>
-  `(tactic| first | ·(norm_cast; push_cast; norm_num;
-                      (first
-                       | done
-                       | linarith
-                       | ring_nf
-                       | (field_simp (config := {decide := true}))
-                       | (ring_nf; field_simp (config := {decide := true}))
-                       | polyrith
-                      )
-                      field_simp (config := {decide := true}) [*]; linarith
-                    )
-                  | smt_decide!
+  `(tactic| first | ·(try norm_cast; push_cast; norm_num;
+                      (first | done | linarith | nlinarith | ring_nf
+                             | (field_simp (config := {decide := true})); (first | done | linarith)
+                             | (ring_nf; field_simp (config := {decide := true}))
+                             | polyrith)
+                     )
+                  | smt_decide! (solver := $(mkIdent `z3),
+                                           $(mkIdent `cvc5),
+                                           $(mkIdent `mplbt),
+                                           $(mkIdent `mplrc),
+                                           $(mkIdent `mmard),
+                                           $(mkIdent `mmafi),
+                                           $(mkIdent `sysol),
+                                           $(mkIdent `syopt))
               )
 
 elab "automation " : tactic => do
@@ -209,6 +211,7 @@ macro "scale " h:term : tactic =>
                      | suppose $h; (convert ($(mkIdent `this)) using 1 <;> next => automation);
                             (try any_goals positivity);
                             (try any_goals linarith);
+                            (try any_goals nlinarith);
                             check_goal_nums 1;
                             (repeat fail_if_no_progress norm_expr)))
 
@@ -277,8 +280,8 @@ macro "llm_frac_together " h:term : tactic =>
 macro "llm_cancel_denom " h:term : tactic
  => `(tactic| (apply move_left;
                rwp [show $h by automation];
-               (repeat (first | (apply frac_reduce; (first | assumption | positivity | ·simp[*] | linarith))
-                              | (apply frac_reduce'; (first | assumption | positivity | ·simp[*] | linarith))
+               (repeat (first | (apply frac_reduce; (first | assumption | positivity | ·simp[*] | linarith | nlinarith))
+                              | (apply frac_reduce'; (first | assumption | positivity | ·simp[*] | linarith | nlinarith))
                ));
                first | check_goal_nums 1 | (try any_goals assumption);
                first | check_goal_nums 1 | (try any_goals positivity);

@@ -149,7 +149,7 @@ class LeanIO(ProofTree):
                 self.logger.info(f"Fail to make any progress using `{cmd.strip()}` on ps {ps}")
         else:
             curr_ps = ps
-            self.logger.error(f"Fail to parse the response {res} for running the cmd: {cmd}")
+            self.logger.info(f"Failed when running the cmd: {cmd}, get the response: {res}")
         return curr_ps
     
             
