@@ -756,15 +756,15 @@
         "condition": ["u = v", "v = w"]
     },
     "Jensen_square_div_left_3vars": {
-        "input": "k * (1 / u ^ 2 + 1 / v ^ 2 + 1 / w ^ 2) + l",
-        "output": "k * (27 / (u + v + w) ^ 2) + l",
+        "input": "k * (27 / (u + v + w) ^ 2) + l",
+        "output": "k * (1 / u ^ 2 + 1 / v ^ 2 + 1 / w ^ 2) + l",
         "type": "left",
         "var": ["u", "v", "w", "k", "l"],
         "condition": ["u = v", "v = w"]
     },
     "Jensen_square_div_right_3vars": {
-        "input": "k * (1 / (u + v + w) ^ 2) + l",
-        "output": "k * (1 / u ^ 2 + 1 / v ^ 2 + 1 / w ^ 2) / 27 + l",
+        "input": "k * (1 / u ^ 2 + 1 / v ^ 2 + 1 / w ^ 2) / 27 + l",
+        "output": "k * (1 / (u + v + w) ^ 2) + l",
         "type": "right",
         "var": ["u", "v", "w", "k", "l"],
         "condition": ["u = v", "v = w"]
