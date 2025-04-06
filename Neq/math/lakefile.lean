@@ -11,7 +11,7 @@ package «Math» {
   ]
 }
 
--- Note: only used for Lean 4 v4.11.0 remove if update
+-- Note: only used for Lean 4 v4.15.0 remove if update
 @[default_target]
 lean_lib «Math» {
   -- add any library configuration options here

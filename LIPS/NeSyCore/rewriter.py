@@ -800,7 +800,7 @@ class Rewriter:
         for x in self.equality_assumption:
             eq_ass.append(parser.lean2sympy(x))
         res = utils.single_var_solve(eq_ass, var_sum)
-        if var_sum not in res:
+        if var_sum not in res or not utils.is_const(res[var_sum]):
             degree = utils.get_degree(orig_expr)
             if degree != float("inf"):  # the problem is homogeneous
                 res = {var_sum: num_vars}
@@ -810,7 +810,7 @@ class Rewriter:
         args = self.expr_decompose(expr)
         is_independent = all([len(x.free_symbols) <= 1 for x in args])
         is_cycle = all([expr.equals(expr.xreplace(maps)) for maps in self.cycle_mappings])
-        if not is_independent or not is_cycle:
+        if expr == 0 or not is_independent or not is_cycle:
             return []
         for x_ in set([res[var_sum] / num_vars, 1]):
             fun = Add(*[x for x in args if x.has(a)])
