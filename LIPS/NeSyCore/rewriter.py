@@ -810,7 +810,7 @@ class Rewriter:
         args = self.expr_decompose(expr)
         is_independent = all([len(x.free_symbols) <= 1 for x in args])
         is_cycle = all([expr.equals(expr.xreplace(maps)) for maps in self.cycle_mappings])
-        if expr == 0 or not is_independent or not is_cycle:
+        if not is_independent or not is_cycle:
             return []
         for x_ in set([res[var_sum] / num_vars, 1]):
             fun = Add(*[x for x in args if x.has(a)])
