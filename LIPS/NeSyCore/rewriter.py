@@ -800,7 +800,7 @@ class Rewriter:
         for x in self.equality_assumption:
             eq_ass.append(parser.lean2sympy(x))
         res = utils.single_var_solve(eq_ass, var_sum)
-        if var_sum not in res:
+        if var_sum not in res or not utils.is_const(res[var_sum]):
             degree = utils.get_degree(orig_expr)
             if degree != float("inf"):  # the problem is homogeneous
                 res = {var_sum: num_vars}

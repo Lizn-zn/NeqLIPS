@@ -152,14 +152,11 @@ theorem P12 {a b c : ℝ} : sqrt ((a * b * (a ^ 2 - b ^ 2) + b * c * (b ^ 2 - c 
   sorry
 
 theorem P13 {a b c : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) (h : a + b + c = 1 / a + 1 / b + 1 / c) : 1 / (2 * a + b + c) ^ 2 + 1 / (2 * b + c + a) ^ 2 + 1 / (2 * c + a + b) ^ 2 ≤ 3 / 16 := by
-  make_homogeneous (a + b + c) / (((2 * a + b + c) ^ 2) * (1 / ((c)) + 1 / ((b)) + 1 / ((a)))) + (a + b + c) / (((a + 2 * b + c) ^ 2) * (1 / ((c)) + 1 / ((b)) + 1 / ((a)))) + (a + b + c) / (((a + b + 2 * c) ^ 2) * (1 / ((c)) + 1 / ((b)) + 1 / ((a)))) - (3 / 16) ≤ 0
-  llm_cancel_factor (a + b + c) / ((2 * a + b + c) ^ 2 * (1 / c + 1 / b + 1 / a)) + (a + b + c) / ((a + 2 * b + c) ^ 2 * (1 / c + 1 / b + 1 / a)) + (a + b + c) / ((a + b + 2 * c) ^ 2 * (1 / c + 1 / b + 1 / a)) - (3 / 16) = a * b * c * (a + b + c) * (1 / (((2 * a + b + c) ^ 2)) + 1 / (((a + 2 * b + c) ^ 2)) + 1 / (((a + b + 2 * c) ^ 2))) / (a * b + a * c + b * c) - (3 / (16))
-  scale Jensen_square_div_left_3vars (u := (((2 * a) + b) + c)) (v := ((a + (2 * b)) + c)) (w := ((a + b) + (2 * c))) (k := ((((a * b) * c) * ((a + b) + c)) * (1 / (((a * b) + (a * c)) + (b * c))))) (l := 0) (right := 3 / 16)
-  llm_cancel_factor a * b * c * (a + b + c) * (1 / (a * b + a * c + b * c)) * (27 / (2 * a + b + c + a + 2 * b + c + a + b + 2 * c) ^ 2) - (3 / 16) = (27 * a * b * c - (3 * (a * b + a * c + b * c) * (a + b + c))) / (16 * (a + b + c) * (a * b + a * c + b * c))
-  scale AM_GM_normal_right_3vars (u := (a * b)) (v := (a * c)) (w := (b * c)) (k := (((a + b) + c) * 3)) (l := 0) (left := 27 * a * b * c)
-  llm_simplify 27 * a * b * c - (3 * (a + b + c) * 3 * (a * b * a * c * b * c) ^ (1 / 3)) = 27 * a * b * c - (9 * (a * b * c) ^ (2 / (3)) * (a + b + c))
-  scale AM_GM_normal_right_3vars (u := a) (v := b) (w := c) (k := (9 * (((a * b) * c) ^ (2 / 3)))) (l := 0) (left := 27 * a * b * c)
-  sym_simplify 27 * a * b * c  -  27 * (a * b * c) ^ (2 / 3) * (a * b * c) ^ (1 / 3) = 0
+  scale AM_GM_div_cycle_normal_left_2vars (u1 := (2 * a)) (u2 := (2 * b)) (u3 := (2 * c)) (v1 := (b + c)) (v2 := (c + a)) (v3 := (a + b)) (i1 := (((2 * a) + b) + c)) (i2 := (((2 * b) + c) + a)) (i3 := (((2 * c) + a) + b)) (j1 := 0) (j2 := 0) (j3 := 0) (k := 1) (l := 0) (right := 3 / 16)
+  scale AM_GM_div_cycle_normal_left_2vars (u1 := (2 * a)) (u2 := (2 * b)) (u3 := (2 * c)) (v1 := (b + c)) (v2 := (c + a)) (v3 := (a + b)) (i1 := (2 * sqrt (((2 * a) * (b + c))))) (i2 := (2 * sqrt (((2 * b) * (c + a))))) (i3 := (sqrt (((2 * c) * (a + b))) * 2)) (j1 := 0) (j2 := 0) (j3 := 0) (k := 1) (l := 0) (right := 3 / 16)
+  llm_cancel_denom 1 / (4 * sqrt(2 * a * (b + c)) * sqrt(2 * a * (b + c))) + 1 / (4 * sqrt(2 * b * (c + a)) * sqrt(2 * b * (c + a))) + 1 / (2 * sqrt(2 * c * (a + b)) * 2 * sqrt(2 * c * (a + b))) - (3 / 16) = (2 * b * (c + a) * c * (a + b) + 2 * a * (b + c) * c * (a + b) + 2 * a * (b + c) * b * (c + a) - (3 * a * (b + c) * b * (c + a) * c * (a + b))) / (16 * a * b * c * (a + b) * (a + c) * (b + c))
+  sym_pqr_method 2 * a * b ^ 3 * (a * b ^ 2 + b * a ^ 2 - (a ^ 3) - (b ^ 3)) / (2 * a + b) ≤ 0
+  llm_cancel_factor (2 * a * b ^ 3 * (a * b ^ 2 + b * a ^ 2 - a ^ 3 - b ^ 3) / (2 * a + b)) - (0) = (2) * (a) * (b ^ 3) * ((a - (b)) ^ 2) * (1 / (2 * a + b)) * (-(a) - (b))
   try close
 
 theorem P14 {a b c : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) (h : a * b * c = 1) : 1 / 3 ≤ (1 / (a ^ 5 * (b + 2 * c) ^ 2)) + (1 / (b ^ 5 * (c + 2 * a) ^ 2)) + (1 / (c ^ 5 * (a + 2 * b) ^ 2)) := by

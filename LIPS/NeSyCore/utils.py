@@ -280,10 +280,11 @@ def make_independent(expr: Expr, equality: Dict[Expr, Expr]) -> Expr:
     if len(expr.free_symbols) <= 1:
         return expr
     else:
+        orig_expr = expr
         func, args = expr.func, expr.args
         for sub in subs:
             eq, val = next(iter(sub.items()))   
-            new_expr = 0
+            expr, new_expr = orig_expr, 0
             for _ in range(5):
                 res = expr.extract_additively(eq)
                 if res is not None:

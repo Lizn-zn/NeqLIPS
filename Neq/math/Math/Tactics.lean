@@ -188,14 +188,15 @@ macro "auto_verify" : tactic =>
                              | (ring_nf; field_simp (config := {decide := true}))
                              | polyrith)
                      )
-                  | smt_decide! (solver := $(mkIdent `z3),
-                                           $(mkIdent `cvc5),
-                                           $(mkIdent `mplbt),
-                                           $(mkIdent `mplrc),
-                                           $(mkIdent `mmard),
-                                           $(mkIdent `mmafi),
-                                           $(mkIdent `sysol),
-                                           $(mkIdent `syopt))
+                  | smt_decide! (timeout := 5)
+                                (solvers := $(mkIdent `z3),
+                                            $(mkIdent `cvc5),
+                                            $(mkIdent `mplbt),
+                                            $(mkIdent `mplrc),
+                                            $(mkIdent `mmard),
+                                            $(mkIdent `mmafi),
+                                            $(mkIdent `sysol),
+                                            $(mkIdent `syopt))
               )
 
 elab "automation " : tactic => do

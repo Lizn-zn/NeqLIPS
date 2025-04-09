@@ -123,9 +123,11 @@ The formal proofs of MO-INT, ChenNEQ, and 567Neq are provided in `Neq/Math/Probl
 
 ## TODO List
 
-- [ ] Update to `Lean v4.15.0` with macOS support
+- [X] Update to `Lean v4.15.0` with macOS support
 - [ ] Replace lean-repl with alternative solutions
+- [ ] Fill the inequality Axioms (#8)
 - [ ] Implement local SFT model as GPT-4o alternative
+
 
 ## Questions and Bugs
 

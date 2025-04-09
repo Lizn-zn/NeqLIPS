@@ -52,18 +52,18 @@ theorem Rearrange_cycle_div_3vars (u v w i1 j1 i2 j2 : ℝ) (ha : i2 * u + j2 > 
   let u2 := u / (i2 * v + j2)
   let v2 := v / (i2 * w + j2)
   let w2 := w / (i2 * u + j2)
-  rw [show (i1 * u + j1) / (i2 * v + j2) = i1 * u2 + j1 / (i2 * v + j2) by unfold_let u2; field_simp [hb, hd]]
-  rw [show (i1 * v + j1) / (i2 * w + j2) = i1 * v2 + j1 / (i2 * w + j2) by unfold_let v2; field_simp [hc, hd]]
-  rw [show (i1 * w + j1) / (i2 * u + j2) = i1 * w2 + j1 / (i2 * u + j2) by unfold_let w2; field_simp [ha, hd]]
-  rw [show (i1 * u + j1) / (i2 * u + j2) = i1 * u1 + j1 / (i2 * u + j2) by unfold_let u1; field_simp [ha, hd]]
-  rw [show (i1 * v + j1) / (i2 * v + j2) = i1 * v1 + j1 / (i2 * v + j2) by unfold_let v1; field_simp [hb, hd]]
-  rw [show (i1 * w + j1) / (i2 * w + j2) = i1 * w1 + j1 / (i2 * w + j2) by unfold_let w1; field_simp [hc, hd]]
+  rw [show (i1 * u + j1) / (i2 * v + j2) = i1 * u2 + j1 / (i2 * v + j2) by unfold u2; field_simp [hb, hd]]
+  rw [show (i1 * v + j1) / (i2 * w + j2) = i1 * v2 + j1 / (i2 * w + j2) by unfold v2; field_simp [hc, hd]]
+  rw [show (i1 * w + j1) / (i2 * u + j2) = i1 * w2 + j1 / (i2 * u + j2) by unfold w2; field_simp [ha, hd]]
+  rw [show (i1 * u + j1) / (i2 * u + j2) = i1 * u1 + j1 / (i2 * u + j2) by unfold u1; field_simp [ha, hd]]
+  rw [show (i1 * v + j1) / (i2 * v + j2) = i1 * v1 + j1 / (i2 * v + j2) by unfold v1; field_simp [hb, hd]]
+  rw [show (i1 * w + j1) / (i2 * w + j2) = i1 * w1 + j1 / (i2 * w + j2) by unfold w1; field_simp [hc, hd]]
   suffices i1 * u1 + i1 * v1 + i1 * w1 ≤ i1 * u2 + i1 * v2 + i1 * w2 by linarith
   suffices u1 + v1 + w1 ≤ u2 + v2 + w2 by nlinarith
   have h0 := amgm_cycle1 (i2*u+j2) (i2*v+j2) (i2*w+j2) ha hb hc
-  rw [show (i2 * u + j2) / (i2 * v + j2) = i2 * u2 - i2 * v1 + 1 by unfold_let u2 v1; field_simp [<-add_assoc, hb, hd]] at h0
-  rw [show (i2 * v + j2) / (i2 * w + j2) = i2 * v2 - i2 * w1 + 1 by unfold_let v2 w1; field_simp [<-add_assoc, hc, hd]] at h0
-  rw [show (i2 * w + j2) / (i2 * u + j2) = i2 * w2 - i2 * u1 + 1 by unfold_let w2 u1; field_simp [<-add_assoc, ha, hd]] at h0
+  rw [show (i2 * u + j2) / (i2 * v + j2) = i2 * u2 - i2 * v1 + 1 by unfold u2 v1; field_simp [<-add_assoc, hb, hd]] at h0
+  rw [show (i2 * v + j2) / (i2 * w + j2) = i2 * v2 - i2 * w1 + 1 by unfold v2 w1; field_simp [<-add_assoc, hc, hd]] at h0
+  rw [show (i2 * w + j2) / (i2 * u + j2) = i2 * w2 - i2 * u1 + 1 by unfold w2 u1; field_simp [<-add_assoc, ha, hd]] at h0
   have h0 : i2 * u2 - i2 * v1 + (i2 * v2 - i2 * w1) + (i2 * w2 - i2 * u1) ≥ 0 := by linarith
   nlinarith
 
@@ -98,21 +98,21 @@ theorem Rearrange_cycle_mul_3vars (u v w i1 j1 i2 j2 : ℝ) (ha : i1 ≥ 0) (hb 
   have h : i2 > 0 := by positivity
   let u1 := u * (i2 * u + j2); let v1 := v * (i2 * v + j2); let w1 := w * (i2 * w + j2)
   let u2 := u * (i2 * v + j2); let v2 := v * (i2 * w + j2); let w2 := w * (i2 * u + j2)
-  rw [show (i1 * u + j1) * (i2 * v + j2) = i1 * u2 + j1 * (i2 * v + j2) by unfold_let u2; nlinarith]
-  rw [show (i1 * v + j1) * (i2 * w + j2) = i1 * v2 + j1 * (i2 * w + j2) by unfold_let v2; nlinarith]
-  rw [show (i1 * w + j1) * (i2 * u + j2) = i1 * w2 + j1 * (i2 * u + j2) by unfold_let w2; nlinarith]
-  rw [show (i1 * u + j1) * (i2 * u + j2) = i1 * u1 + j1 * (i2 * u + j2) by unfold_let u1; nlinarith]
-  rw [show (i1 * v + j1) * (i2 * v + j2) = i1 * v1 + j1 * (i2 * v + j2) by unfold_let v1; nlinarith]
-  rw [show (i1 * w + j1) * (i2 * w + j2) = i1 * w1 + j1 * (i2 * w + j2) by unfold_let w1; nlinarith]
+  rw [show (i1 * u + j1) * (i2 * v + j2) = i1 * u2 + j1 * (i2 * v + j2) by unfold u2; nlinarith]
+  rw [show (i1 * v + j1) * (i2 * w + j2) = i1 * v2 + j1 * (i2 * w + j2) by unfold v2; nlinarith]
+  rw [show (i1 * w + j1) * (i2 * u + j2) = i1 * w2 + j1 * (i2 * u + j2) by unfold w2; nlinarith]
+  rw [show (i1 * u + j1) * (i2 * u + j2) = i1 * u1 + j1 * (i2 * u + j2) by unfold u1; nlinarith]
+  rw [show (i1 * v + j1) * (i2 * v + j2) = i1 * v1 + j1 * (i2 * v + j2) by unfold v1; nlinarith]
+  rw [show (i1 * w + j1) * (i2 * w + j2) = i1 * w1 + j1 * (i2 * w + j2) by unfold w1; nlinarith]
   suffices i1 * u2 + i1 * v2 + i1 * w2 ≤ i1 * u1 + i1 * v1 + i1 * w1 by nlinarith
   suffices u2 + v2 + w2 ≤ u1 + v1 + w1 by nlinarith
   have h0 := amgm_cycle2 (i2 * u + j2) (i2 * v + j2) (i2 * w + j2)
-  rw [show (i2 * u + j2) * (i2 * v + j2) = i2 * u2 + j2 * (i2 * v + j2) by unfold_let u2; nlinarith] at h0
-  rw [show (i2 * v + j2) * (i2 * w + j2) = i2 * v2 + j2 * (i2 * w + j2) by unfold_let v2; nlinarith] at h0
-  rw [show (i2 * w + j2) * (i2 * u + j2) = i2 * w2 + j2 * (i2 * u + j2) by unfold_let w2; nlinarith] at h0
-  rw [show (i2 * u + j2) ^ 2 = i2 * u1 + j2 * (i2 * u + j2) by unfold_let u1; nlinarith] at h0
-  rw [show (i2 * v + j2) ^ 2 = i2 * v1 + j2 * (i2 * v + j2) by unfold_let v1; nlinarith] at h0
-  rw [show (i2 * w + j2) ^ 2 = i2 * w1 + j2 * (i2 * w + j2) by unfold_let w1; nlinarith] at h0
+  rw [show (i2 * u + j2) * (i2 * v + j2) = i2 * u2 + j2 * (i2 * v + j2) by unfold u2; nlinarith] at h0
+  rw [show (i2 * v + j2) * (i2 * w + j2) = i2 * v2 + j2 * (i2 * w + j2) by unfold v2; nlinarith] at h0
+  rw [show (i2 * w + j2) * (i2 * u + j2) = i2 * w2 + j2 * (i2 * u + j2) by unfold w2; nlinarith] at h0
+  rw [show (i2 * u + j2) ^ 2 = i2 * u1 + j2 * (i2 * u + j2) by unfold u1; nlinarith] at h0
+  rw [show (i2 * v + j2) ^ 2 = i2 * v1 + j2 * (i2 * v + j2) by unfold v1; nlinarith] at h0
+  rw [show (i2 * w + j2) ^ 2 = i2 * w1 + j2 * (i2 * w + j2) by unfold w1; nlinarith] at h0
   have h0 : i2 * u2 - i2 * v1 + (i2 * v2 - i2 * w1) + (i2 * w2 - i2 * u1) ≤ 0 := by linarith
   nlinarith
 
@@ -153,25 +153,25 @@ theorem Rearrange_cycle_mul_4vars (u1 u2 u3 u4 i1 j1 i2 j2 : ℝ) (ha : i1 ≥ 0
   have h : i2 > 0 := by positivity
   let u1_ := u1 * (i2 * u1 + j2); let u2_ := u2 * (i2 * u2 + j2); let u3_ := u3 * (i2 * u3 + j2); let u4_ := u4 * (i2 * u4 + j2)
   let u1' := u1 * (i2 * u2 + j2); let u2' := u2 * (i2 * u3 + j2); let u3' := u3 * (i2 * u4 + j2); let u4' := u4 * (i2 * u1 + j2)
-  rw [show (i1 * u1 + j1) * (i2 * u2 + j2) = i1 * u1' + j1 * (i2 * u2 + j2) by unfold_let u1'; nlinarith]
-  rw [show (i1 * u2 + j1) * (i2 * u3 + j2) = i1 * u2' + j1 * (i2 * u3 + j2) by unfold_let u2'; nlinarith]
-  rw [show (i1 * u3 + j1) * (i2 * u4 + j2) = i1 * u3' + j1 * (i2 * u4 + j2) by unfold_let u3'; nlinarith]
-  rw [show (i1 * u4 + j1) * (i2 * u1 + j2) = i1 * u4' + j1 * (i2 * u1 + j2) by unfold_let u4'; nlinarith]
-  rw [show (i1 * u1 + j1) * (i2 * u1 + j2) = i1 * u1_ + j1 * (i2 * u1 + j2) by unfold_let u1_; nlinarith]
-  rw [show (i1 * u2 + j1) * (i2 * u2 + j2) = i1 * u2_ + j1 * (i2 * u2 + j2) by unfold_let u2_; nlinarith]
-  rw [show (i1 * u3 + j1) * (i2 * u3 + j2) = i1 * u3_ + j1 * (i2 * u3 + j2) by unfold_let u3_; nlinarith]
-  rw [show (i1 * u4 + j1) * (i2 * u4 + j2) = i1 * u4_ + j1 * (i2 * u4 + j2) by unfold_let u4_; nlinarith]
+  rw [show (i1 * u1 + j1) * (i2 * u2 + j2) = i1 * u1' + j1 * (i2 * u2 + j2) by unfold u1'; nlinarith]
+  rw [show (i1 * u2 + j1) * (i2 * u3 + j2) = i1 * u2' + j1 * (i2 * u3 + j2) by unfold u2'; nlinarith]
+  rw [show (i1 * u3 + j1) * (i2 * u4 + j2) = i1 * u3' + j1 * (i2 * u4 + j2) by unfold u3'; nlinarith]
+  rw [show (i1 * u4 + j1) * (i2 * u1 + j2) = i1 * u4' + j1 * (i2 * u1 + j2) by unfold u4'; nlinarith]
+  rw [show (i1 * u1 + j1) * (i2 * u1 + j2) = i1 * u1_ + j1 * (i2 * u1 + j2) by unfold u1_; nlinarith]
+  rw [show (i1 * u2 + j1) * (i2 * u2 + j2) = i1 * u2_ + j1 * (i2 * u2 + j2) by unfold u2_; nlinarith]
+  rw [show (i1 * u3 + j1) * (i2 * u3 + j2) = i1 * u3_ + j1 * (i2 * u3 + j2) by unfold u3_; nlinarith]
+  rw [show (i1 * u4 + j1) * (i2 * u4 + j2) = i1 * u4_ + j1 * (i2 * u4 + j2) by unfold u4_; nlinarith]
   suffices i1 * u2' + i1 * u3' + i1 * u4' + i1 * u1' ≤ i1 * u1_ + i1 * u2_ + i1 * u3_ + i1 * u4_ by nlinarith
   suffices u2' + u3' + u4' + u1' ≤ u1_ + u2_ + u3_ + u4_ by nlinarith
   have h0 := amgm_cycle3 (i2 * u1 + j2) (i2 * u2 + j2) (i2 * u3 + j2) (i2 * u4 + j2)
-  rw [show (i2 * u1 + j2) * (i2 * u2 + j2) = i2 * u1' + j2 * (i2 * u2 + j2) by unfold_let u1'; nlinarith] at h0
-  rw [show (i2 * u2 + j2) * (i2 * u3 + j2) = i2 * u2' + j2 * (i2 * u3 + j2) by unfold_let u2'; nlinarith] at h0
-  rw [show (i2 * u3 + j2) * (i2 * u4 + j2) = i2 * u3' + j2 * (i2 * u4 + j2) by unfold_let u3'; nlinarith] at h0
-  rw [show (i2 * u4 + j2) * (i2 * u1 + j2) = i2 * u4' + j2 * (i2 * u1 + j2) by unfold_let u4'; nlinarith] at h0
-  rw [show (i2 * u1 + j2) ^ 2 = i2 * u1_ + j2 * (i2 * u1 + j2) by unfold_let u1_; nlinarith] at h0
-  rw [show (i2 * u2 + j2) ^ 2 = i2 * u2_ + j2 * (i2 * u2 + j2) by unfold_let u2_; nlinarith] at h0
-  rw [show (i2 * u3 + j2) ^ 2 = i2 * u3_ + j2 * (i2 * u3 + j2) by unfold_let u3_; nlinarith] at h0
-  rw [show (i2 * u4 + j2) ^ 2 = i2 * u4_ + j2 * (i2 * u4 + j2) by unfold_let u4_; nlinarith] at h0
+  rw [show (i2 * u1 + j2) * (i2 * u2 + j2) = i2 * u1' + j2 * (i2 * u2 + j2) by unfold u1'; nlinarith] at h0
+  rw [show (i2 * u2 + j2) * (i2 * u3 + j2) = i2 * u2' + j2 * (i2 * u3 + j2) by unfold u2'; nlinarith] at h0
+  rw [show (i2 * u3 + j2) * (i2 * u4 + j2) = i2 * u3' + j2 * (i2 * u4 + j2) by unfold u3'; nlinarith] at h0
+  rw [show (i2 * u4 + j2) * (i2 * u1 + j2) = i2 * u4' + j2 * (i2 * u1 + j2) by unfold u4'; nlinarith] at h0
+  rw [show (i2 * u1 + j2) ^ 2 = i2 * u1_ + j2 * (i2 * u1 + j2) by unfold u1_; nlinarith] at h0
+  rw [show (i2 * u2 + j2) ^ 2 = i2 * u2_ + j2 * (i2 * u2 + j2) by unfold u2_; nlinarith] at h0
+  rw [show (i2 * u3 + j2) ^ 2 = i2 * u3_ + j2 * (i2 * u3 + j2) by unfold u3_; nlinarith] at h0
+  rw [show (i2 * u4 + j2) ^ 2 = i2 * u4_ + j2 * (i2 * u4 + j2) by unfold u4_; nlinarith] at h0
   have h0 : i2 * u2' - i2 * u1' + (i2 * u3' - i2 * u2') + (i2 * u4' - i2 * u3') + (i2 * u1' - i2 * u4') ≤ 0 := by linarith
   nlinarith
 
