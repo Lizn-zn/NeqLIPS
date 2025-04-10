@@ -1,4 +1,3 @@
-import Mathlib
 import Math
 
 open Real
