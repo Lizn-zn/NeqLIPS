@@ -7,7 +7,7 @@ set_option maxHeartbeats 0
 set_option maxRecDepth 80000
 
 set_option linter.unusedVariables false
-set_option by_axiom true
+set_option by_axiom false
 #eval use_axiom
 
 macro_rules | `($x / $y)   => `(HDiv.hDiv ($x : ℝ) ($y : ℝ))
