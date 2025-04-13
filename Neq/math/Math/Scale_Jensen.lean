@@ -164,28 +164,28 @@ theorem Jensen_pow_Rgt1_right_3vars (u v w r k l left : ℝ) (hu : u > 0) (hv : 
   field_simp
 
 
-/-- The Basic form Jensen_square_div : (1 / u ^ 2 + 1 / v ^ 2 + 1 / w ^ 2) / 3 ≤ 9 / (u + v + w) ^ 2 -/
-theorem Jensen_square_div_3vars (u v w : ℝ) (hu : u > 0) (hv : v > 0) (hw : w > 0) : (1 / u ^ 2 + 1 / v ^ 2 + 1 / w ^ 2) / 3 ≤ 9 / (u + v + w) ^ 2 := by
+/-- The Basic form Jensen_square_div : (1 / u ^ 2 + 1 / v ^ 2 + 1 / w ^ 2) / 3 ≥ 9 / (u + v + w) ^ 2 -/
+theorem Jensen_square_div_3vars (u v w : ℝ) (hu : u > 0) (hv : v > 0) (hw : w > 0) : 9 / (u + v + w) ^ 2 ≤ (1 / u ^ 2 + 1 / v ^ 2 + 1 / w ^ 2) / 3 := by
   sorry
 
-theorem Jensen_square_div_left_3vars (u v w k l right : ℝ) (hu : u > 0) (hv : v > 0) (hw : w > 0) (hk : k > 0) (h : k * (27 / (u + v + w) ^ 2) + l ≤ right) : k * (1 / u ^ 2 + 1 / v ^ 2 + 1 / w ^ 2) + l ≤ right := by
-  suffices (1 / u ^ 2 + 1 / v ^ 2 + 1 / w ^ 2) ≤ 27 / (u + v + w) ^ 2 by nlinarith
+theorem Jensen_square_div_left_3vars (u v w k l right : ℝ) (hu : u > 0) (hv : v > 0) (hw : w > 0) (hk : k > 0) (h : k * (1 / u ^ 2 + 1 / v ^ 2 + 1 / w ^ 2) + l ≤ right) : k * (27 / (u + v + w) ^ 2) + l ≤ right := by
+  suffices 27 / (u + v + w) ^ 2 ≤ (1 / u ^ 2 + 1 / v ^ 2 + 1 / w ^ 2) by nlinarith
   have h := Jensen_square_div_3vars u v w
   simp [*] at h
-  rw [<- mul_le_mul_right (a := 1 / 3) (b := (1 / u ^ 2 + 1 / v ^ 2 + 1 / w ^ 2)) (c := 27 / (u + v + w) ^ 2)]
+  rw [<- mul_le_mul_right (a := 1 / 3) (b := 27 / (u + v + w) ^ 2) (c := (1 / u ^ 2 + 1 / v ^ 2 + 1 / w ^ 2))]
+  convert h using 1
+  field_simp; linarith;
+  field_simp; linarith
+
+theorem Jensen_square_div_right_3vars (u v w k l left : ℝ) (hu : u > 0) (hv : v > 0) (hw : w > 0) (hk : k > 0) (h : left ≤ k * (1 / (u + v + w) ^ 2) + l) : left ≤ k * (1 / u ^ 2 + 1 / v ^ 2 + 1 / w ^ 2) / 27 + l := by
+  suffices 1 / (u + v + w) ^ 2 ≤ (1 / u ^ 2 + 1 / v ^ 2 + 1 / w ^ 2) / 27 by nlinarith
+  have h := Jensen_square_div_3vars u v w
+  simp [*] at h
+  rw [<- mul_le_mul_right (a := 9) (b := 1 / (u + v + w) ^ 2) (c := (1 / u ^ 2 + 1 / v ^ 2 + 1 / w ^ 2) / 27) ]
   convert h using 1
   field_simp;
-  field_simp; linarith
-  positivity
-
-theorem Jensen_square_div_right_3vars (u v w k l left : ℝ) (hu : u > 0) (hv : v > 0) (hw : w > 0) (hk : k > 0) (h : left ≤ k * (1 / u ^ 2 + 1 / v ^ 2 + 1 / w ^ 2) / 27 + l) : left ≤ k * (1 / (u + v + w) ^ 2) + l := by
-  suffices (1 / u ^ 2 + 1 / v ^ 2 + 1 / w ^ 2) / 27 ≤ 1 / (u + v + w) ^ 2 by nlinarith
-  have h := Jensen_square_div_3vars u v w
-  simp [*] at h
-  rw [<- mul_le_mul_right (a := 9) (b := (1 / u ^ 2 + 1 / v ^ 2 + 1 / w ^ 2) / 27) (c := 1 / (u + v + w) ^ 2)]
-  convert h using 1
-  field_simp; linarith
   field_simp; linarith;
+  positivity
 
 end Scale_Jensen_3vars
 
@@ -231,31 +231,31 @@ theorem Jensen_pow_Rgt1_right_4vars (u1 u2 u3 u4 r k l left : ℝ) (hu1 : u1 > 0
   field_simp
 
 
-/-- The Basic form Jensen_square_div : (1 / u ^ 2 + 1 / v ^ 2 + 1 / w ^ 2 + 1 / z ^ 2) / 4 ≤ 16 / (u + v + w + z) ^ 2 -/
-theorem Jensen_square_div_4vars (u1 u2 u3 u4 : ℝ) (hu1 : u1 > 0) (hu2 : u2 > 0) (hu3 : u3 > 0) (hu4 : u4 > 0) : (1 / u1 ^ 2 + 1 / u2 ^ 2 + 1 / u3 ^ 2 + 1 / u4 ^ 2) / 4 ≤ 16 / (u1 + u2 + u3 + u4) ^ 2 := by
+/-- The Basic form Jensen_square_div : (1 / u ^ 2 + 1 / v ^ 2 + 1 / w ^ 2 + 1 / z ^ 2) / 4 ≥ 16 / (u + v + w + z) ^ 2 -/
+theorem Jensen_square_div_4vars (u1 u2 u3 u4 : ℝ) (hu1 : u1 > 0) (hu2 : u2 > 0) (hu3 : u3 > 0) (hu4 : u4 > 0) : 16 / (u1 + u2 + u3 + u4) ^ 2 ≤ (1 / u1 ^ 2 + 1 / u2 ^ 2 + 1 / u3 ^ 2 + 1 / u4 ^ 2) / 4 := by
   sorry
 
 theorem Jensen_square_div_left_4vars (u1 u2 u3 u4 k l right : ℝ) (hu1 : u1 > 0) (hu2 : u2 > 0) (hu3 : u3 > 0) (hu4 : u4 > 0) (hk : k > 0)
-  (h : k * (64 / (u1 + u2 + u3 + u4) ^ 2) + l ≤ right) :
-  k * (1 / u1 ^ 2 + 1 / u2 ^ 2 + 1 / u3 ^ 2 + 1 / u4 ^ 2) + l ≤ right := by
-  suffices (1 / u1 ^ 2 + 1 / u2 ^ 2 + 1 / u3 ^ 2 + 1 / u4 ^ 2) ≤ 64 / (u1 + u2 + u3 + u4) ^ 2 by nlinarith
+  (h : k * (1 / u1 ^ 2 + 1 / u2 ^ 2 + 1 / u3 ^ 2 + 1 / u4 ^ 2) + l ≤ right) :
+  k * (64 / (u1 + u2 + u3 + u4) ^ 2) + l ≤ right := by
+  suffices 64 / (u1 + u2 + u3 + u4) ^ 2 ≤ (1 / u1 ^ 2 + 1 / u2 ^ 2 + 1 / u3 ^ 2 + 1 / u4 ^ 2) by nlinarith
   have h := Jensen_square_div_4vars u1 u2 u3 u4
   simp [*] at h
-  rw [<- mul_le_mul_right (a := 1 / 4) (b := (1 / u1 ^ 2 + 1 / u2 ^ 2 + 1 / u3 ^ 2 + 1 / u4 ^ 2)) (c := 64 / (u1 + u2 + u3 + u4) ^ 2)]
+  rw [<- mul_le_mul_right (a := 1 / 4) (b := 64 / (u1 + u2 + u3 + u4) ^ 2) (c := (1 / u1 ^ 2 + 1 / u2 ^ 2 + 1 / u3 ^ 2 + 1 / u4 ^ 2))]
   convert h using 1
-  field_simp;
   field_simp; linarith
-  positivity
+  field_simp; linarith
 
 theorem Jensen_square_div_right_4vars (u1 u2 u3 u4 k l left : ℝ) (hu1 : u1 > 0) (hu2 : u2 > 0) (hu3 : u3 > 0) (hu4 : u4 > 0) (hk : k > 0)
-  (h : left ≤ k * (1 / u1 ^ 2 + 1 / u2 ^ 2 + 1 / u3 ^ 2 + 1 / u4 ^ 2) / 64 + l) :
-  left ≤ k * (1 / (u1 + u2 + u3 + u4) ^ 2) + l := by
-  suffices (1 / u1 ^ 2 + 1 / u2 ^ 2 + 1 / u3 ^ 2 + 1 / u4 ^ 2) / 64 ≤ 1 / (u1 + u2 + u3 + u4) ^ 2 by nlinarith
+  (h : left ≤ k * (1 / (u1 + u2 + u3 + u4) ^ 2) + l) :
+  left ≤ k * (1 / u1 ^ 2 + 1 / u2 ^ 2 + 1 / u3 ^ 2 + 1 / u4 ^ 2) / 64 + l := by
+  suffices 1 / (u1 + u2 + u3 + u4) ^ 2 ≤ (1 / u1 ^ 2 + 1 / u2 ^ 2 + 1 / u3 ^ 2 + 1 / u4 ^ 2) / 64 by nlinarith
   have h := Jensen_square_div_4vars u1 u2 u3 u4
   simp [*] at h
-  rw [<- mul_le_mul_right (a := 16) (b := (1 / u1 ^ 2 + 1 / u2 ^ 2 + 1 / u3 ^ 2 + 1 / u4 ^ 2) / 64) (c := 1 / (u1 + u2 + u3 + u4) ^ 2)]
+  rw [<- mul_le_mul_right (a := 16) (b := 1 / (u1 + u2 + u3 + u4) ^ 2) (c := (1 / u1 ^ 2 + 1 / u2 ^ 2 + 1 / u3 ^ 2 + 1 / u4 ^ 2) / 64)]
   convert h using 1
-  field_simp; linarith
+  field_simp;
   field_simp; linarith;
+  positivity
 
 end Scale_Jensen_4vars

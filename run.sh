@@ -4,7 +4,6 @@ theorem_list=(
   "theorem PExample {a b c : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) (h : a + b + c = 1) : 1 / (a + 2) + 1 / (b + 2) + 1 / (c + 2) ≤ 1 / (6 * sqrt (a * b) + c) + 1 / (6 * sqrt (b * c) + a) + 1 / (6 * sqrt (c * a) + b) := by sorry"
 )
 
-
 for theorem in "${theorem_list[@]}"
 do
 

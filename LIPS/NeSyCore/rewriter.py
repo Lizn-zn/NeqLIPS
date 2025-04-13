@@ -617,7 +617,7 @@ class Rewriter:
         """
         lhs, rhs = neq.split("≤", 1)
         lhs, rhs = lhs.strip(), rhs.strip()
-        orig_expr = f"({lhs}) - ({rhs})"
+        orig_expr = f"{lhs} - ({rhs})"
         sympy_expr = parser.lean2sympy(orig_expr)
         numer, denom = sympy_expr.as_numer_denom()
         if denom == 1:
@@ -800,7 +800,7 @@ class Rewriter:
         for x in self.equality_assumption:
             eq_ass.append(parser.lean2sympy(x))
         res = utils.single_var_solve(eq_ass, var_sum)
-        if var_sum not in res:
+        if var_sum not in res or not utils.is_const(res[var_sum]):
             degree = utils.get_degree(orig_expr)
             if degree != float("inf"):  # the problem is homogeneous
                 res = {var_sum: num_vars}

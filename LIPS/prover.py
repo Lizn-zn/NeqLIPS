@@ -494,9 +494,13 @@ class Prover:
     
     def finish_proof(self, ps):
         self.finish_state = ps
-        print("FINISH!!!")
-        print("The FINAL PROOF IS AS FOLLOWS")
-        print(self.leanio.print_trace(ps))
+        msg = (
+            "FINISH!!!\n"
+            "The FINAL PROOF IS AS FOLLOWS\n"
+            f"{self.leanio.print_trace(ps)}\n"
+        )
+        print(msg)
+        self.logger.info(msg)
         self.save_json()
 
     def clean(self):

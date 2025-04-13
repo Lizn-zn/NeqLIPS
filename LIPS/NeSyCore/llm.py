@@ -21,16 +21,15 @@ class LLM:
         self.temperature = temperature
         self.top_p = top_p
         self.max_tokens = max_tokens
-        self.idx = 0
-        self.num_llms = 1
-        # Setup logger if log_file is provided
         self.logger = logger or default_logger
 
-    def set_api_key(self, idx=0):
-        if idx == 0:
+    def set_client(self):
+        if 'gpt' in self.oai_version:
             client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+        elif 'deepseek' in self.oai_version:
+            client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'), base_url="https://api.deepseek.com")
         else:
-            raise IndexError("No more API keys")
+            raise ValueError(f"Unsupported LLM: {self.oai_version}")
         return client
 
     def response(
@@ -53,13 +52,10 @@ class LLM:
             str: the response from the openai api
         """
         try:
-            self.idx = self.idx // self.num_llms
-            client = (
-                self.set_api_key(self.idx // self.num_llms)
-            )  # bad implementation, but no other ways to support multiprocess
+            client = self.set_client()
         except Exception as e:
-            self.logger.error(f"gpt-4 with index {self.idx} encounter an error {e}")
-            warnings.warn(f"gpt-4 encounter an error {e}")
+            self.logger.error(f"LLM creation encounter an error {e}")
+            warnings.warn(f"LLM creation encounter an error {e}")
             return r"\\box{{0}}"
         max_tokens = max_tokens or self.max_tokens
         temperature = temperature or self.temperature
@@ -77,8 +73,8 @@ class LLM:
             )
             res = chat_completion.choices[0].message.content
         except Exception as e:
-            self.logger.error(f"gpt-4 with index {self.idx} encounter an error {e}")
-            raise RuntimeError("openai failed to response")
+            self.logger.error(f"LLM encounter an error {e}")
+            raise RuntimeError("LLM failed to response")
         if verbose == True:
             self.logger.debug(f"Prompt: {prompt}")
             self.logger.debug(f"Response: {res}")

@@ -106,7 +106,6 @@ class LeanIO(ProofTree):
         """
         raise NotImplementedError("The declare function is not implemented")
     
-    @timeout(30)
     def apply(self, cmd: str, ps: int) -> int:
         """
         Apply the tactic to the given proof state
@@ -122,7 +121,7 @@ class LeanIO(ProofTree):
             write_json(stdout=self.process.stdin, obj=obj)
             res = read_json(stdin=self.process.stdout)
         except json.JSONDecodeError as e:
-            raise ValueError(f"Fail to parse the cmd: {obj}")
+            raise ValueError(f"Fail to parse the cmd: {obj}, error message: {e}")
         # parse the result and define a new node
         message = res.get('message', '')
         messages = res.get('messages', [])
@@ -149,7 +148,7 @@ class LeanIO(ProofTree):
                 self.logger.info(f"Fail to make any progress using `{cmd.strip()}` on ps {ps}")
         else:
             curr_ps = ps
-            self.logger.error(f"Fail to parse the response {res} for running the cmd: {cmd}")
+            self.logger.info(f"Failed when running the cmd: {cmd}, get the response: {res}")
         return curr_ps
     
             

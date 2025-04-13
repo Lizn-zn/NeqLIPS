@@ -1,9 +1,8 @@
-import Mathlib
 import Math
 
 open Real
 
-set_option maxHeartbeats 400000
+set_option maxHeartbeats 0
 
 set_option linter.unusedVariables false
 set_option by_axiom true
@@ -87,10 +86,10 @@ theorem P13 {a b c d : ℝ} (ha : a ≥ 0) (hb : b ≥ 0) (hc : c ≥ 0) (hd : d
   scale AM_GM_square_left_2vars (u := (b ^ 2)) (v := (b ^ 2)) (k := c) (l := ((((c ^ 4) * d) + ((d ^ 4) * a)) + ((a ^ 4) * b))) (right := d * c ^ 4 + c * b ^ 4 + b * a ^ 4 + a * d ^ 4)
 
 theorem P14 {a b c : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) (h : a + b + c = 1 / a + 1 / b + 1 / c) : 1 / (2 * a + b + c) ^ 2 + 1 / (a + 2 * b + c) ^ 2 + 1 / (a + b + 2 * c) ^ 2 ≤ 3 / 16 := by
-  scale Jensen_square_div_left_3vars (u := (((2 * a) + b) + c)) (v := ((a + (2 * b)) + c)) (w := ((a + b) + (2 * c))) (k := 1) (l := 0) (right := 3 / 16)
-  llm_cancel_factor 27 / (2 * a + b + c + a + 2 * b + c + a + b + 2 * c) ^ 2 - (3 / 16) = 1 * (27 - (3 * (a + b + c) ^ 2)) / (16 * (a + b + c) ^ 2)
-  scale AM_HM_normal_right_3vars (u := a) (v := b) (w := c) (k := (((a + b) + c) * 3)) (l := 0) (left := 27)
-  llm_simplify 27 - ((a + b + c) * 3 * (9 / (1 / a + 1 / b + 1 / c))) = 0
+  make_homogeneous (a + b + c) / (((2 * a + b + c) ^ 2) * (1 / ((c)) + 1 / ((b)) + 1 / ((a)))) + (a + b + c) / (((a + 2 * b + c) ^ 2) * (1 / ((c)) + 1 / ((b)) + 1 / ((a)))) + (a + b + c) / (((a + b + 2 * c) ^ 2) * (1 / ((c)) + 1 / ((b)) + 1 / ((a)))) - (3 / 16) ≤ 0
+  intro_by_homogeneous a + b + c = 3
+  llm_simplify (a + b + c) / ((2 * a + b + c) ^ 2 * (1 / c + 1 / b + 1 / a)) + (a + b + c) / ((a + 2 * b + c) ^ 2 * (1 / c + 1 / b + 1 / a)) + (a + b + c) / ((a + b + 2 * c) ^ 2 * (1 / c + 1 / b + 1 / a)) - (3 / 16) = 1 / (((a + 3) ^ 2)) + 1 / (((b + 3) ^ 2)) + 1 / (((c + 3) ^ 2)) - (3 / (16))
+  llm_simplify 1 / (a + 3) ^ 2 + 1 / (b + 3) ^ 2 + 1 / (c + 3) ^ 2 - (3 / 16) = 0
 
 theorem P15 {a b c : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) : 2 * (1 / (a + b) + 1 / (b + c) + 1 / (c + a)) ≤ (1 / a + 1 / b + 1 / c) := by
   llm_cancel_factor 2 * (1 / (a + b) + 1 / (b + c) + 1 / (c + a)) - (1 / a + 1 / b + 1 / c) = 2 * 1 / (a + b) + 2 * 1 / (a + c) + 2 * 1 / (b + c) - (1 / a) - (1 / b) - (1 / c)
@@ -125,14 +124,14 @@ theorem P20 {a b c : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) (h : 2 * (a + b
   llm_cancel_factor -2 * ((a - b) ^ 2 + (b - c) ^ 2 + (c - a) ^ 2) / (10 * a ^ 2 + 15 * a * b + 15 * a * c + 10 * b ^ 2 + 15 * b * c + 10 * c ^ 2) - (0) = -2 * ((a - (b)) ^ 2 + (b - (c)) ^ 2 + (c - (a)) ^ 2) / (10 * a ^ 2 + 15 * a * b + 15 * a * c + 10 * b ^ 2 + 15 * b * c + 10 * c ^ 2)
 
 theorem P21 {a b c : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) : 1 ≤ a / sqrt (a ^ 2 + 8 * b * c) + b / sqrt (b ^ 2 + 8 * a * c) + c / sqrt (c ^ 2 + 8 * a * b) := by
+  intro_by_homogeneous a + b + c = 3
   scale weighted_Jensen_sqrt_div_right_3vars (u := ((a ^ 2) + ((8 * b) * c))) (v := ((b ^ 2) + ((8 * a) * c))) (w := ((c ^ 2) + ((8 * a) * b))) (i1 := a) (i2 := b) (i3 := c) (k := 1) (l := 0) (left := 1)
-  llm_factor 1 - (sqrt(a + b + c) ^ 3 / sqrt(a * (a ^ 2 + 8 * b * c) + b * (b ^ 2 + 8 * a * c) + c * (c ^ 2 + 8 * a * b))) = -(a * sqrt (a + b + c) + b * sqrt (a + b + c) + c * sqrt (a + b + c) - (sqrt (a ^ 3 + b ^ 3 + c ^ 3 + 24 * a * b * c))) / sqrt (a ^ 3 + 24 * a * b * c + b ^ 3 + c ^ 3)
-  llm_frac_apart -(a * sqrt(a + b + c) + b * sqrt(a + b + c) + c * sqrt(a + b + c) - sqrt(a ^ 3 + b ^ 3 + c ^ 3 + 24 * a * b * c)) / sqrt(a ^ 3 + 24 * a * b * c + b ^ 3 + c ^ 3) - (0) = 1 - (a * sqrt (a + b + c) / sqrt (a ^ 3 + 24 * a * b * c + b ^ 3 + c ^ 3)) - (b * sqrt (a + b + c) / sqrt (a ^ 3 + 24 * a * b * c + b ^ 3 + c ^ 3)) - (c * sqrt (a + b + c) / sqrt (a ^ 3 + 24 * a * b * c + b ^ 3 + c ^ 3))
-  scale Holder_2R_div_variant1_right_3vars (u1 := c) (u2 := b) (u3 := a) (v1 := sqrt (((((a ^ 3) + (((24 * a) * b) * c)) + (b ^ 3)) + (c ^ 3)))) (v2 := sqrt (((((a ^ 3) + (((24 * a) * b) * c)) + (b ^ 3)) + (c ^ 3)))) (v3 := sqrt (((((a ^ 3) + (((24 * a) * b) * c)) + (b ^ 3)) + (c ^ 3)))) (k := sqrt (((a + b) + c))) (l := 0) (left := 1)
-  llm_factor 1 - (sqrt(a + b + c) * sqrt((c + b + a) ^ 3 / (c * sqrt(a ^ 3 + 24 * a * b * c + b ^ 3 + c ^ 3) ^ 2 + b * sqrt(a ^ 3 + 24 * a * b * c + b ^ 3 + c ^ 3) ^ 2 + a * sqrt(a ^ 3 + 24 * a * b * c + b ^ 3 + c ^ 3) ^ 2))) = 1 - (sqrt ((a + b + c) ^ 2 / a ^ 3 + 24 * a * b * c + b ^ 3 + c ^ 3) * sqrt (a + b + c))
-  scale Holder_2R_right_2vars (u1 := ((((a + b) + c) ^ 2) / (a ^ 3))) (u2 := ((((24 * a) * b) * c) + (b ^ 3))) (u3 := (c ^ 3)) (v1 := a) (v2 := b) (v3 := c) (r1 := (1 / 2)) (r2 := (1 / 2)) (k := 1) (l := 0) (left := 1)
-  llm_simplify 1 - (((a + b + c) ^ 2 / a ^ 3) ^ (1 / 2) * a ^ (1 / 2) + (24 * a * b * c + b ^ 3) ^ (1 / 2) * b ^ (1 / 2) + (c ^ 3) ^ (1 / 2) * c ^ (1 / 2)) = -(c ^ 2) - (b / a) - (c / a) - (sqrt (b) * sqrt (b ^ 3 + 24 * a * b * c))
-  scale AM_GM_normal_right_2vars (u := (c ^ 2)) (v := (sqrt (b) * sqrt (((b ^ 3) + (((24 * a) * b) * c))))) (k := 1) (l := ((c / a) + (b / a))) (left := 0)
+  llm_mul_expand 1 - (sqrt(a + b + c) ^ 3 / sqrt(a * (a ^ 2 + 8 * b * c) + b * (b ^ 2 + 8 * a * c) + c * (c ^ 2 + 8 * a * b))) = 1 - ((a + b + c) ^ (3 / (2)) / (sqrt (a ^ 3 + 24 * a * b * c + b ^ 3 + c ^ 3)))
+  llm_cancel_power 2
+  llm_cancel_factor (1) - (((a + b + c) ^ (3 / 2) / sqrt(a ^ 3 + 24 * a * b * c + b ^ 3 + c ^ 3)) ^ 2) = (3) * (1 / (a ^ 3 + 24 * a * b * c + b ^ 3 + c ^ 3)) * (6 * a * b * c - (a * b ^ 2) - (a * c ^ 2) - (b * a ^ 2) - (b * c ^ 2) - (c * a ^ 2) - (c * b ^ 2))
+  scale AM_GM_normal_right_6vars (u1 := (c * (b ^ 2))) (u2 := (c * (a ^ 2))) (u3 := (b * (c ^ 2))) (u4 := (b * (a ^ 2))) (u5 := (a * (c ^ 2))) (u6 := (a * (b ^ 2))) (k := 1) (l := 0) (left := 6 * a * b * c)
+  sym_simplify 6 * a * b * c  -  6 * (c * b ^ 2 * c * a ^ 2 * b * c ^ 2 * b * a ^ 2 * a * c ^ 2 * a * b ^ 2) ^ (1 / 6) = 0
+  try close
 
 theorem P22 {a b : ℝ} (ha : a > 0) (hb : b > 0) (h : a + b < 6): 1 / sqrt (1 + a) + 1 / sqrt (1 + b) + sqrt (a * b) / sqrt (a * b + 8) ≤ 2 := by
   scale Cauchy_Schwarz_sqrt_left_2vars (u1 := 1) (u2 := 1) (v1 := (1 / sqrt ((1 + a)))) (v2 := ((1 / sqrt ((1 + b))) + (sqrt ((a * b)) / sqrt (((a * b) + 8))))) (k := 1) (l := 0) (right := 2)
@@ -190,14 +189,12 @@ theorem P29 {a b c : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) : 1 ≤ a / sqr
   llm_simplify 4 * a * b * c - (2 * a * c * b + 2 * b * sqrt(c ^ 2 * a ^ 2)) = 0
 
 theorem P30 {a b c : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) : 27 / (2 * (a + b + c) ^ 2) ≤ 1 / (a * (b+c)) + 1 / (b * (c + a)) + 1 / (c * (a + b)) := by
+  intro_by_homogeneous a + b + c = 3
   scale Holder_2R_pq_div_Peq1_right_3vars (u1 := 1) (u2 := 1) (u3 := 1) (v1 := (a * (b + c))) (v2 := (b * (c + a))) (v3 := (c * (a + b))) (w1 := 1) (w2 := 1) (w3 := 1) (q := 2) (k := 1) (l := 0) (left := 27 / (2 * (a + b + c) ^ 2))
-  llm_simplify 27 / (2 * (a + b + c) ^ 2) - (27 / ((a * (b + c)) ^ (1 / 2) + (b * (c + a)) ^ (1 / 2) + (c * (a + b)) ^ (1 / 2)) ^ 2) = 27 / (2 * ((a + b + c) ^ 2)) - (27 / ((sqrt (a * b + a * c) + sqrt (a * b + b * c) + sqrt (a * c + b * c)) ^ 2))
-  scale Jensen_square_div_right_3vars (u := sqrt (((a * b) + (a * c)))) (v := sqrt (((a * b) + (b * c)))) (w := sqrt (((a * c) + (b * c)))) (k := 27) (l := 0) (left := 27 / (2 * (a + b + c) ^ 2))
-  llm_simplify 27 / (2 * (a + b + c) ^ 2) - (27 * (1 / sqrt(a * b + a * c) ^ 2 + 1 / sqrt(a * b + b * c) ^ 2 + 1 / sqrt(a * c + b * c) ^ 2) / 27) = 27 / (2 * ((a + b + c) ^ 2)) - (1 / (a * b + a * c)) - (1 / (a * b + b * c)) - (1 / (a * c + b * c))
-  scale AM_GM_div_square_right_2vars (u := a) (v := c) (i := 1) (j := (b * c)) (k := 1) (l := ((1 / ((a * b) + (b * c))) + (1 / ((a * b) + (a * c))))) (left := 27 / (2 * (a + b + c) ^ 2))
-  llm_factor 27 / (2 * (a + b + c) ^ 2) - (1 / ((a ^ 2 + c ^ 2) / 2 + b * c) + 1 / (a * b + b * c) + 1 / (a * b + a * c)) = 27 / (2 * ((a + b + c) ^ 2)) - (2 / (a ^ 2 + 2 * b * c + c ^ 2)) - (1 / ((a + c) * (b))) - (1 / ((a) * (b + c)))
-  scale AM_HM_normal_right_3vars (u := (1 / (a * (b + c)))) (v := (1 / ((a + c) * b))) (w := (2 / (((a ^ 2) + ((2 * b) * c)) + (c ^ 2)))) (k := 1) (l := 0) (left := 27 / (2 * (a + b + c) ^ 2))
-  llm_cancel_factor (27 / (2 * (a + b + c) ^ 2)) - (9 / (1 / (1 / (a * (b + c))) + 1 / (1 / ((a + c) * b)) + 1 / (2 / (a ^ 2 + 2 * b * c + c ^ 2)))) = (9 / 2) * (1 / (a + c)) * (1 / ((a + b + c) ^ 2)) * ((a + c - (2 * b)) ^ 2) * (-1 / (a + 4 * b + c))
+  llm_cancel_denom 27 / (2 * (a + b + c) ^ 2) - (27 / ((a * (b + c)) ^ (1 / 2) + (b * (c + a)) ^ (1 / 2) + (c * (a + b)) ^ (1 / 2)) ^ 2) = (27 * ((a * (b + c)) ^ (1 / ((2))) + (b * (a + c)) ^ (1 / ((2))) + (c * (a + b)) ^ (1 / ((2)))) ^ 2 - (54 * (a + b + c) ^ 2)) / (2 * (a + b + c) ^ 2 * ((a * (b + c)) ^ (1 / 2) + (b * (a + c)) ^ (1 / 2) + (c * (a + b)) ^ (1 / 2)) ^ 2)
+  scale Cauchy_Schwarz_normal_left_3vars (u1 := 1) (u2 := 1) (u3 := 1) (v1 := ((a * (b + c)) ^ (1 / 2))) (v2 := ((b * (a + c)) ^ (1 / 2))) (v3 := ((c * (a + b)) ^ (1 / 2))) (k := 27) (l := 0) (right := 54 * (a + b + c) ^ 2)
+  llm_cancel_factor (81 * (((a * (b + c)) ^ (1 / 2)) ^ 2 + ((b * (a + c)) ^ (1 / 2)) ^ 2 + ((c * (a + b)) ^ (1 / 2)) ^ 2)) - (54 * (a + b + c) ^ 2) = (54) * (a * b + a * c + b * c - (a ^ 2) - (b ^ 2) - (c ^ 2))
+  scale Rearrange_cycle_mul_right_3vars (u := c) (v := b) (w := a) (i1 := 1) (j1 := 0) (i2 := 1) (j2 := 0) (k := 1) (l := 0) (left := a * b + a * c + b * c)
 
 theorem P31 {a b c : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) : (3 / 2) * (a ^ 2 + b ^ 2 + c ^ 2) ≤ (a ^ 3 + 5 * b ^ 3) / (3 * a + b) + (b ^ 3 + 5 * c ^ 3) / (3 * b + c) + (c ^ 3 + 5 * a ^ 3) / (3 * c + a) := by
   llm_mul_expand 3 / 2 * (a ^ 2 + b ^ 2 + c ^ 2) - ((a ^ 3 + 5 * b ^ 3) / (3 * a + b) + (b ^ 3 + 5 * c ^ 3) / (3 * b + c) + (c ^ 3 + 5 * a ^ 3) / (3 * c + a)) = 3 * a ^ 2 / 2 + 3 * b ^ 2 / 2 + 3 * c ^ 2 / 2 - (a ^ 3 / (3 * a + b)) - (b ^ 3 / (3 * b + c)) - (c ^ 3 / (a + 3 * c)) - (5 * b ^ 3 / (3 * a + b)) - (5 * c ^ 3 / (3 * b + c)) - (5 * a ^ 3 / (a + 3 * c))
@@ -297,7 +294,7 @@ theorem P40 {a b c : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) (h : a + b + c 
   try close
 
 theorem P41 {a b c : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) : (a + b + c) ^ 3 ≤ (a ^ 5 - a ^ 2 + 3) * (b ^ 5 - b ^ 2 + 3) * (c ^ 5 - c ^ 2 + 3) := by
-  sos!
+  closed_by_sos
 
 theorem P42 {a b c : ℝ} (ha : a > 0) (hb : b > 0) (hc : c > 0) (h : a + b + c = a ^ (1 / 7) + b ^ (1 / 7) + c ^ (1 / 7)) : 1 ≤ a ^ a * b ^ b * c ^ c := by
   sorry

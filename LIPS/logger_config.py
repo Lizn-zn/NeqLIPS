@@ -7,7 +7,7 @@ class LineFormatter(logging.Formatter):
         message = super().format(record)
         return message.replace('\n', '\n\t')
     
-def setup_logger(log_file=None, log_level="WARNING"):
+def setup_logger(log_file=None, log_level="INFO"):
     """Configure and return a logger instance that can be used across the project.
     
     Args:
