@@ -26,7 +26,7 @@ pub struct ConstantFold;
 impl Analysis<Neq> for ConstantFold {
     type Data = Option<(BigRational, PatternAst<Neq>)>;
 
-    fn make(egraph: &mut EGraph, enode: &Neq) -> Self::Data {
+    fn make(egraph: &mut EGraph, enode: &Neq, _id: Id) -> Self::Data {
         let x = |i: &Id| {
             egraph[*i]
                 .data
